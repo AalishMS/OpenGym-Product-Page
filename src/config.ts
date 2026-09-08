@@ -40,6 +40,7 @@ export const config = {
     { name: 'Cyan', seed: '#00CED1' },
     { name: 'Purple', seed: '#8B5CF6' },
     { name: 'Steel Gray', seed: '#7C8AA0' },
+    { name: 'Green', seed: '#22C55E' },
   ] as const,
 
   /** Sample workout data used across the page for visual consistency. */
@@ -74,6 +75,26 @@ export const config = {
     ],
   },
 
+  story: [
+    {
+      id: 'plan',
+      title: 'Plan your week.',
+      description:
+        'Build your own split or pick a bundled program. Keep your exercises, target sets, and notes ready for your next session.',
+    },
+    {
+      id: 'log',
+      title: 'Stay with your workout.',
+      description:
+        'Log weight, reps, and RPE in a few taps. Previous values fill in for you, and a session timer keeps track of the time.',
+    },
+    {
+      id: 'progress',
+      title: 'See the work adding up.',
+      description:
+        'Follow your training consistency and your top weights over time. Personal records give every small improvement a place.',
+    },
+  ],
   samplePlans: [
     { name: 'Push Day', exercises: 6, color: '#FF5722' },
     { name: 'Pull Day', exercises: 7, color: '#00A8FF' },
@@ -133,5 +154,60 @@ export const config = {
       q: 'Is the app free?',
       a: 'OpenGym is an open-source project. The source code is available on GitHub.',
     },
+  ],
+} as const;
+
+/** Content transcribed from public/screenshots; order intentionally matches each capture. */
+export const mockupData = {
+  plans: {
+    full: {
+      name: 'Full Body',
+      count: 6,
+      recent: 'Never trained',
+      exercises: ['Squat', 'Bench Press', 'Deadlift'],
+      color: ['#00771a', '#57b45a'],
+      footer: '6 EXERCISES',
+    },
+    pull: {
+      name: 'Pull Day',
+      count: 7,
+      recent: 'Last trained 3d ago',
+      exercises: ['Deadlift', 'Barbell Row', 'Lat Pulldown'],
+      color: ['#b7421c', '#f47755'],
+      footer: '3D AGO   ·  15 SESSIONS  ·  7 EXERCISES',
+    },
+    push: {
+      name: 'Push Day',
+      count: 6,
+      recent: 'Last trained 6d ago',
+      exercises: ['Bench Press', 'Incline Dumbbell Press', 'Overhead Press'],
+      color: ['#b2336c', '#e96c9f'],
+      footer: '6D AGO   ·  15 SESSIONS  ·  6 EXERCISES',
+    },
+    legs: {
+      name: 'Leg Day',
+      count: 7,
+      recent: 'Last trained yesterday',
+      exercises: ['Squat', 'Romanian Deadlift', 'Leg Press'],
+      color: ['#995a00', '#da9200'],
+      footer: 'YESTERDAY  ·  12 SESSIONS  ·  7 EXERCISES',
+    },
+    upper: {
+      name: 'Upper Body',
+      count: 6,
+      recent: 'Never trained',
+      exercises: ['Bench Press', 'Barbell Row', 'Overhead Press'],
+      color: ['#657000', '#a9b000'],
+      footer: '6 EXERCISES',
+    },
+  },
+  planOrder: {
+    light: ['full', 'pull', 'full', 'push', 'legs', 'full', 'upper', 'pull'],
+    dark: ['full', 'full', 'push', 'pull', 'push', 'upper', 'pull', 'legs'],
+  },
+  workout: [
+    { name: 'Squat', weight: 95, reps: 6 },
+    { name: 'Bench Press', weight: 70, reps: 8 },
+    { name: 'Deadlift', weight: 120, reps: 5 },
   ],
 } as const;

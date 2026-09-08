@@ -1,28 +1,82 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/space-grotesk-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
 :root {
   /* ─── Color Tokens ─── */
-  --color-bg: #0D0D0D;
-  --color-bg-light: #F7F7F6;
+  --color-bg: #0d0d0d;
+  --color-bg-light: #f7f7f6;
   --color-surface: #161616;
-  --color-surface-elevated: #1C1C1C;
-  --color-border: #2A2A2A;
-  --color-border-subtle: #1E1E1E;
+  --color-surface-elevated: #1c1c1c;
+  --color-border: #2a2a2a;
+  --color-border-subtle: #1e1e1e;
 
-  --color-text-primary: #F0EDE8;
-  --color-text-secondary: #8A8A8A;
+  --color-text-primary: #f0ede8;
+  --color-text-secondary: #a6a6a6;
   --color-text-tertiary: #555555;
-  --color-text-dark: #1A1A1A;
+  --color-text-dark: #1a1a1a;
   --color-text-dark-secondary: #666666;
 
-  --color-accent: #C8FF2D;
-  --color-accent-dim: #3A4A10;
-  --color-accent-muted: #242E08;
+  --color-accent: #a9cae8;
+  --color-accent-dim: #304457;
+  --color-accent-muted: #1b2a37;
 
   /* App UI accent (Purple, matching screenshots) */
-  --color-app-accent: #8B5CF6;
-  --color-app-accent-dim: #6D45D0;
+  --color-app-accent: #8b5cf6;
+  --color-app-accent-dim: #6d45d0;
 
-  --color-success: #4CAF50;
-  --color-error: #FF4444;
+  --color-success: #4caf50;
+  --color-error: #ff4444;
 
   /* ─── Typography ─── */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -121,7 +175,8 @@ a {
   text-decoration: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 

@@ -1,195 +1,253 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { AppMockup, type MockScreen } from './AppMockup';
+import { PhoneFrame } from './PhoneFrame';
+import { config } from '../config';
 import './ProductStory.css';
 
-const stages = [
-  {
-    id: 'plan',
-    title: 'Plan your week.',
-    description: 'Build your training week with custom plans or start from one of the bundled programs. Each plan holds your exercises, target sets, and notes—ready when you are.',
-  },
-  {
-    id: 'log',
-    title: 'Log your session.',
-    description: 'Tap into your plan and start logging. Weight, reps, and RPE for every set. Your previous values auto-fill, so most sessions take just a few taps.',
-  },
-  {
-    id: 'progress',
-    title: 'See your progress.',
-    description: 'See where you’re headed. Exercise charts track your top weight over time, and personal records are logged automatically. Weekly training volume keeps your consistency visible.',
-  }
+const STAGE_CATEGORIES = ['WORKOUT BUILDER', 'LIVE LOGGING', 'PROGRESSION'];
+
+const STAGE_TAGS = [
+  ['Custom splits', 'Target sets & notes', 'Bundled programs'],
+  ['Quick keypad', 'Rest timer & RPE', 'Previous set auto-fill'],
+  ['Volume trends', '1RM calculations', 'Personal records'],
 ];
-
-// --- Phone Screen Components ---
-
-const ScreenPlan = () => (
-  <div className="phone-screen phone-screen--plan" style={{ padding: 0 }}>
-    <img src="/screenshots/home.png" alt="Plan" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-  </div>
-);
-
-const ScreenLog = () => (
-  <div className="phone-screen phone-screen--log" style={{ padding: 0 }}>
-    <img src="/screenshots/workout_keypad.png" alt="Log" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-  </div>
-);
-
-const ScreenProgress = () => {
-  return (
-    <div className="phone-screen phone-screen--progress" style={{ padding: 0 }}>
-      <img src="/screenshots/statistics.png" alt="Progress" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-    </div>
-  );
-};
 
 export default function ProductStory() {
   const [activeStage, setActiveStage] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const isManualScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const handleScroll = () => {
+      if (isManualScrollingRef.current) return;
+      if (window.innerWidth < 1024) return;
+
+      const targetCenter = (window.innerHeight + 64) / 2;
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      stageRefs.current.forEach((el, index) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const stageCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(targetCenter - stageCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveStage((prev) => (prev !== closestIndex ? closestIndex : prev));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) return;
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            setActiveStage(index);
-          }
-        });
-      },
-      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-    );
+  const handleSelect = (index: number) => {
+    setActiveStage(index);
+    const target = stageRefs.current[index];
+    if (target && window.innerWidth >= 1024) {
+      isManualScrollingRef.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
 
-    stageRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
+      let targetScrollY: number;
+      if (index === 0) {
+        const feat = document.getElementById('features');
+        const featRect = feat?.getBoundingClientRect();
+        targetScrollY = featRect ? window.scrollY + featRect.top - 75 : window.scrollY;
+      } else {
+        const r = target.getBoundingClientRect();
+        targetScrollY =
+          window.scrollY + r.top + r.height / 2 - (window.innerHeight + 64) / 2;
+      }
 
-    return () => observer.disconnect();
-  }, [isMobile]);
+      const prefersReduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
 
-  const renderScreen = () => {
-    switch (activeStage) {
-      case 0: return <ScreenPlan key="plan" />;
-      case 1: return <ScreenLog key="log" />;
-      case 2: return <ScreenProgress key="progress" />;
-      default: return null;
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: prefersReduced ? 'instant' : 'smooth',
+      });
+
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        isManualScrollingRef.current = false;
+      }, 700);
     }
   };
 
+  const renderScreen = () => {
+    const activeScreen: MockScreen =
+      config.story[activeStage].id === 'log'
+        ? 'keypad'
+        : (config.story[activeStage].id as MockScreen);
+    return <AppMockup screen={activeScreen} theme="light" />;
+  };
+
   return (
-    <section id="features" className="product-story container">
-      {isMobile ? (
-        <div className="story-mobile">
-          <div className="story-tabs">
-            {['Plan', 'Log', 'Progress'].map((tab, i) => (
-              <button 
-                key={tab}
-                className={`story-tab ${activeStage === i ? 'active' : ''}`}
-                onClick={() => setActiveStage(i)}
+    <section id="features" className="product-story-section container">
+      <div className="story-header">
+        <p className="eyebrow">FROM THE FIRST REP TO THE NEXT RECORD</p>
+        <h2>
+          A place for all
+          <br />
+          the work you put in.
+        </h2>
+      </div>
+
+      <div className="product-story desktop-only">
+        <div className="story-copy">
+          <div className="story-choices" aria-label="Explore app features">
+            {config.story.map((stage, i) => (
+              <div
+                key={stage.id}
+                ref={(el) => {
+                  stageRefs.current[i] = el;
+                }}
+                className="story-stage"
               >
-                {tab}
+                <button
+                  type="button"
+                  aria-label={`0${i + 1} ${stage.title}`}
+                  className={`story-choice ${activeStage === i ? 'active' : ''}`}
+                  onClick={() => handleSelect(i)}
+                  aria-pressed={activeStage === i}
+                  aria-controls="feature-preview"
+                >
+                  <div className="story-stage-head">
+                    <span className="story-step">0{i + 1}</span>
+                    <span className="story-stage-category">
+                      {STAGE_CATEGORIES[i]}
+                    </span>
+                    <span className="story-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </div>
+                  <div className="story-stage-body">
+                    <strong>{stage.title}</strong>
+                    <span className="story-desc">{stage.description}</span>
+                  </div>
+                  <div className="story-stage-tags">
+                    {STAGE_TAGS[i].map((tag) => (
+                      <span key={tag} className="story-tag">
+                        <span className="story-tag-dot" />
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id="feature-preview" className="story-preview">
+          <div
+            className="story-progress"
+            aria-label="Feature stages"
+          >
+            {config.story.map((stage, i) => (
+              <button
+                key={stage.id}
+                type="button"
+                aria-label={`Show ${stage.id} preview`}
+                aria-pressed={activeStage === i}
+                className={`story-tab-btn indicator-pill ${activeStage === i ? 'active' : ''}`}
+                onClick={() => handleSelect(i)}
+              >
+                <span className="story-tab-step">0{i + 1}</span>
+                <span className="story-tab-label">
+                  {stage.id === 'plan'
+                    ? 'Plan'
+                    : stage.id === 'log'
+                      ? 'Log'
+                      : 'Progress'}
+                </span>
               </button>
             ))}
           </div>
-          
-          <div className="story-content-mobile">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStage}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="stage-info">
-                  <div className="stage-caption">Stage {activeStage + 1}</div>
-                  <h3 className="stage-title">{stages[activeStage].title}</h3>
-                  <p className="stage-description">{stages[activeStage].description}</p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
 
-          <div className="phone-preview">
-            <div className="phone-hardware">
+          <PhoneFrame tiltOnHover={true}>
+            <div className="story-screen-viewport">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStage}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
                   className="screen-container"
                 >
                   {renderScreen()}
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
+          </PhoneFrame>
+          <p>App preview · Sample data</p>
         </div>
-      ) : (
-        <div className="story-desktop" ref={scrollRef}>
-          <div className="story-left">
-            {stages.map((stage, i) => (
-              <div 
-                className="story-stage" 
-                key={stage.id} 
-                data-index={i}
-                ref={(el) => { stageRefs.current[i] = el; }}
-              >
-                <div className="stage-info">
-                  <div className="stage-caption">Stage {i + 1}</div>
-                  <h3 className="stage-title">{stage.title}</h3>
-                  <p className="stage-description">{stage.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="story-right">
-            <div className="sticky-container">
-              <div className="stage-indicators">
-                {stages.map((stage, i) => (
-                  <button 
-                    key={stage.id}
-                    className={`indicator-pill ${activeStage === i ? 'active' : ''}`}
-                    onClick={() => {
-                      stageRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }}
-                  >
-                    {i + 1}. {stage.id.charAt(0).toUpperCase() + stage.id.slice(1)}
-                  </button>
-                ))}
-              </div>
-              <div className="phone-preview">
-                <div className="phone-hardware">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeStage}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                      className="screen-container"
-                    >
-                      {renderScreen()}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
+      </div>
+
+      <div className="story-mobile mobile-only">
+        <div className="story-tabs" role="tablist">
+          {config.story.map((stage, i) => (
+            <button
+              key={`tab-${stage.id}`}
+              role="tab"
+              aria-selected={activeStage === i}
+              className={`story-tab ${activeStage === i ? 'active' : ''}`}
+              onClick={() => setActiveStage(i)}
+            >
+              {stage.id === 'plan' ? 'Plan' : stage.id === 'log' ? 'Log' : 'Progress'}
+            </button>
+          ))}
+        </div>
+        
+        <div className="story-stage-content">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStage}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+              className="story-stage-animated-text"
+            >
+              <span className="story-stage-category-mobile">{STAGE_CATEGORIES[activeStage]}</span>
+              <h3>{config.story[activeStage].title}</h3>
+              <p>{config.story[activeStage].description}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="story-phone-preview">
+          <PhoneFrame tiltOnHover={false}>
+            <div className="story-screen-viewport">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStage}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+                  className="screen-container"
+                >
+                  {renderScreen()}
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
+          </PhoneFrame>
         </div>
-      )}
+      </div>
     </section>
   );
 }

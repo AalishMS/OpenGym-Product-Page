@@ -31,7 +31,7 @@ export function Footer() {
           </div>
           <div className="footer-links">
             <a href={config.links.repository} target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href={config.links.download} target="_blank" rel="noopener noreferrer">Releases</a>
+            <a href="#/releases">Releases</a>
           </div>
           <div className="footer-copy">
             Open source · Built with Flutter

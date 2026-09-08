@@ -1,0 +1,669 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+.mock-app {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 412 / 915;
+  overflow: hidden;
+  background: var(--replica-background);
+  text-align: left;
+}
+.mock-app,
+.replica-canvas,
+.replica-plan-card,
+.replica-plan-title > i,
+.replica-fab,
+.replica-wordmark,
+.replica-nav,
+.replica-select,
+.replica-exercise-card,
+.replica-set-line > b,
+.replica-volume-card {
+  transition:
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    fill 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.replica-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 412px;
+  height: 915px;
+  transform-origin: top left;
+  overflow: hidden;
+  background: var(--replica-background);
+  color: var(--replica-text);
+  font:
+    400 14px/1.5 'Manrope',
+    sans-serif;
+}
+.replica-canvas * {
+  box-sizing: border-box;
+}
+.replica-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.replica-wordmark {
+  height: 40px;
+  padding: 7px 18px;
+  background:
+    radial-gradient(
+      ellipse at 75% 50%,
+      color-mix(in srgb, var(--replica-ink) 12%, transparent),
+      transparent 65%
+    ),
+    var(--replica-surface);
+  border-bottom: 1px solid var(--replica-border);
+  color: var(--replica-ink);
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 800;
+}
+.replica-plan-grid {
+  position: absolute;
+  top: 40px;
+  bottom: 55px;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 185px);
+  grid-auto-rows: 220px;
+  gap: 10px;
+  overflow: hidden;
+}
+.replica-plan-card {
+  padding: 12px;
+  border: 1px solid var(--replica-border);
+  background: var(--replica-surface);
+  border-radius: 14px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+.replica-plan-title {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  white-space: nowrap;
+}
+.replica-plan-title > i {
+  width: 3px;
+  height: 28px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.replica-plan-title > span {
+  font: 600 10px var(--font-mono);
+  color: var(--replica-secondary);
+  align-self: center;
+  margin-top: 3px;
+}
+.replica-plan-title > b {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.2px;
+}
+.replica-plan-title > .replica-icon {
+  position: absolute;
+  right: 12px;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  color: var(--replica-secondary);
+}
+.replica-plan-meta {
+  margin-top: 8px;
+  font: 10px/14px var(--font-mono);
+  letter-spacing: 0.15px;
+  color: var(--replica-secondary);
+  min-height: 26px;
+}
+.replica-plan-exercises {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 19px;
+  color: var(--replica-secondary);
+}
+.replica-plan-more {
+  display: block;
+  margin-top: 2px;
+  font: 500 10px var(--font-mono);
+  color: var(--replica-secondary);
+}
+.replica-plan-footer {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--replica-secondary);
+  font: 600 10px/14px var(--font-mono);
+}
+.replica-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--replica-surface);
+  border-top: 1px solid var(--replica-border);
+}
+.replica-nav > div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 11px;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--replica-secondary);
+}
+.replica-nav .replica-icon {
+  width: 18px;
+  height: 18px;
+}
+.replica-nav .selected {
+  color: var(--replica-ink);
+  font-weight: 700;
+}
+.replica-fab {
+  position: absolute;
+  right: 16px;
+  bottom: 72px;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  color: var(--replica-ink);
+  background: var(--replica-surface);
+  border: 1px solid var(--replica-ink);
+  border-radius: 16px;
+}
+.replica-fab .replica-icon {
+  width: 24px;
+  height: 24px;
+}
+.replica-workout-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 20px;
+  background:
+    radial-gradient(
+      ellipse at 78% 50%,
+      color-mix(in srgb, var(--replica-ink) 12%, transparent),
+      transparent 65%
+    ),
+    var(--replica-surface);
+  gap: 0;
+}
+.replica-workout-header > .replica-icon {
+  color: var(--replica-ink);
+}
+.replica-workout-header > .replica-icon:first-child {
+  margin-right: 28px;
+}
+.replica-workout-header > i {
+  height: 20px;
+  width: 3px;
+  background: #00771a;
+  margin-right: 8px;
+  border-radius: 2px;
+}
+.replica-workout-header > b {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.replica-workout-header > strong {
+  font: 700 14px var(--font-mono);
+  margin-left: auto;
+  margin-right: 50px;
+}
+.replica-workout-header > .replica-icon--play {
+  margin-right: 26px;
+}
+.replica-workout-header > .replica-icon--stop {
+  margin-right: 28px;
+}
+.replica-workout-header > .replica-icon--menu {
+  width: 8px;
+}
+.replica-plan-tabs {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: var(--replica-surface);
+  border-bottom: 1px solid var(--replica-border);
+  display: flex;
+  gap: 24px;
+  padding: 0 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--replica-secondary);
+}
+.replica-plan-tabs > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 11px var(--font-mono);
+  height: 36px;
+  padding-top: 4px;
+}
+.replica-plan-tabs small {
+  font-size: 10px;
+  color: var(--replica-secondary);
+}
+.replica-plan-tabs .selected {
+  color: var(--replica-ink);
+  border-bottom: 2px solid var(--replica-ink);
+  font-weight: 700;
+}
+.replica-workout-list {
+  position: absolute;
+  top: 108px;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  padding: 12px;
+  overflow: hidden;
+}
+.replica-exercise-card {
+  height: 280px;
+  padding: 12px;
+  background: var(--replica-surface);
+  border: 1px solid var(--replica-border);
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+.replica-exercise-heading {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  gap: 12px;
+}
+.replica-exercise-heading > span {
+  border: 1px solid var(--replica-ink);
+  border-radius: 3px;
+  color: var(--replica-ink);
+  font: 600 12px var(--font-mono);
+  padding: 5px 8px;
+}
+.replica-exercise-heading > b {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.replica-exercise-heading > .replica-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--replica-secondary);
+  margin: 0 6px;
+}
+.replica-exercise-heading > .replica-icon:last-child {
+  color: var(--replica-ink);
+  margin-left: 12px;
+  margin-right: 14px;
+}
+.replica-set-head,
+.replica-set-line {
+  display: grid;
+  grid-template-columns: 32px 96px 80px 80px 32px;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+}
+.replica-set-head {
+  color: var(--replica-secondary);
+  height: 40px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.replica-set-line {
+  height: 56px;
+  font-size: 15px;
+}
+.replica-set-line > span {
+  font-size: 15px;
+}
+.replica-set-line .replica-prev {
+  color: var(--replica-secondary);
+  font-weight: 600;
+}
+.replica-set-line > b {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  background: var(--replica-background);
+  border: 1px solid var(--replica-border);
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.replica-set-line > .replica-icon {
+  width: 16px;
+  height: 16px;
+  justify-self: center;
+  color: var(--replica-secondary);
+}
+.replica-week-tabs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48px;
+  display: flex;
+  gap: 28px;
+  align-items: start;
+  padding: 12px;
+  background: var(--replica-surface);
+  border-top: 1px solid var(--replica-border);
+  color: var(--replica-ink);
+  font: 11px var(--font-mono);
+}
+.replica-week-tabs > span {
+  height: 23px;
+}
+.replica-week-tabs > span:first-child {
+  border-bottom: 2px solid var(--replica-ink);
+  font-weight: 600;
+}
+.replica-scrim {
+  position: absolute;
+  inset: 0;
+  background: #0009;
+}
+.replica-keypad {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 512px;
+  background: var(--replica-surface);
+  padding: 8px 16px 16px;
+  border-radius: 20px 20px 0 0;
+}
+.replica-keypad h3 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.replica-keypad .replica-set-head {
+  grid-template-columns: 32px 120px 100px 100px;
+  height: 27px;
+}
+.replica-keypad .replica-set-line {
+  grid-template-columns: 32px 120px 100px 100px;
+  height: 56px;
+}
+.replica-keypad .replica-set-line > b.selected {
+  border: 2px solid var(--replica-ink);
+  background: color-mix(in srgb, var(--replica-fill) 75%, white);
+  color: #000;
+}
+.replica-keypad > p {
+  color: var(--replica-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 8px 0 12px;
+  height: 20px;
+}
+.replica-key-step,
+.replica-key-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.replica-key-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 8px 0;
+}
+.replica-key-step > span,
+.replica-key-grid > span,
+.replica-key-actions > span {
+  display: grid;
+  place-items: center;
+  height: 52px;
+  border: 1px solid var(--replica-border);
+  background: var(--replica-background);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.replica-key-grid > span {
+  font-size: 22px;
+  font-weight: 700;
+}
+.replica-key-grid > span:last-child {
+  font-size: 15px;
+  font-weight: 500;
+}
+.replica-key-actions > span {
+  background: var(--replica-fill);
+  color: var(--replica-onFill);
+}
+.replica-stats-header {
+  height: 56px;
+  padding: 14px 16px;
+  background: var(--replica-surface);
+  font-size: 17px;
+  font-weight: 700;
+}
+.replica-stats-body {
+  padding: 10px 16px;
+}
+.replica-stats-body h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.replica-volume-card {
+  height: 547px;
+  background: var(--replica-surface);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.replica-volume-card h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.replica-volume-card p {
+  color: var(--replica-secondary);
+  font-size: 12px;
+}
+.replica-select {
+  position: relative;
+  border: 1px solid var(--replica-border);
+  border-radius: 10px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.replica-select > small {
+  position: absolute;
+  top: -9px;
+  left: 11px;
+  padding: 0 4px;
+  background: var(--replica-surface);
+  color: var(--replica-secondary);
+  font-size: 11px;
+  font-weight: 400;
+}
+.replica-select > i {
+  margin-left: auto;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--replica-secondary);
+}
+.replica-volume-card > .replica-select {
+  margin-top: 20px;
+}
+.replica-week-summary {
+  margin-top: 22px;
+}
+.replica-week-summary > p:first-child {
+  font-weight: 600;
+}
+.replica-week-summary > strong {
+  display: block;
+  font: 700 30px/1.5 var(--font-mono);
+  margin: 6px 0 10px;
+}
+.replica-volume-chart {
+  margin-top: 34px;
+}
+.replica-chart-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px 0 40px;
+}
+.replica-axis-title {
+  display: block;
+  color: var(--replica-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+.replica-latest {
+  color: var(--replica-ink);
+  font-size: 12px;
+  font-weight: 600;
+}
+.replica-volume-chart svg {
+  width: 348px;
+  height: 220px;
+  overflow: hidden;
+}
+.replica-volume-chart svg text {
+  font: 11px var(--font-mono);
+  fill: var(--replica-secondary);
+}
+.replica-volume-chart svg path {
+  stroke: var(--replica-border);
+  stroke-width: 1;
+}
+.replica-volume-chart svg rect:not(clipPath rect) {
+  fill: var(--replica-fill);
+}
+.replica-volume-chart svg rect.replica-current-bar {
+  fill: var(--replica-ink);
+}
+.replica-chart-weeks {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 40px;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--replica-secondary);
+  font-weight: 600;
+}
+.replica-chart-weeks > span.selected {
+  color: var(--replica-text);
+}
+.replica-scrollbar {
+  margin: 8px 0 0 66px;
+  height: 8px;
+  border-radius: 8px;
+  background: color-mix(
+    in srgb,
+    var(--replica-secondary) 14%,
+    var(--replica-surface)
+  );
+}
+.replica-stats-body .replica-progress-title {
+  margin: 30px 0 12px;
+}
+.replica-progress-card {
+  border-radius: 14px;
+  background: var(--replica-surface);
+  padding: 16px;
+}
+.replica-progress-card > div:last-child {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.replica-workout-header {
+  position: relative;
+}
+.replica-workout-header > * {
+  position: absolute;
+  margin: 0 !important;
+}
+.replica-workout-header > .replica-icon:first-child {
+  left: 20px;
+}
+.replica-workout-header > i {
+  left: 64px;
+}
+.replica-workout-header > b {
+  left: 75px;
+}
+.replica-workout-header > strong {
+  left: 183px;
+}
+.replica-workout-header > .replica-icon--play {
+  left: 284px;
+}
+.replica-workout-header > .replica-icon--stop {
+  left: 331px;
+}
+.replica-workout-header > .replica-icon--menu {
+  left: 384px;
+}
+
+.replica-set-head {
+  height: 28px;
+  margin-top: 6px;
+}
+.replica-keypad .replica-set-head {
+  height: 20px;
+  margin-top: 0;
+}
+.replica-keypad > p {
+  margin-top: 3px;
+}
+.replica-keypad .replica-set-line > b.selected {
+  background: var(--replica-muted);
+}
+.replica-volume-chart {
+  margin-top: 28px;
+}
+.replica-volume-chart svg {
+  height: 202px;
+}
+.replica-volume-chart svg rect:not(clipPath rect) {
+  fill: var(--replica-dim);
+}
+.replica-workout-header > .replica-icon--menu {
+  width: 20px;
+  left: 378px;
+}
