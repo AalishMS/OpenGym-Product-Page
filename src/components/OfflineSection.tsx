@@ -42,7 +42,11 @@ export function OfflineSection() {
               Your training doesn’t need a signal.
             </motion.h2>
             <motion.p className="offline-body" variants={itemVariants}>
-              Your workout data lives on your device first. Create an account to sync across devices, or export your training history anytime. No connection required to train.
+              OpenGym requires account sign-in on first launch. After that,
+              your plans, sessions, and history live on your device first and
+              stay usable without a connection. Supported workout data can
+              sync when you are online, and JSON export gives you a separate
+              backup you control.
             </motion.p>
 
             <motion.div className="feature-pills" variants={containerVariants}>
@@ -51,13 +55,13 @@ export function OfflineSection() {
                   <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
                   <line x1="12" y1="18" x2="12.01" y2="18"></line>
                 </svg>
-                <span>Offline storage</span>
+                <span>Local-first storage</span>
               </motion.div>
               <motion.div className="feature-pill" variants={itemVariants}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.27l-5.32 5.32"></path>
                 </svg>
-                <span>Account sync</span>
+                <span>Offline after sign-in</span>
               </motion.div>
               <motion.div className="feature-pill" variants={itemVariants}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,7 +69,7 @@ export function OfflineSection() {
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span>Data export</span>
+                <span>JSON backup</span>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -103,7 +107,7 @@ export function OfflineSection() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
                 </svg>
-                <span>Syncs when connected</span>
+                <span>Saved on this device</span>
               </div>
             </div>
           </motion.div>

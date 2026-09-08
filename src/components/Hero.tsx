@@ -60,8 +60,8 @@ export function Hero() {
             set count.
           </motion.h1>
           <motion.p className="hero-subheading" variants={itemFadeUp}>
-            Plan your workouts, log your lifts, and see your progress—with
-            tracking that works offline.
+            Sign in on first launch, then plan, log, and review your training
+            with local-first data that stays available offline.
           </motion.p>
           <motion.div className="hero-actions" variants={itemFadeUp}>
             <a
@@ -77,9 +77,9 @@ export function Hero() {
             </a>
           </motion.div>
           <motion.div className="hero-details" variants={itemFadeUp}>
-            <span>Works offline</span>
+            <span>Offline after sign-in</span>
             <span>Open source</span>
-            <span>No account required</span>
+            <span>Local-first data</span>
           </motion.div>
         </motion.div>
 

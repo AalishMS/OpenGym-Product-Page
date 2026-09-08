@@ -316,13 +316,13 @@ body {{
       </h1>
 
       <p class="subheading">
-        Plan your workouts, log your lifts, and see your progress — with tracking that works offline.
+        Sign in on first launch, then keep training with local-first data that stays available offline.
       </p>
 
       <div class="details-row">
         <div class="detail-item">
           <span class="detail-check">✓</span>
-          <span>Works offline</span>
+          <span>Offline after sign-in</span>
         </div>
         <div class="detail-item">
           <span class="detail-check">✓</span>
@@ -330,7 +330,7 @@ body {{
         </div>
         <div class="detail-item">
           <span class="detail-check">✓</span>
-          <span>No account required</span>
+          <span>Local-first data</span>
         </div>
       </div>
 

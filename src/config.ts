@@ -22,7 +22,7 @@ export const config = {
   meta: {
     title: '> OpenGym — Make every set count.',
     description:
-      'Plan your workouts, log your lifts, and see your progress — with tracking that works offline.',
+      'Sign in on first launch, then plan workouts, log lifts, and review local-first training data offline.',
     ogImage: 'https://open-gym-product-page.vercel.app/og-image.png',
     themeColor: '#0D0D0D',
   },
@@ -132,11 +132,11 @@ export const config = {
   faq: [
     {
       q: 'Does the app work without an internet connection?',
-      a: 'Yes. All workout data is stored locally on your device. You can create plans, log workouts, and review your history entirely offline. When you sign in, your data syncs across devices automatically.',
+      a: 'A connection is required to sign in on first launch. After that, your workout data is stored locally first, so you can create plans, log workouts, and review your history without a connection.',
     },
     {
       q: 'How does syncing work?',
-      a: 'When you create an account and sign in, OpenGym syncs your workout plans and sessions across devices using a last-write-wins approach. If you make changes offline, they sync automatically when connectivity returns.',
+      a: 'When you are online, OpenGym can sync supported account data—including your workout splits, plans, and sessions—in the background. Offline changes stay on your device and can sync after connectivity returns. App settings are not included in cloud sync; use a JSON export when you want a separate, user-controlled backup.',
     },
     {
       q: 'Can I create my own workout plans?',
