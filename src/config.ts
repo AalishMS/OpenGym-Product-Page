@@ -23,7 +23,7 @@ export const config = {
     title: '> OpenGym — Make every set count.',
     description:
       'Plan your workouts, log your lifts, and see your progress — with tracking that works offline.',
-    ogImage: '/og-image.png',
+    ogImage: 'https://open-gym-product-page.vercel.app/og-image.png',
     themeColor: '#0D0D0D',
   },
 
