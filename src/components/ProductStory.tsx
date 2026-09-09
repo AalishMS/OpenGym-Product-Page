@@ -7,12 +7,6 @@ import './ProductStory.css';
 
 const STAGE_CATEGORIES = ['WORKOUT BUILDER', 'LIVE LOGGING', 'PROGRESSION'];
 
-const STAGE_TAGS = [
-  ['Custom splits', 'Target sets & notes', 'Bundled programs'],
-  ['Quick keypad', 'Rest timer & RPE', 'Previous set auto-fill'],
-  ['Volume trends', '1RM calculations', 'Personal records'],
-];
-
 export default function ProductStory() {
   const [activeStage, setActiveStage] = useState(0);
   const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -136,14 +130,6 @@ export default function ProductStory() {
                   <div className="story-stage-body">
                     <strong>{stage.title}</strong>
                     <span className="story-desc">{stage.description}</span>
-                  </div>
-                  <div className="story-stage-tags">
-                    {STAGE_TAGS[i].map((tag) => (
-                      <span key={tag} className="story-tag">
-                        <span className="story-tag-dot" />
-                        {tag}
-                      </span>
-                    ))}
                   </div>
                 </button>
               </div>
