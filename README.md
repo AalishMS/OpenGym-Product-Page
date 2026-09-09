@@ -34,7 +34,7 @@ Built with React 19, TypeScript, and Vite.
 ```
 OpenGym_Product_Page/
 ├── public/
-│   ├── favicon.svg
+│   ├── applogo.png
 │   ├── icons.svg
 │   ├── og-image.png
 │   └── screenshots/
@@ -122,4 +122,3 @@ Site copy, download links, sample workouts, FAQ items, and theme palettes are de
 ## License
 
 This project is open-source under the MIT License.
-
