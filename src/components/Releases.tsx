@@ -54,7 +54,7 @@ export function Releases() {
         />
       </div>
       <p className="release-source">
-        Summarized from GitHub releases and commits · Checked September 8, 2026.{' '}
+        Summarized from GitHub releases and commits · Checked September 9, 2026.{' '}
         <a
           href={`${config.links.repository}/releases`}
           target="_blank"

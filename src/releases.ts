@@ -1,6 +1,19 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
-// Last checked: 2026-09-08. Add new releases here, newest first.
+// Last checked: 2026-09-09. Add new releases here, newest first.
 export const releases = [
+  {
+    version: 'v1.0.8+9',
+    date: '2026-09-09',
+    title: 'Faster set entry, without breaking your flow.',
+    changes: [
+      'Redesigned active-workout set entry with compact rows and a responsive number keypad.',
+      'Added direct RPE entry alongside quick weight and rep adjustments.',
+      'Made set removal immediate and reliable, including when deleting the final set.',
+      'Improved empty-plan screens with clearer ways to create a plan or choose a bundled split.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.8%2B9',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.7+8...v1.0.8+9',
+  },
   {
     version: 'v1.0.7+8',
     date: '2026-09-06',
