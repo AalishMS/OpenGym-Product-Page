@@ -6,6 +6,13 @@ import { PhoneFrame } from './PhoneFrame';
 import './Personalization.css';
 import { config } from '../config';
 
+const SCREEN_LABELS: Record<MockScreen, string> = {
+  plan: 'Plan',
+  log: 'Workout',
+  progress: 'Statistics',
+  keypad: 'Keypad',
+};
+
 export function Personalization() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [screen, setScreen] = useState<MockScreen>('plan');
@@ -47,7 +54,27 @@ export function Personalization() {
               transition={{ duration: 0.5, ease: 'easeOut' }}
             >
               <PhoneFrame tiltOnHover={true}>
-                <AppMockup theme={theme} accent={accent.seed} screen={screen} />
+                <div className="personalization-screen-viewport">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={screen}
+                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
+                      transition={{
+                        duration: shouldReduceMotion ? 0 : 0.22,
+                        ease: 'easeOut',
+                      }}
+                      className="personalization-screen-container"
+                    >
+                      <AppMockup
+                        theme={theme}
+                        accent={accent.seed}
+                        screen={screen}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
               </PhoneFrame>
             </motion.div>
           </div>
@@ -169,7 +196,7 @@ export function Personalization() {
             <div className="selection-caption-wrapper">
               <AnimatePresence mode="wait">
                 <motion.p
-                  key={`${accent.name}-${theme}`}
+                  key={`${accent.name}-${theme}-${screen}`}
                   initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
@@ -184,7 +211,7 @@ export function Personalization() {
                     className="selection-dot"
                     style={{ backgroundColor: accent.seed }}
                   />
-                  {accent.name} · {theme === 'light' ? 'Light' : 'Dark'} appearance
+                  {accent.name} · {theme === 'light' ? 'Light' : 'Dark'} appearance · {SCREEN_LABELS[screen]}
                 </motion.p>
               </AnimatePresence>
             </div>
