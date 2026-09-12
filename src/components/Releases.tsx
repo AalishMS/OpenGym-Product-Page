@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { releases } from '../releases';
 import { config } from '../config';
 import './Releases.css';
+
 export function Releases() {
   const [query, setQuery] = useState('');
   const filtered = releases.filter((release) =>
@@ -10,12 +11,14 @@ export function Releases() {
       .toLowerCase()
       .includes(query.toLowerCase().trim()),
   );
+
   useEffect(() => {
     document.title = 'Releases · OpenGym';
     return () => {
       document.title = config.meta.title;
     };
   }, []);
+
   return (
     <section className="releases-page container">
       <a className="release-back" href="#">
@@ -40,7 +43,7 @@ export function Releases() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Get the latest version ↗
+          Download APK (v1.0.9+10) ↗
         </a>
       </div>
       <div className="release-toolbar">
@@ -54,7 +57,7 @@ export function Releases() {
         />
       </div>
       <p className="release-source">
-        Summarized from GitHub releases and commits · Checked September 9, 2026.{' '}
+        Summarized from GitHub releases and commits · Checked September 12, 2026.{' '}
         <a
           href={`${config.links.repository}/releases`}
           target="_blank"
@@ -98,6 +101,13 @@ export function Releases() {
                 ))}
               </ul>
               <div className="release-links">
+                <a
+                  href={release.apkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download APK ↗
+                </a>
                 <a href={release.url} target="_blank" rel="noopener noreferrer">
                   View release ↗
                 </a>

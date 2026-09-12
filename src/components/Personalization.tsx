@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { AppMockup } from './AppMockup';
+import { AppMockup, type MockScreen } from './AppMockup';
 import { previewTone } from './previewTone';
 import { PhoneFrame } from './PhoneFrame';
 import './Personalization.css';
@@ -8,6 +8,7 @@ import { config } from '../config';
 
 export function Personalization() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
+  const [screen, setScreen] = useState<MockScreen>('plan');
   const [accent, setAccent] = useState<{ name: string; seed: string }>(
     config.appAccents[4],
   );
@@ -16,7 +17,7 @@ export function Personalization() {
   return (
     <section id="personalization" className="personalization-section">
       <div className="container personalization-content">
-        <div className="personalization-controls">
+        <div className="personalization-header">
           <p className="eyebrow">A LITTLE MORE YOU</p>
           <h2 className="personalization-headline">
             Your routine.
@@ -27,40 +28,102 @@ export function Personalization() {
             Quiet neutrals. A color you love. Find your combination and see it
             come to life.
           </p>
+        </div>
+
+        <div
+          className="personalization-preview"
+          style={
+            {
+              '--selected-accent': previewTone(accent.seed, true),
+            } as CSSProperties
+          }
+        >
+          <div className="personalization-phone-stage">
+            <motion.div
+              className="personalization-phone-layer"
+              animate={{
+                boxShadow: `0 20px 60px -15px ${previewTone(accent.seed, theme === 'dark')}33`,
+              }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              <PhoneFrame tiltOnHover={true}>
+                <AppMockup theme={theme} accent={accent.seed} screen={screen} />
+              </PhoneFrame>
+            </motion.div>
+          </div>
+          <p>Live theme preview · Sample data</p>
+        </div>
+
+        <div className="personalization-controls">
           <div className="controls-group">
-            <div>
-              <p className="control-label">Appearance</p>
-              <div
-                className="theme-toggle"
-                aria-label="Preview appearance"
-              >
-                {(['light', 'dark'] as const).map((mode) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    className={`theme-btn ${theme === mode ? 'active' : ''}`}
-                    aria-pressed={theme === mode}
-                    onClick={() => setTheme(mode)}
-                  >
-                    {theme === mode && !shouldReduceMotion && (
-                      <motion.div
-                        layoutId="activeThemePill"
-                        className="theme-btn-active-pill"
-                        transition={{
-                          type: 'spring',
-                          stiffness: 420,
-                          damping: 32,
-                        }}
-                      />
-                    )}
-                    <span className="theme-btn-label">
-                      {mode === 'light' ? '☀ Light' : '☾ Dark'}
-                    </span>
-                  </button>
-                ))}
+            <div className="controls-top-row">
+              <div className="control-item">
+                <p className="control-label">Appearance</p>
+                <div
+                  className="theme-toggle"
+                  aria-label="Preview appearance"
+                >
+                  {(['light', 'dark'] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      className={`theme-btn ${theme === mode ? 'active' : ''}`}
+                      aria-pressed={theme === mode}
+                      onClick={() => setTheme(mode)}
+                    >
+                      {theme === mode && !shouldReduceMotion && (
+                        <motion.div
+                          layoutId="activeThemePill"
+                          className="theme-btn-active-pill"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 420,
+                            damping: 32,
+                          }}
+                        />
+                      )}
+                      <span className="theme-btn-label">
+                        {mode === 'light' ? '☀ Light' : '☾ Dark'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="control-item">
+                <p className="control-label">Screen</p>
+                <div
+                  className="theme-toggle"
+                  aria-label="Preview screen"
+                >
+                  {(['plan', 'log', 'progress'] as const).map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      className={`theme-btn ${screen === s ? 'active' : ''}`}
+                      aria-pressed={screen === s}
+                      onClick={() => setScreen(s)}
+                    >
+                      {screen === s && !shouldReduceMotion && (
+                        <motion.div
+                          layoutId="activeScreenPill"
+                          className="theme-btn-active-pill"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 420,
+                            damping: 32,
+                          }}
+                        />
+                      )}
+                      <span className="theme-btn-label">
+                        {s === 'plan' ? 'Plan' : s === 'log' ? 'Workout' : 'Statistics'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-            <div>
+
+            <div className="control-item">
               <p className="control-label">Accent color</p>
               <div className="accent-picker" aria-label="Accent color">
                 {config.appAccents.map((a) => (
@@ -102,6 +165,7 @@ export function Personalization() {
                 ))}
               </div>
             </div>
+
             <div className="selection-caption-wrapper">
               <AnimatePresence mode="wait">
                 <motion.p
@@ -125,29 +189,6 @@ export function Personalization() {
               </AnimatePresence>
             </div>
           </div>
-        </div>
-        <div
-          className="personalization-preview"
-          style={
-            {
-              '--selected-accent': previewTone(accent.seed, true),
-            } as CSSProperties
-          }
-        >
-          <div className="personalization-phone-stage">
-            <motion.div
-              className="personalization-phone-layer"
-              animate={{
-                boxShadow: `0 20px 60px -15px ${previewTone(accent.seed, theme === 'dark')}33`,
-              }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              <PhoneFrame tiltOnHover={true}>
-                <AppMockup theme={theme} accent={accent.seed} />
-              </PhoneFrame>
-            </motion.div>
-          </div>
-          <p>Live theme preview · Sample data</p>
         </div>
       </div>
     </section>

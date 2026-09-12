@@ -100,7 +100,8 @@
 }
 .release-links {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px 24px;
   margin-top: 24px;
   color: var(--color-accent);
   font-size: 13px;

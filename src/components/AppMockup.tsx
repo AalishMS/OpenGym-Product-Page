@@ -6,6 +6,15 @@ import './AppMockup.css';
 
 export type MockScreen = 'plan' | 'log' | 'keypad' | 'progress';
 
+function getRpeClass(rpe: number | null | undefined): string {
+  if (!rpe || rpe <= 2) return 'replica-rpe--low';
+  if (rpe <= 4) return 'replica-rpe--3-4';
+  if (rpe <= 6) return 'replica-rpe--5-6';
+  if (rpe <= 8) return 'replica-rpe--7-8';
+  if (rpe === 9) return 'replica-rpe--9';
+  return 'replica-rpe--10';
+}
+
 function BottomNav({ stats = false }: { stats?: boolean }) {
   return (
     <div className="replica-nav">
@@ -23,6 +32,7 @@ function BottomNav({ stats = false }: { stats?: boolean }) {
     </div>
   );
 }
+
 function Plans({ theme }: { theme: 'light' | 'dark' }) {
   return (
     <>
@@ -67,13 +77,19 @@ function Plans({ theme }: { theme: 'light' | 'dark' }) {
     </>
   );
 }
-function SetTable({
-  weight,
-  reps,
-  single = false,
-}: {
+
+interface SetEntry {
+  prev?: string;
   weight: number;
   reps: number;
+  rpe: number;
+}
+
+function SetTable({
+  sets,
+  single = false,
+}: {
+  sets: SetEntry[];
   single?: boolean;
 }) {
   return (
@@ -85,34 +101,64 @@ function SetTable({
         <span>Prev</span>
         <span>Kg</span>
         <span>Reps</span>
+        <span>RPE</span>
         {!single && <span />}
       </div>
-      {Array.from({ length: single ? 1 : 3 }, (_, i) => (
+      {(single ? sets.slice(0, 1) : sets).map((s, i) => (
         <div className="replica-set-line" key={i}>
           <span>{i + 1}</span>
-          <span className="replica-prev">—</span>
-          <b className={single ? 'selected' : ''}>{weight}</b>
-          <b>{reps}</b>
-          {!single && <MockIcon name="more" />}
+          <span className="replica-prev">{s.prev || '—'}</span>
+          <b className={single ? 'selected' : ''}>{s.weight}</b>
+          <b>{s.reps}</b>
+          <span className={`replica-rpe ${getRpeClass(s.rpe)}`}>@{s.rpe}</span>
+          {!single && <MockIcon name="close" />}
         </div>
       ))}
     </div>
   );
 }
+
+const WORKOUT_EXERCISES = [
+  {
+    name: 'DEADLIFT',
+    sets: [
+      { prev: '120 × 5', weight: 120, reps: 5, rpe: 8 },
+      { prev: '120 × 5', weight: 120, reps: 5, rpe: 9 },
+      { prev: '120 × 5', weight: 120, reps: 5, rpe: 10 },
+    ],
+  },
+  {
+    name: 'BARBELL ROW',
+    sets: [
+      { prev: '70 × 8', weight: 70, reps: 8, rpe: 7 },
+      { prev: '70 × 8', weight: 70, reps: 8, rpe: 8 },
+      { prev: '70 × 6', weight: 70, reps: 8, rpe: 9 },
+    ],
+  },
+  {
+    name: 'LAT PULLDOWN',
+    sets: [
+      { prev: '60 × 10', weight: 60, reps: 10, rpe: 6 },
+      { prev: '60 × 10', weight: 60, reps: 10, rpe: 7 },
+      { prev: '60 × 10', weight: 60, reps: 10, rpe: 8 },
+    ],
+  },
+];
+
 function Workout({ keypad }: { keypad: boolean }) {
   return (
     <>
       <header className="replica-workout-header">
         <MockIcon name="back" />
         <i />
-        <b>FULL BODY</b>
+        <b>PULL DAY</b>
         <strong>00:00</strong>
         <MockIcon name="play" />
         <MockIcon name="stop" />
         <MockIcon name="menu" />
       </header>
       <div className="replica-plan-tabs">
-        {['FULL BODY', 'PULL DAY', 'FULL BODY', 'PUSH DAY'].map((name, i) => (
+        {['PULL DAY', 'PUSH DAY', 'LEG DAY', 'UPPER BODY'].map((name, i) => (
           <div key={i} className={i === 0 ? 'selected' : ''}>
             <small>0{i + 1}</small>
             {name}
@@ -120,33 +166,36 @@ function Workout({ keypad }: { keypad: boolean }) {
         ))}
       </div>
       <div className="replica-workout-list">
-        {mockupData.workout.map((exercise, i) => (
+        {WORKOUT_EXERCISES.map((exercise, i) => (
           <div className="replica-exercise-card" key={exercise.name}>
             <div className="replica-exercise-heading">
               <span>{i + 1}</span>
-              <b>{exercise.name.toUpperCase()}</b>
+              <b>{exercise.name}</b>
               <MockIcon name="note" />
               <MockIcon name="trash" />
               <MockIcon name="plus" />
             </div>
-            <SetTable weight={exercise.weight} reps={exercise.reps} />
+            <SetTable sets={exercise.sets} />
           </div>
         ))}
       </div>
       <div className="replica-week-tabs">
-        <span>WEEK 1</span>
-        <span>＋ WEEK 2</span>
+        <span className="selected">WEEK 1</span>
+        <span className="replica-add-week">+ WEEK 2</span>
       </div>
       {keypad && (
         <>
           <div className="replica-scrim" />
           <div className="replica-keypad">
-            <h3>Squat</h3>
-            <SetTable weight={95} reps={6} single />
-            <p>Set 1 of 3 · Weight</p>
+            <SetTable
+              sets={[{ prev: '120 × 5', weight: 120, reps: 5, rpe: 8 }]}
+              single
+            />
             <div className="replica-key-step">
-              <span>−2.5 kg</span>
-              <span>+2.5 kg</span>
+              <span className="replica-key-step-teal">+2.5</span>
+              <span className="replica-key-step-teal">−2.5</span>
+              <span>+1</span>
+              <span>−1</span>
             </div>
             <div className="replica-key-grid">
               {[
@@ -163,7 +212,7 @@ function Workout({ keypad }: { keypad: boolean }) {
                 '0',
                 'Delete',
               ].map((v) => (
-                <span key={v}>{v}</span>
+                <span key={v}>{v === 'Delete' ? <MockIcon name="close" /> : v}</span>
               ))}
             </div>
             <div className="replica-key-actions">
@@ -176,6 +225,7 @@ function Workout({ keypad }: { keypad: boolean }) {
     </>
   );
 }
+
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="replica-select">
@@ -185,8 +235,16 @@ function Field({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
 function Statistics() {
-  const volume = [27.9, 30.1, 14, 28.8, 22.2, 0];
+  const volumeData = [
+    { week: 'W32', volume: 7.9 },
+    { week: 'W33', volume: 30.1 },
+    { week: 'W34', volume: 14.0 },
+    { week: 'W35', volume: 28.8 },
+    { week: 'W36', volume: 22.2, selected: true },
+    { week: 'W37', volume: 0 },
+  ];
 
   return (
     <>
@@ -207,13 +265,13 @@ function Statistics() {
               <span className="replica-axis-title">Volume (kg)</span>
               <span className="replica-latest">→&nbsp; Latest</span>
             </div>
-            <svg viewBox="0 18 348 202" aria-hidden="true">
+            <svg viewBox="0 18 348 226" aria-hidden="true">
               <defs>
                 <clipPath id="replica-axis-clip">
-                  <rect x="0" y="18" width="28" height="202" />
+                  <rect x="0" y="18" width="38" height="226" />
                 </clipPath>
                 <clipPath id="replica-chart-clip">
-                  <rect x="40" y="20" width="308" height="210" />
+                  <rect x="38" y="20" width="310" height="226" />
                 </clipPath>
               </defs>
               {[40, 30, 20, 10, 0].map((v, i) => (
@@ -225,42 +283,51 @@ function Statistics() {
                   >
                     {v === 0 ? '0' : `${v}.0k`}
                   </text>
-                  <path d={`M40 ${33 + i * 45}H348`} />
+                  <path d={`M38 ${33 + i * 45}H348`} />
                 </g>
               ))}
               <g clipPath="url(#replica-chart-clip)">
-                {volume.map((v, i) => (
-                  <g key={i}>
-                    <rect
-                      className={i === 4 ? 'replica-current-bar' : ''}
-                      x={28 + i * 56}
-                      y={213 - v * 5.2}
-                      width="24"
-                      height={v * 5.2}
-                      rx="2"
-                    />
-                    <text x={40 + i * 56} y={203 - v * 5.2} textAnchor="middle">
-                      {v ? `${v.toFixed(1)}k` : '0'}
-                    </text>
-                  </g>
-                ))}
+                {volumeData.map((d, i) => {
+                  const barH = (d.volume / 40) * 180;
+                  const centerX = 64 + i * 50;
+                  return (
+                    <g key={d.week}>
+                      {d.volume > 0 && (
+                        <rect
+                          className={d.selected ? 'replica-current-bar' : ''}
+                          x={centerX - 11}
+                          y={213 - barH}
+                          width="22"
+                          height={barH}
+                          rx="2"
+                        />
+                      )}
+                      <text
+                        x={centerX}
+                        y={d.volume > 0 ? 213 - barH - 6 : 205}
+                        textAnchor="middle"
+                      >
+                        {d.volume > 0 ? `${d.volume.toFixed(1)}k` : '0'}
+                      </text>
+                      <text
+                        x={centerX}
+                        y={232}
+                        textAnchor="middle"
+                        className={d.selected ? 'selected' : ''}
+                      >
+                        {d.week}
+                      </text>
+                    </g>
+                  );
+                })}
               </g>
             </svg>
-            <div className="replica-chart-weeks">
-              {['W32', 'W33', 'W34', 'W35', 'W36', 'W37'].map((w, i) => (
-                <span key={w} className={i === 4 ? 'selected' : ''}>{w}</span>
-              ))}
-            </div>
             <div className="replica-scrollbar" />
           </div>
         </div>
         <h3 className="replica-progress-title">Exercise progress</h3>
         <div className="replica-progress-card">
           <Field label="Exercise" value="Calf Raise" />
-          <div>
-            <Field label="Metric" value="Estimated 1RM" />
-            <Field label="Period" value="4 weeks" />
-          </div>
         </div>
       </div>
       <BottomNav stats />

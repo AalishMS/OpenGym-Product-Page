@@ -1,6 +1,24 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
-// Last checked: 2026-09-09. Add new releases here, newest first.
+// Last checked: 2026-09-12. Add new releases here, newest first.
 export const releases = [
+  {
+    version: 'v1.0.9+10',
+    date: '2026-09-11',
+    title: 'A dedicated journal. An expanded library.',
+    changes: [
+      'Redesigned workout history into a structured training journal grouped by month and year with search and summary metrics.',
+      'Added dedicated workout detail pages with an aligned session readout and compact PR markers.',
+      'Integrated the exercise library browser directly into active workouts with draft autosave.',
+      'Refined the exercise picker with a two-column muscle group browser, code illustrations, and quick custom creation.',
+      'Expanded the bundled exercise catalog with new movements across all muscle groups.',
+      'Made app startup offline-first so cached training data is immediately visible without waiting on network responses.',
+      'Refreshed the in-app update prompt with concise highlights and direct GitHub release links.',
+      'Carried previous set RPE forward automatically when adding sets in an active workout.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.9%2B10',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.8+9...v1.0.9+10',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.9%2B10/OpenGym-v1.0.9-10.apk',
+  },
   {
     version: 'v1.0.8+9',
     date: '2026-09-09',
@@ -13,6 +31,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.8%2B9',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.7+8...v1.0.8+9',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.8%2B9/OpenGym-v1.0.8-9.apk',
   },
   {
     version: 'v1.0.7+8',
@@ -25,6 +44,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.7%2B8',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.6+7...v1.0.7+8',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.7%2B8/OpenGym-v1.0.7-8.apk',
   },
   {
     version: 'v1.0.6+7',
@@ -39,6 +59,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.6%2B7',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.5+6...v1.0.6+7',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.6%2B7/OpenGym-v1.0.6-7.apk',
   },
   {
     version: 'v1.0.5+6',
@@ -52,6 +73,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.5%2B6',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.4+5...v1.0.5+6',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.5%2B6/OpenGym-v1.0.5-6.apk',
   },
   {
     version: 'v1.0.4+5',
@@ -60,6 +82,7 @@ export const releases = [
     changes: ['Polished workout plan controls.'],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.4%2B5',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.3+4...v1.0.4+5',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.4%2B5/OpenGym-v1.0.4-5.apk',
   },
   {
     version: 'v1.0.3+4',
@@ -72,6 +95,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.3%2B4',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.2+3...v1.0.3+4',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.3%2B4/OpenGym-v1.0.3-4.apk',
   },
   {
     version: 'v1.0.2+3',
@@ -83,6 +107,7 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.2%2B3',
     compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.1+2...v1.0.2+3',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.2%2B3/OpenGym-v1.0.2-3.apk',
   },
   {
     version: 'v1.0.1+2',
@@ -95,5 +120,6 @@ export const releases = [
     ],
     url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.1%2B2',
     compare: 'https://github.com/AalishMS/OpenGym/commits/v1.0.1+2',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.1%2B2/OpenGym-v1.0.1-2.apk',
   },
 ] as const;

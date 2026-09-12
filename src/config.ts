@@ -11,11 +11,12 @@ export const config = {
   },
 
   links: {
-    // GitHub Releases — the app self-updates from here.
-    // The download action points to the latest release page so the visitor
-    // can pick the APK themselves. If a direct APK link is preferred later,
-    // change this to the `/releases/latest/download/OpenGym-vX.Y.Z-N.apk` URL.
-    download: 'https://github.com/AalishMS/OpenGym/releases/latest',
+    // Direct link to the latest published APK file on GitHub Releases.
+    download:
+      'https://github.com/AalishMS/OpenGym/releases/download/v1.0.9%2B10/OpenGym-v1.0.9-10.apk',
+    // Latest GitHub release page.
+    latestRelease:
+      'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.9%2B10',
     repository: 'https://github.com/AalishMS/OpenGym',
   },
 

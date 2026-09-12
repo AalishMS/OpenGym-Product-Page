@@ -14,6 +14,7 @@ const paths = {
     'M3 6h2M9 6h12M3 18h12M19 18h2M9 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM19 18a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z',
   note: 'M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5M2 7h4M2 12h4M2 17h4m7-8 7-7a2 2 0 0 1 3 3l-7 7-4 1 1-4Z',
   trash: 'M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7',
+  close: 'M18 6 6 18M6 6l12 12',
 } as const;
 export function MockIcon({ name }: { name: keyof typeof paths }) {
   return (
