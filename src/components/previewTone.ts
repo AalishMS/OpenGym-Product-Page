@@ -1,4 +1,4 @@
-// Port of the accent solver in gymapp-offline/lib/theme/tones.dart and
+// Port of the accent solver in OpenGym/lib/theme/tones.dart and
 // app_theme.dart. Keep ink and fill separate, as in the Flutter app.
 type RGB = [number, number, number];
 const rgb = (hex: string): RGB =>
@@ -92,6 +92,7 @@ export function previewPalette(seedHex: string, dark: boolean) {
     secondary: hex(solve(neutral, surface, 4.5, dark)),
     ink: hex(ink),
     fill: hex(fill),
+    chartFill: hex(between(2 / 3)),
     onFill: luminance(fill) > 0.179 ? '#000000' : '#ffffff',
   };
 }

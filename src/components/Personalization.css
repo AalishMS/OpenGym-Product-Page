@@ -83,6 +83,9 @@
   position: relative;
   z-index: 1;
 }
+.theme-toggle[aria-label='Preview screen'] .theme-btn {
+  padding-inline: 12px;
+}
 .accent-picker {
   display: flex;
   flex-wrap: nowrap;
@@ -176,7 +179,7 @@
 .personalization-screen-viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 412 / 915;
+  aspect-ratio: 9 / 20;
   overflow: hidden;
 }
 .personalization-screen-container {

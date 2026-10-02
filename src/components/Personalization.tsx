@@ -4,14 +4,9 @@ import { AppMockup, type MockScreen } from './AppMockup';
 import { previewTone } from './previewTone';
 import { PhoneFrame } from './PhoneFrame';
 import './Personalization.css';
-import { config } from '../config';
+import { config, mockupData } from '../config';
 
-const SCREEN_LABELS: Record<MockScreen, string> = {
-  plan: 'Plan',
-  log: 'Workout',
-  progress: 'Statistics',
-  keypad: 'Keypad',
-};
+const SCREEN_LABELS = mockupData.screenLabels;
 
 export function Personalization() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
@@ -122,7 +117,7 @@ export function Personalization() {
                   className="theme-toggle"
                   aria-label="Preview screen"
                 >
-                  {(['plan', 'log', 'progress'] as const).map((s) => (
+                  {(['plan', 'log', 'keypad', 'progress'] as const).map((s) => (
                     <button
                       key={s}
                       type="button"
@@ -142,7 +137,7 @@ export function Personalization() {
                         />
                       )}
                       <span className="theme-btn-label">
-                        {s === 'plan' ? 'Plan' : s === 'log' ? 'Workout' : 'Statistics'}
+                        {SCREEN_LABELS[s]}
                       </span>
                     </button>
                   ))}

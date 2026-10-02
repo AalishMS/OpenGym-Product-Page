@@ -158,57 +158,52 @@ export const config = {
   ],
 } as const;
 
-/** Content transcribed from public/screenshots; order intentionally matches each capture. */
+/** Sample content from OpenGym screenshots at mobile app commit 065b293. */
 export const mockupData = {
-  plans: {
-    full: {
-      name: 'Full Body',
-      count: 6,
-      recent: 'Never trained',
-      exercises: ['Squat', 'Bench Press', 'Deadlift'],
-      color: ['#00771a', '#57b45a'],
-      footer: '6 EXERCISES',
-    },
-    pull: {
-      name: 'Pull Day',
-      count: 7,
-      recent: 'Last trained 3d ago',
-      exercises: ['Deadlift', 'Barbell Row', 'Lat Pulldown'],
-      color: ['#b7421c', '#f47755'],
-      footer: '3D AGO   ·  15 SESSIONS  ·  7 EXERCISES',
-    },
-    push: {
-      name: 'Push Day',
-      count: 6,
-      recent: 'Last trained 6d ago',
-      exercises: ['Bench Press', 'Incline Dumbbell Press', 'Overhead Press'],
-      color: ['#b2336c', '#e96c9f'],
-      footer: '6D AGO   ·  15 SESSIONS  ·  6 EXERCISES',
-    },
-    legs: {
-      name: 'Leg Day',
-      count: 7,
-      recent: 'Last trained yesterday',
-      exercises: ['Squat', 'Romanian Deadlift', 'Leg Press'],
-      color: ['#995a00', '#da9200'],
-      footer: 'YESTERDAY  ·  12 SESSIONS  ·  7 EXERCISES',
-    },
-    upper: {
-      name: 'Upper Body',
-      count: 6,
-      recent: 'Never trained',
-      exercises: ['Bench Press', 'Barbell Row', 'Overhead Press'],
-      color: ['#657000', '#a9b000'],
-      footer: '6 EXERCISES',
-    },
+  labels: {
+    home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
+    split: 'My split', next: 'Next up', startWorkout: 'Start workout',
+    thisWeek: 'This week', weeklySummary: '2 workouts · 24 sets',
+    yourPlans: 'Your plans', manage: 'Manage',
+    set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE',
+    start: 'Start', addSet: 'Add set', week: 'Week', nextField: 'Next', save: 'Save',
+    statistics: 'Statistics', weeklyTraining: 'Weekly training',
+    volumeLoad: 'Volume load', volumeSubtitle: 'Weight × reps · All history',
+    exercise: 'Exercise', allExercises: 'All exercises',
+    inProgress: 'This week · In progress', volumeAxis: 'Volume (kg)',
+    exerciseProgress: 'Exercise progress', progressExercise: 'Calf Raise',
+    metric: 'Metric', progressMetric: 'Estimated 1RM', period: 'Period', progressPeriod: '4 weeks',
   },
-  planOrder: {
-    light: ['full', 'pull', 'full', 'push', 'legs', 'full', 'upper', 'pull'],
-    dark: ['full', 'full', 'push', 'pull', 'push', 'upper', 'pull', 'legs'],
+  nextWorkout: {
+    name: 'Full Body',
+    groups: ['Chest', 'Back', 'Shoulders', 'Legs'],
+    summary: 'Day 5 of 5 · 6 exercises · 17 sets',
   },
-  workout: [
-    { name: 'Squat', weight: 95, reps: 6 },
-    { name: 'Bench Press', weight: 70, reps: 8 },
-    { name: 'Deadlift', weight: 120, reps: 5 },
+  activity: [
+    { day: 'M', trained: false }, { day: 'T', trained: true },
+    { day: 'W', trained: false }, { day: 'T', trained: true },
+    { day: 'F', trained: false, today: true },
+    { day: 'S', trained: false }, { day: 'S', trained: false },
   ],
+  plans: [
+    { name: 'Push Day', initials: 'PD', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
+    { name: 'Upper Body', initials: 'UB', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
+    { name: 'Pull Day', initials: 'PD', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
+    { name: 'Leg Day', initials: 'LD', summary: '7 exercises · 21 sets', color: ['#995a00', '#da9200'] },
+    { name: 'Full Body', initials: 'FB', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
+  ],
+  workout: config.sampleWorkout,
+  workoutWeek: 6,
+  workoutTime: '00:00',
+  keypad: { set: 3, previous: '70 × 7', weight: 70, reps: 7, rpe: 9 },
+  statistics: {
+    volume: '16,069 kg',
+    period: 'W40 · 2026 · 28 Sep 2026 – 4 Oct 2026',
+    weeks: [
+      { week: 'W35', volume: 12.8 }, { week: 'W36', volume: 28.7 },
+      { week: 'W37', volume: 30.5 }, { week: 'W38', volume: 23.2 },
+      { week: 'W39', volume: 11.7 }, { week: 'W40', volume: 16.1 },
+    ],
+  },
+  screenLabels: { plan: 'Home', log: 'Workout', progress: 'Statistics', keypad: 'Keypad' },
 } as const;

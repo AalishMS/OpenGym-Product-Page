@@ -146,7 +146,7 @@
 .story-screen-viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 412 / 915;
+  aspect-ratio: 9 / 20;
   overflow: hidden;
 }
 

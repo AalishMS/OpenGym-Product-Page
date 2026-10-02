@@ -1,5 +1,10 @@
 // Lucide outlines matching the icons selected by the Flutter widgets.
 const paths = {
+  home: 'm3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-8H9v8H4a1 1 0 0 1-1-1V10Z',
+  check: 'm4 12 5 5L20 6',
+  chevron: 'm6 9 6 6 6-6',
+  layers: 'm12 3 9 7-9 7-9-7 9-7Zm-9 12 9 7 9-7',
+  delete: 'M9 4h12v16H9L2 12l7-8Zm3 5 6 6m0-6-6 6',
   plus: 'M12 5v14M5 12h14',
   back: 'm12 19-7-7 7-7M5 12h14',
   play: 'm6 3 15 9-15 9V3Z',
