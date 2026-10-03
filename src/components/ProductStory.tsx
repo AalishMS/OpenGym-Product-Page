@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type KeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { AppMockup, type MockScreen } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
@@ -10,12 +10,16 @@ const STAGE_CATEGORIES = ['WORKOUT BUILDER', 'LIVE LOGGING', 'PROGRESSION'];
 export default function ProductStory() {
   const [activeStage, setActiveStage] = useState(0);
   const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const isManualScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const activeStory = config.story[activeStage];
 
   useEffect(() => {
-    const handleScroll = () => {
+    let frame: number | null = null;
+    const measureStages = () => {
+      frame = null;
       if (isManualScrollingRef.current) return;
       if (window.innerWidth < 1024) return;
 
@@ -37,12 +41,27 @@ export default function ProductStory() {
       setActiveStage((prev) => (prev !== closestIndex ? closestIndex : prev));
     };
 
+    const handleScroll = () => {
+      if (frame === null) frame = window.requestAnimationFrame(measureStages);
+    };
+    const interruptScroll = () => {
+      isManualScrollingRef.current = false;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      handleScroll();
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener('wheel', interruptScroll, { passive: true });
+    window.addEventListener('touchstart', interruptScroll, { passive: true });
+    handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('wheel', interruptScroll);
+      window.removeEventListener('touchstart', interruptScroll);
+      if (frame !== null) window.cancelAnimationFrame(frame);
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
@@ -78,6 +97,20 @@ export default function ProductStory() {
         isManualScrollingRef.current = false;
       }, 700);
     }
+  };
+
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex: number;
+    switch (event.key) {
+      case 'ArrowRight': nextIndex = (index + 1) % config.story.length; break;
+      case 'ArrowLeft': nextIndex = (index - 1 + config.story.length) % config.story.length; break;
+      case 'Home': nextIndex = 0; break;
+      case 'End': nextIndex = config.story.length - 1; break;
+      default: return;
+    }
+    event.preventDefault();
+    setActiveStage(nextIndex);
+    tabRefs.current[nextIndex]?.focus();
   };
 
   const renderScreen = () => {
@@ -184,54 +217,67 @@ export default function ProductStory() {
       </div>
 
       <div className="story-mobile mobile-only">
-        <div className="story-tabs" role="tablist">
+        <div className="story-tabs" role="tablist" aria-label="Explore app features">
           {config.story.map((stage, i) => (
             <button
               key={`tab-${stage.id}`}
+              id={`story-tab-${stage.id}`}
+              type="button"
+              ref={(element) => { tabRefs.current[i] = element; }}
               role="tab"
               aria-selected={activeStage === i}
+              aria-controls="story-mobile-panel"
+              tabIndex={activeStage === i ? 0 : -1}
               className={`story-tab ${activeStage === i ? 'active' : ''}`}
               onClick={() => setActiveStage(i)}
+              onKeyDown={(event) => handleTabKeyDown(event, i)}
             >
               {stage.id === 'plan' ? 'Plan' : stage.id === 'log' ? 'Log' : 'Progress'}
             </button>
           ))}
         </div>
         
-        <div className="story-stage-content">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeStage}
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-              className="story-stage-animated-text"
-            >
-              <span className="story-stage-category-mobile">{STAGE_CATEGORIES[activeStage]}</span>
-              <h3>{config.story[activeStage].title}</h3>
-              <p>{config.story[activeStage].description}</p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="story-phone-preview">
-          <PhoneFrame tiltOnHover={false}>
-            <div className="story-screen-viewport">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeStage}
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-                  className="screen-container"
-                >
-                  {renderScreen()}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </PhoneFrame>
+        <div
+          id="story-mobile-panel"
+          role="tabpanel"
+          aria-labelledby={`story-tab-${activeStory.id}`}
+          tabIndex={0}
+          className="story-mobile-panel"
+        >
+          <div className="story-stage-content">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={activeStory.id}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+                className="story-stage-animated-text"
+              >
+                <span className="story-stage-category-mobile">{STAGE_CATEGORIES[activeStage]}</span>
+                <h3>{activeStory.title}</h3>
+                <p>{activeStory.description}</p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="story-phone-preview">
+            <PhoneFrame tiltOnHover={false}>
+              <div className="story-screen-viewport">
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={activeStory.id}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -10 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+                    className="screen-container"
+                  >
+                    {renderScreen()}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </PhoneFrame>
+          </div>
         </div>
       </div>
     </section>

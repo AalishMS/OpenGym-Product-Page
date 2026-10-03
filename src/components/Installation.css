@@ -1,0 +1,97 @@
+.installation-section {
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.installation-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.installation-header h2 {
+  font: 700 var(--text-heading)/1.15 var(--font-display);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-md);
+}
+
+.installation-description,
+.installation-steps p {
+  color: var(--color-text-secondary);
+}
+
+.installation-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.installation-version {
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+}
+
+.installation-release-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  font-size: var(--text-small);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.installation-release-link:hover {
+  color: var(--color-text-primary);
+}
+
+.installation-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xl);
+  list-style: decimal;
+}
+
+.installation-steps li {
+  display: block;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
+}
+
+.installation-step-number {
+  display: block;
+  color: var(--color-accent);
+  font: 600 var(--text-small)/1.6 var(--font-mono);
+  margin-bottom: var(--space-md);
+}
+
+.installation-steps h3 {
+  font: 600 1rem/1.4 var(--font-display);
+  margin-bottom: var(--space-sm);
+}
+
+.installation-steps p {
+  font-size: var(--text-small);
+}
+
+@media (max-width: 1023px) {
+  .installation-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .installation-header {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .installation-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+}

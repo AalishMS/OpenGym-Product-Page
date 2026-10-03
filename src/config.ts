@@ -3,6 +3,8 @@
  * All copy, URLs, and asset paths are managed here for easy updates.
  */
 
+import { releases } from './releases';
+
 export const config = {
   brand: {
     name: 'OpenGym',
@@ -12,12 +14,55 @@ export const config = {
 
   links: {
     // Direct link to the latest published APK file on GitHub Releases.
-    download:
-      'https://github.com/AalishMS/OpenGym/releases/download/v1.0.9%2B10/OpenGym-v1.0.9-10.apk',
+    download: releases[0].apkUrl,
     // Latest GitHub release page.
-    latestRelease:
-      'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.9%2B10',
+    latestRelease: releases[0].url,
     repository: 'https://github.com/AalishMS/OpenGym',
+  },
+
+  releasePage: {
+    checkedAt: 'October 3, 2026',
+  },
+
+  hero: {
+    eyebrow: 'YOUR TRAINING. YOUR TERMS.',
+    productLabel: 'Workout tracking for Android',
+    description:
+      'Plan your workouts, log weight, reps, and RPE, and follow your progress.',
+    signInNote: 'An internet connection is required to sign in on first launch.',
+    downloadLabel: 'Download for Android',
+    exploreLabel: 'Explore the app',
+    versionLabel: 'Android APK',
+    caption: 'Your session, at a glance · Sample data',
+    details: ['Offline after sign-in', 'Open source', 'Local-first data'],
+  },
+
+  installation: {
+    linkLabel: 'Installation help',
+    eyebrow: 'READY FOR YOUR NEXT SESSION',
+    title: 'Install OpenGym on Android.',
+    description: 'Download the APK directly from GitHub Releases.',
+    releaseLabel: 'View release details',
+    steps: [
+      {
+        title: 'Download the APK',
+        description: 'Tap Download for Android and save the APK file to your phone.',
+      },
+      {
+        title: 'Open the downloaded file',
+        description: 'Open the APK from your browser’s downloads or your Files app.',
+      },
+      {
+        title: 'Allow installation when prompted',
+        description:
+          'Android may ask you to allow this browser or Files app to install apps. Allow this source for the installation, then turn the permission off again afterward.',
+      },
+      {
+        title: 'Sign in and start training',
+        description:
+          'Connect to the internet for your first sign-in. After that, you can plan, log, and review workouts offline.',
+      },
+    ],
   },
 
   meta: {

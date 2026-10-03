@@ -5,6 +5,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
+    if (!open) return;
     const close = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
@@ -13,17 +14,30 @@ export function Header() {
     };
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
+  }, [open]);
+  useEffect(() => {
+    const close = () => setOpen(false);
+    const desktop = window.matchMedia('(min-width: 768px)');
+    window.addEventListener('hashchange', close);
+    desktop.addEventListener('change', close);
+    return () => {
+      window.removeEventListener('hashchange', close);
+      desktop.removeEventListener('change', close);
+    };
   }, []);
   return (
-    <header className="header header--scrolled">
+    <header className="header header--scrolled" onBlur={(event) => {
+      if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+    }}>
       <div className="container header-container">
         <a href="#" className="header-logo" onClick={() => setOpen(false)}>
           <span className="header-logo-accent">&gt;</span> OpenGym
         </a>
         <button
           ref={toggle}
+          type="button"
           className="header-menu-toggle"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((previous) => !previous)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="site-navigation"
@@ -34,15 +48,14 @@ export function Header() {
           id="site-navigation"
           className={`site-navigation ${open ? 'is-open' : ''}`}
           aria-label="Main navigation"
-          onClick={() => setOpen(false)}
         >
-          <a href="#features" className="header-link">
+          <a href="#features" className="header-link" onClick={() => setOpen(false)}>
             Features
           </a>
-          <a href="#personalization" className="header-link">
+          <a href="#personalization" className="header-link" onClick={() => setOpen(false)}>
             Make it yours
           </a>
-          <a href="#/releases" className="header-link">
+          <a href="#/releases" className="header-link" onClick={() => setOpen(false)}>
             Releases
           </a>
           <a
@@ -50,6 +63,7 @@ export function Header() {
             className="header-cta"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
           >
             Download for Android ↗
           </a>

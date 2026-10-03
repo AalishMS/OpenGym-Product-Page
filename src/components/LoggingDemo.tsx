@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import './LoggingDemo.css';
 
 export default function LoggingDemo() {
   const [weight, setWeight] = useState(70);
   const [reps, setReps] = useState(8);
   const [completed, setCompleted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   // Epley formula: 1RM = w * (1 + r/30)
   const epley1RM = weight * (1 + reps / 30);
@@ -16,7 +17,7 @@ export default function LoggingDemo() {
       <div className="demo-header">
         <h2 className="demo-title">Try it yourself</h2>
         <div className="demo-subtitle">
-          <span className="info-icon">i</span> Interactive preview with sample data
+          <span className="info-icon" aria-hidden="true">i</span> Interactive preview with sample data
         </div>
       </div>
 
@@ -38,10 +39,10 @@ export default function LoggingDemo() {
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={`w-${weight}`}
-                  initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                  initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8, y: shouldReduceMotion ? 0 : -10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                  transition={{ duration: 0.15 }}
+                  exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8, y: shouldReduceMotion ? 0 : 10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
                 >
                   {weight}
                 </motion.span>
@@ -71,10 +72,10 @@ export default function LoggingDemo() {
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={`r-${reps}`}
-                  initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                  initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8, y: shouldReduceMotion ? 0 : -10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                  transition={{ duration: 0.15 }}
+                  exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.8, y: shouldReduceMotion ? 0 : 10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
                 >
                   {reps}
                 </motion.span>
@@ -94,6 +95,7 @@ export default function LoggingDemo() {
 
         <button 
           className={`demo-complete-btn ${completed ? 'completed' : ''}`}
+          aria-pressed={completed}
           onClick={() => setCompleted(!completed)}
         >
           {completed ? 'Set completed ✓' : 'Complete set'}

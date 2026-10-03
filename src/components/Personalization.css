@@ -4,9 +4,9 @@
 }
 .personalization-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 0 80px;
+  gap: 0 clamp(32px, 5vw, 80px);
 }
 .personalization-header {
   grid-column: 1;
@@ -46,6 +46,8 @@
 }
 .theme-toggle {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   gap: 4px;
   padding: 4px;
   background: var(--color-surface);
@@ -71,6 +73,12 @@
 .theme-btn.active {
   color: var(--color-bg);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-btn.active {
+    background: var(--color-text-primary);
+  }
+}
 .theme-btn-active-pill {
   position: absolute;
   inset: 0;
@@ -88,13 +96,13 @@
 }
 .accent-picker {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 10px;
   max-width: 100%;
 }
 .accent-swatch {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   border-radius: 50%;
   background: var(--swatch-color);
@@ -106,9 +114,6 @@
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition:
-    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    outline 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .accent-swatch.selected {
   outline: 2px solid var(--swatch-color);
@@ -138,6 +143,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  overflow-wrap: anywhere;
 }
 .selection-dot {
   width: 8px;
@@ -159,8 +165,7 @@
   border-radius: 24px;
   transition:
     background-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    border-color 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 20px 60px -15px color-mix(in srgb, var(--selected-accent) 18%, transparent);
 }
 .personalization-phone-stage {
@@ -171,7 +176,6 @@
 .personalization-phone-layer {
   width: 100%;
   border-radius: 36px;
-  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .personalization-phone-layer .phone-frame {
   width: 100%;
@@ -187,7 +191,7 @@
   height: 100%;
 }
 .personalization-preview > p {
-  font: 500 11px var(--font-mono);
+  font: 500 12px var(--font-mono);
   color: var(--color-text-secondary);
   margin-top: 18px;
   letter-spacing: 0.02em;
@@ -231,7 +235,7 @@
     border-radius: 24px;
   }
   .personalization-phone-stage {
-    width: min(300px, 86vw);
+    width: min(300px, 100%);
   }
   .personalization-phone-layer {
     border-radius: 32px;
@@ -241,7 +245,7 @@
     border-radius: 32px;
   }
   .personalization-preview > p {
-    font-size: 10px;
+    font-size: 12px;
     margin-top: 8px;
   }
   .personalization-controls {
@@ -266,7 +270,7 @@
   }
   .control-label {
     margin-bottom: 4px;
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     letter-spacing: 0.02em;
   }
@@ -281,10 +285,6 @@
   .accent-picker {
     gap: 8px;
     justify-content: center;
-  }
-  .accent-swatch {
-    width: 32px;
-    height: 32px;
   }
   .accent-check-icon {
     font-size: 13px;
@@ -301,17 +301,13 @@
 
 @media (max-width: 350px) {
   .personalization-phone-stage {
-    width: min(260px, 84vw);
+    width: min(260px, 100%);
   }
   .accent-picker {
     gap: 5px;
   }
-  .accent-swatch {
-    width: 28px;
-    height: 28px;
-  }
   .theme-btn {
     padding: 5px 10px;
-    font-size: 11px;
+    font-size: 12px;
   }
 }

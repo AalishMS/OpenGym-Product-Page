@@ -4,6 +4,9 @@
   min-height: 80vh;
 }
 .release-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-text-secondary);
   font-size: 13px;
 }
@@ -54,6 +57,9 @@
   margin-bottom: 30px;
 }
 .release-source a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -78,7 +84,7 @@
   background: var(--color-accent-muted);
   border-radius: 5px;
   padding: 3px 8px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .release-meta time {
   color: var(--color-text-secondary);
@@ -108,6 +114,16 @@
 }
 .release-links a:hover {
   text-decoration: underline;
+}
+
+.release-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.release-back:hover {
+  color: var(--color-text-primary);
 }
 .release-empty {
   text-align: center;

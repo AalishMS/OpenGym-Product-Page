@@ -43,7 +43,7 @@ export function Releases() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Download APK (v1.0.9+10) ↗
+          Download APK ({releases[0].version}) ↗
         </a>
       </div>
       <div className="release-toolbar">
@@ -57,7 +57,8 @@ export function Releases() {
         />
       </div>
       <p className="release-source">
-        Summarized from GitHub releases and commits · Checked September 12, 2026.{' '}
+        Summarized from GitHub releases and commits · Checked{' '}
+        {config.releasePage.checkedAt}.{' '}
         <a
           href={`${config.links.repository}/releases`}
           target="_blank"

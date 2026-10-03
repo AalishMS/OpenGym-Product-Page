@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { AppMockup } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
 import { config } from '../config';
+import { releases } from '../releases';
 import './Hero.css';
 
 export function Hero() {
@@ -52,16 +53,18 @@ export function Hero() {
           animate="show"
         >
           <motion.p className="eyebrow" variants={itemFadeUp}>
-            YOUR TRAINING. YOUR TERMS.
+            {config.hero.eyebrow}
           </motion.p>
           <motion.h1 className="hero-headline" variants={itemFadeUp}>
             Make <span className="hero-accent">every</span>
             <br />
             set count.
           </motion.h1>
+          <motion.p className="hero-product-label" variants={itemFadeUp}>
+            {config.hero.productLabel}
+          </motion.p>
           <motion.p className="hero-subheading" variants={itemFadeUp}>
-            Sign in on first launch, then plan, log, and review your training
-            with local-first data that stays available offline.
+            {config.hero.description}
           </motion.p>
           <motion.div className="hero-actions" variants={itemFadeUp}>
             <a
@@ -70,16 +73,21 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Download for Android
+              {config.hero.downloadLabel}
             </a>
             <a href="#features" className="btn btn-secondary">
-              Explore the app ↓
+              {config.hero.exploreLabel} <span aria-hidden="true">↓</span>
             </a>
           </motion.div>
+          <motion.div className="hero-download-info" variants={itemFadeUp}>
+            <p>{config.hero.signInNote}</p>
+            <div className="hero-download-meta">
+              <span>{config.hero.versionLabel} · {releases[0].version}</span>
+              <a href="#installation">{config.installation.linkLabel}</a>
+            </div>
+          </motion.div>
           <motion.div className="hero-details" variants={itemFadeUp}>
-            <span>Offline after sign-in</span>
-            <span>Open source</span>
-            <span>Local-first data</span>
+            {config.hero.details.map((detail) => <span key={detail}>{detail}</span>)}
           </motion.div>
         </motion.div>
 
@@ -94,7 +102,7 @@ export function Hero() {
               <AppMockup screen="log" theme="light" />
             </PhoneFrame>
             <div className="hero-phone-caption">
-              Your session, at a glance · Sample data
+              {config.hero.caption}
             </div>
           </motion.div>
         </div>

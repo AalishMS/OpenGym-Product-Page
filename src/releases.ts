@@ -1,6 +1,25 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
-// Last checked: 2026-09-12. Add new releases here, newest first.
+// Last checked: 2026-10-03. Add new releases here, newest first.
 export const releases = [
+  {
+    version: 'v1.0.10+11',
+    date: '2026-10-02',
+    title: 'Your next workout. A clearer training log.',
+    changes: [
+      'Redesigned the home screen around your next workout, weekly activity, and clearer plan cards.',
+      'Added plan reordering and refined workout week navigation and exercise reordering.',
+      'Reshaped the workout screen into a continuous training log with clearer set rows and visible workout actions.',
+      'Improved the training journal and workout detail layouts, including editing and deletion controls.',
+      'Added a first-open introduction, a guided tour, and tutorial replay.',
+      'Made sync status visible and fixed timestamp handling when pulling account data.',
+      'Improved password recovery, guarded asynchronous changes, and preserved workout drafts when saving fails.',
+      'Refined accessibility, tap targets, and theme controls, and made weekly volume include all exercises by default.',
+      'Limited the settings data-clearing action to the current split.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.10%2B11',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.9+10...v1.0.10+11',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.10%2B11/OpenGym-v1.0.10-11.apk',
+  },
   {
     version: 'v1.0.9+10',
     date: '2026-09-11',

@@ -16,8 +16,9 @@ export function Footer() {
           >
             <h2 className="footer-headline">Your next session starts here.</h2>
             <a href={config.links.download} className="btn btn-primary footer-btn" target="_blank" rel="noopener noreferrer">
-              Download for Android
+              {config.hero.downloadLabel}
             </a>
+            <a className="footer-installation-link" href="#installation">{config.installation.linkLabel}</a>
           </motion.div>
         </div>
       </section>

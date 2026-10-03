@@ -141,6 +141,7 @@
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -168,6 +169,21 @@ button {
   border: none;
   background: none;
   color: inherit;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+button,
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(169, 202, 232, 0.2);
+  scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 a {
@@ -215,7 +231,37 @@ ol {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  padding-left: max(clamp(1.25rem, 4vw, 3rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1.25rem, 4vw, 3rem), env(safe-area-inset-right));
+}
+
+.eyebrow {
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  letter-spacing: 0.13em;
+  color: var(--color-accent);
+  margin-bottom: 22px;
+}
+
+section[id],
+#main,
+[role='tabpanel'] {
+  scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  z-index: 200;
+  transform: translateY(-150%);
+  background: var(--color-accent);
+  color: var(--color-text-dark);
+  padding: 10px 20px;
+  min-height: 44px;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .container--narrow {

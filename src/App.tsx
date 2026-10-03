@@ -8,8 +8,8 @@ import LoggingDemo from './components/LoggingDemo';
 import { OfflineSection } from './components/OfflineSection';
 import { Personalization } from './components/Personalization';
 import { FAQ } from './components/FAQ';
+import { Installation } from './components/Installation';
 import { Footer } from './components/Footer';
-import './polish.css';
 
 function App() {
   const [isReleases, setIsReleases] = useState(
@@ -36,7 +36,7 @@ function App() {
         Skip to content
       </a>
       <Header />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         {isReleases ? (
           <Releases />
         ) : (
@@ -46,6 +46,7 @@ function App() {
             <LoggingDemo />
             <OfflineSection />
             <Personalization />
+            <Installation />
             <FAQ />
           </>
         )}

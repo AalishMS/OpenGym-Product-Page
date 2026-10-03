@@ -41,13 +41,7 @@ export function Personalization() {
           }
         >
           <div className="personalization-phone-stage">
-            <motion.div
-              className="personalization-phone-layer"
-              animate={{
-                boxShadow: `0 20px 60px -15px ${previewTone(accent.seed, theme === 'dark')}33`,
-              }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
+            <div className="personalization-phone-layer">
               <PhoneFrame tiltOnHover={true}>
                 <div className="personalization-screen-viewport">
                   <AnimatePresence mode="wait">
@@ -71,7 +65,7 @@ export function Personalization() {
                   </AnimatePresence>
                 </div>
               </PhoneFrame>
-            </motion.div>
+            </div>
           </div>
           <p>Live theme preview · Sample data</p>
         </div>

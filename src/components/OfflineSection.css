@@ -130,6 +130,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: var(--text-small);
+  gap: 12px;
 }
 
 .exercise-name {
@@ -139,6 +140,7 @@
 
 .exercise-sets {
   color: var(--color-text-dark-secondary);
+  flex-shrink: 0;
 }
 
 .workout-card-footer {
