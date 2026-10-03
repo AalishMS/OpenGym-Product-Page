@@ -37,6 +37,30 @@ export const config = {
     details: ['Offline after sign-in', 'Open source', 'Local-first data'],
   },
 
+  offline: {
+    eyebrow: 'OFFLINE TRAINING',
+    headline: ['No signal.', 'Keep lifting.'],
+    description:
+      'Your plans, sets, and history stay on your phone. Log your workout wherever you train, even when the gym’s Wi-Fi gives up.',
+    signInNote: 'Connect once to sign in. Then you can train offline.',
+    details: [
+      { title: 'Reconnect when you’re ready', description: 'Supported workout data can sync when you’re back online.' },
+      { title: 'Keep a copy of your own', description: 'Export your plans, sessions, and settings as a JSON backup.' },
+    ],
+    demo: {
+      caption: 'Try it · Sample workout',
+      switchLabel: 'Offline mode',
+      offlineStatus: 'No connection',
+      onlineStatus: 'Connected',
+      date: 'Sep 3',
+      exerciseLabel: 'Exercise',
+      setsLabel: 'sets logged',
+      columns: ['Set', 'kg', 'Reps', 'RPE'],
+      savedLabel: 'Saved on your phone',
+      savedNote: 'Your log stays, with or without a connection.',
+    },
+  },
+
   installation: {
     linkLabel: 'Installation help',
     eyebrow: 'READY FOR YOUR NEXT SESSION',

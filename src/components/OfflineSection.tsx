@@ -1,118 +1,115 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import './OfflineSection.css';
 import { config } from '../config';
+import './OfflineSection.css';
 
 export function OfflineSection() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: 20, rotate: 0 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      rotate: 2,
-      transition: { duration: 0.8, ease: "easeOut" as const }
-    }
-  };
+  const [isOffline, setIsOffline] = useState(true);
+  const { offline, sampleWorkout } = config;
+  const exercise = sampleWorkout.exercises[0];
+  const nextExercise = sampleWorkout.exercises[1];
 
   return (
-    <section id="offline" className="offline-section">
+    <section id="offline" className="offline-section" aria-labelledby="offline-heading">
       <div className="container">
-        <div className="offline-content">
-          
-          <motion.div 
-            className="offline-text"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
-          >
-            <motion.h2 className="offline-headline" variants={itemVariants}>
-              Your training doesn’t need a signal.
-            </motion.h2>
-            <motion.p className="offline-body" variants={itemVariants}>
-              OpenGym requires account sign-in on first launch. After that,
-              your plans, sessions, and history live on your device first and
-              stay usable without a connection. Supported workout data can
-              sync when you are online, and JSON export gives you a separate
-              backup you control.
-            </motion.p>
+        <motion.div
+          className="offline-content"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.45 }}
+        >
+          <div className="offline-text">
+            <p className="offline-eyebrow">{offline.eyebrow}</p>
+            <h2 id="offline-heading" className="offline-headline">
+              <span>{offline.headline[0]}</span>
+              <span>{offline.headline[1]}</span>
+            </h2>
+            <p className="offline-body">{offline.description}</p>
+            <p className="offline-sign-in">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 11V7a3 3 0 0 1 6 0v4" />
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M12 15v2" />
+              </svg>
+              {offline.signInNote}
+            </p>
+            <dl className="offline-details">
+              {offline.details.map((detail) => (
+                <div key={detail.title}>
+                  <dt>{detail.title}</dt>
+                  <dd>{detail.description}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
 
-            <motion.div className="feature-pills" variants={containerVariants}>
-              <motion.div className="feature-pill" variants={itemVariants}>
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                </svg>
-                <span>Local-first storage</span>
-              </motion.div>
-              <motion.div className="feature-pill" variants={itemVariants}>
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.27l-5.32 5.32"></path>
-                </svg>
-                <span>Offline after sign-in</span>
-              </motion.div>
-              <motion.div className="feature-pill" variants={itemVariants}>
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <span>JSON backup</span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          <motion.div 
-            className="offline-visual"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={cardVariants}
-          >
-            <div className="workout-card">
-              <div className="workout-card-header">
-                <h3>{config.sampleWorkout.planName} &middot; Sep 3</h3>
-                <div className="offline-indicator">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                    <polyline points="9 16 12 19 15 16"></polyline>
-                    <line x1="12" y1="11" x2="12" y2="19"></line>
+          <div className="offline-visual">
+            <div className="offline-demo-caption">{offline.demo.caption}</div>
+            <div className="offline-log">
+              <div className="offline-connection">
+                <span className="offline-network" data-connected={!isOffline} aria-live="polite">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                    <path d="M3 8a15 15 0 0 1 18 0M6 12a10 10 0 0 1 12 0M9 16a5 5 0 0 1 6 0" />
+                    <circle cx="12" cy="20" r=".6" fill="currentColor" />
+                    {isOffline && <path d="m3 3 18 18" />}
                   </svg>
-                  <span>Saved locally</span>
+                  {isOffline ? offline.demo.offlineStatus : offline.demo.onlineStatus}
+                </span>
+                <button
+                  type="button"
+                  className="offline-mode-toggle"
+                  role="switch"
+                  aria-checked={isOffline}
+                  onClick={() => setIsOffline((current) => !current)}
+                >
+                  <span>{offline.demo.switchLabel}</span>
+                  <span className="offline-switch-track" aria-hidden="true"><span /></span>
+                </button>
+              </div>
+
+              <div className="offline-log-page">
+                <div className="offline-log-heading">
+                  <h3>{sampleWorkout.planName}</h3>
+                  <span>{offline.demo.date}</span>
+                </div>
+                <div className="offline-exercise-heading">
+                  <span>{offline.demo.exerciseLabel}</span>
+                  <h4>{exercise.name}</h4>
+                </div>
+                <table className="offline-set-table">
+                  <thead>
+                    <tr>{offline.demo.columns.map((column) => <th key={column} scope="col">{column}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {exercise.sets.map((set) => (
+                      <tr key={set.set}>
+                        <th scope="row"><span className="offline-set-check" aria-hidden="true">✓</span>{set.set}</th>
+                        <td>{set.weight}</td>
+                        <td>{set.reps}</td>
+                        <td>{set.rpe}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="offline-next-exercise">
+                  <span>{nextExercise.name}</span>
+                  <span>{nextExercise.sets.length} {offline.demo.setsLabel}</span>
+                </div>
+                <div className="offline-save-status">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="6" y="2" width="12" height="20" rx="2" />
+                    <path d="m9 11 2 2 4-4M11 18h2" />
+                  </svg>
+                  <div>
+                    <strong>{offline.demo.savedLabel}</strong>
+                    <p>{offline.demo.savedNote}</p>
+                  </div>
                 </div>
               </div>
-              
-              <div className="workout-card-body">
-                {config.sampleWorkout.exercises.slice(0, 2).map((exercise, index) => (
-                  <div key={index} className="exercise-row">
-                    <span className="exercise-name">{exercise.name}</span>
-                    <span className="exercise-sets">&mdash; {exercise.sets.length} sets</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="workout-card-footer">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                </svg>
-                <span>Saved on this device</span>
-              </div>
             </div>
-          </motion.div>
-
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
