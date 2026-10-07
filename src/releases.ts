@@ -1,6 +1,25 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
-// Last checked: 2026-10-03. Add new releases here, newest first.
+// Last checked: 2026-10-07. Add new releases here, newest first.
 export const releases = [
+  {
+    version: 'v1.0.11+12',
+    date: '2026-10-07',
+    title: 'A faster keypad. A calmer plan editor.',
+    changes: [
+      'Redesigned the set keypad with rectangular keys and a tall Next key, and kept the set you are editing visible above it.',
+      'Closed the keypad when tapping outside it, and fixed an input lock that could follow closing it with Back.',
+      'Added fluid swipe transitions between workout plans, with set rows that stay fixed while you swipe.',
+      'Refreshed the plan editor and exercise picker layout, and made Done in the picker step back to muscle groups.',
+      'Added a workout activity heatmap on Statistics that shows the days you trained.',
+      'Separated splits from actions in the split menu and decluttered the workout preset browser.',
+      'Showed previous sets in the workout log again and removed the horizontal scrolling from the set table.',
+      'Showed an offline message instead of raw network errors when signing in.',
+      'Requested the highest available screen refresh rate automatically.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.11%2B12',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.10+11...v1.0.11+12',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.11%2B12/OpenGym-v1.0.11-12.apk',
+  },
   {
     version: 'v1.0.10+11',
     date: '2026-10-02',

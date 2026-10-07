@@ -13,7 +13,7 @@ export function Releases() {
   );
 
   useEffect(() => {
-    document.title = 'Releases · OpenGym';
+    document.title = 'OpenGym Releases · Free Android Gym App Updates';
     return () => {
       document.title = config.meta.title;
     };

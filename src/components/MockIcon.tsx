@@ -20,6 +20,8 @@ const paths = {
   note: 'M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5M2 7h4M2 12h4M2 17h4m7-8 7-7a2 2 0 0 1 3 3l-7 7-4 1 1-4Z',
   trash: 'M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7',
   close: 'M18 6 6 18M6 6l12 12',
+  copy: 'M10 8h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2ZM4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2',
+  keyboard: 'M4 4h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h8M9 20l3 2 3-2',
 } as const;
 export function MockIcon({ name }: { name: keyof typeof paths }) {
   return (

@@ -7,32 +7,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href="https://open-gym-product-page.vercel.app/" />
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin />
-    <meta name="description" content="Sign in on first launch, then plan workouts, log lifts, and review local-first training data offline." />
+    <meta name="description" content="OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight and reps, track PRs, and keep your data local." />
+    <meta name="keywords" content="OpenGym, free gym app, gym app, open source workout tracker android, offline gym tracker apk, local-first workout log, lifting tracker, fitness journal" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="OpenGym" />
     <meta name="theme-color" content="#0D0D0D" />
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://open-gym-product-page.vercel.app/" />
     <meta property="og:site_name" content="OpenGym" />
-    <meta property="og:title" content="> OpenGym — Make every set count." />
-    <meta property="og:description" content="Sign in on first launch, then plan workouts, log lifts, and review local-first training data offline." />
+    <meta property="og:title" content="OpenGym — Free Open-Source Gym App &amp; Offline Workout Tracker" />
+    <meta property="og:description" content="OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight and reps, track PRs, and keep your data local." />
     <meta property="og:image" content="https://open-gym-product-page.vercel.app/og-image.png" />
     <meta property="og:image:secure_url" content="https://open-gym-product-page.vercel.app/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="OpenGym — local-first workout tracking for Android, available offline after sign-in." />
+    <meta property="og:image:alt" content="OpenGym — Free open-source gym app and offline workout tracker for Android." />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://open-gym-product-page.vercel.app/" />
-    <meta name="twitter:title" content="> OpenGym — Make every set count." />
-    <meta name="twitter:description" content="Sign in on first launch, then plan workouts, log lifts, and review local-first training data offline." />
+    <meta name="twitter:title" content="OpenGym — Free Open-Source Gym App &amp; Offline Workout Tracker" />
+    <meta name="twitter:description" content="OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight and reps, track PRs, and keep your data local." />
     <meta name="twitter:image" content="https://open-gym-product-page.vercel.app/og-image.png" />
-    <meta name="twitter:image:alt" content="OpenGym — local-first workout tracking for Android, available offline after sign-in." />
+    <meta name="twitter:image:alt" content="OpenGym — Free open-source gym app and offline workout tracker for Android." />
+
+    <!-- Structured Data (JSON-LD) for Search Engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://open-gym-product-page.vercel.app/#website",
+            "url": "https://open-gym-product-page.vercel.app/",
+            "name": "OpenGym",
+            "description": "Free open-source gym app and offline workout tracker for Android.",
+            "publisher": {
+              "@type": "Organization",
+              "name": "OpenGym",
+              "url": "https://github.com/AalishMS/OpenGym"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://open-gym-product-page.vercel.app/#application",
+            "name": "OpenGym",
+            "operatingSystem": "Android",
+            "applicationCategory": "HealthApplication, SportsApplication",
+            "description": "OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight, reps, and RPE, and track progress offline.",
+            "image": "https://open-gym-product-page.vercel.app/og-image.png",
+            "url": "https://open-gym-product-page.vercel.app/",
+            "downloadUrl": "https://github.com/AalishMS/OpenGym/releases",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Free and open-source gym app",
+              "Offline-first workout tracking",
+              "Rep, weight, and RPE logging",
+              "Custom workout routines and splits",
+              "Local data storage and JSON export",
+              "Session rest timer and PR tracking"
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://open-gym-product-page.vercel.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Does the app work without an internet connection?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A connection is required to sign in on first launch. After that, your workout data is stored locally first, so you can create plans, log workouts, and review your history without a connection."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does syncing work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "When you are online, OpenGym can sync supported account data—including your workout splits, plans, and sessions—in the background. Offline changes stay on your device and can sync after connectivity returns. App settings are not included in cloud sync; use a JSON export when you want a separate, user-controlled backup."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I create my own workout plans?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. You can build custom plans from scratch by choosing exercises from the built-in library or typing custom exercise names. You can also start from bundled workout programs that install a complete weekly schedule."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I export my data?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. OpenGym supports full data export and import through JSON files. You can back up all your plans, sessions, and settings, and restore them on another device."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I install the app?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "OpenGym is distributed as an Android APK through GitHub Releases. Download the latest release, open the file, and follow the Android installation prompts. The app will notify you of updates from within the app."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is the app free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "OpenGym is an open-source project. The source code is available on GitHub and completely free to use."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
 
     <!-- Fonts: Space Grotesk (display) + Inter (body) + JetBrains Mono (data) -->
-    <title>> OpenGym — Make every set count.</title>
+    <title>OpenGym — Free Open-Source Gym App &amp; Offline Workout Tracker</title>
   </head>
   <body>
     <div id="root"></div>

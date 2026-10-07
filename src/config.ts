@@ -21,12 +21,12 @@ export const config = {
   },
 
   releasePage: {
-    checkedAt: 'October 3, 2026',
+    checkedAt: 'October 7, 2026',
   },
 
   hero: {
     eyebrow: 'YOUR TRAINING. YOUR TERMS.',
-    productLabel: 'Workout tracking for Android',
+    productLabel: 'Free open-source gym app for Android',
     description:
       'Plan your workouts, log weight, reps, and RPE, and follow your progress.',
     signInNote: 'An internet connection is required to sign in on first launch.',
@@ -34,7 +34,7 @@ export const config = {
     exploreLabel: 'Explore the app',
     versionLabel: 'Android APK',
     caption: 'Your session, at a glance · Sample data',
-    details: ['Offline after sign-in', 'Open source', 'Local-first data'],
+    details: ['Offline after sign-in', 'Free & open source', 'Local-first data'],
   },
 
   offline: {
@@ -90,9 +90,11 @@ export const config = {
   },
 
   meta: {
-    title: '> OpenGym — Make every set count.',
+    title: 'OpenGym — Free Open-Source Gym App & Offline Workout Tracker',
     description:
-      'Sign in on first launch, then plan workouts, log lifts, and review local-first training data offline.',
+      'OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight and reps, track PRs, and keep your data local.',
+    keywords:
+      'OpenGym, free gym app, gym app, open source workout tracker android, offline gym tracker apk, local-first workout log, lifting tracker, fitness journal',
     ogImage: 'https://open-gym-product-page.vercel.app/og-image.png',
     themeColor: '#0D0D0D',
   },
@@ -115,31 +117,30 @@ export const config = {
 
   /** Sample workout data used across the page for visual consistency. */
   sampleWorkout: {
-    planName: 'Push Day',
+    planName: 'Leg Day',
     exercises: [
       {
-        name: 'Bench Press',
+        name: 'Squat',
         sets: [
-          { set: 1, weight: 70, reps: 8, rpe: 8 },
-          { set: 2, weight: 70, reps: 8, rpe: 8 },
-          { set: 3, weight: 70, reps: 7, rpe: 9 },
-          { set: 4, weight: 70, reps: 5, rpe: 10 },
+          { set: 1, weight: 100, reps: 6, rpe: 8 },
+          { set: 2, weight: 100, reps: 6, rpe: 9 },
+          { set: 3, weight: 100, reps: 5, rpe: 10 },
         ],
       },
       {
-        name: 'Incline Dumbbell Press',
+        name: 'Romanian Deadlift',
         sets: [
-          { set: 1, weight: 32, reps: 10, rpe: 7 },
-          { set: 2, weight: 32, reps: 10, rpe: 8 },
-          { set: 3, weight: 32, reps: 8, rpe: 9 },
+          { set: 1, weight: 80, reps: 8, rpe: 7 },
+          { set: 2, weight: 80, reps: 8, rpe: 8 },
+          { set: 3, weight: 80, reps: 6, rpe: 9 },
         ],
       },
       {
-        name: 'Overhead Press',
+        name: 'Leg Press',
         sets: [
-          { set: 1, weight: 50, reps: 8, rpe: 7 },
-          { set: 2, weight: 50, reps: 8, rpe: 8 },
-          { set: 3, weight: 50, reps: 6, rpe: 9 },
+          { set: 1, weight: 180, reps: 12, rpe: 7 },
+          { set: 2, weight: 180, reps: 12, rpe: 8 },
+          { set: 3, weight: 180, reps: 10, rpe: 9 },
         ],
       },
     ],
@@ -222,57 +223,82 @@ export const config = {
     },
     {
       q: 'Is the app free?',
-      a: 'OpenGym is an open-source project. The source code is available on GitHub.',
+      a: 'OpenGym is an open-source project. The source code is available on GitHub and completely free to use.',
     },
   ],
 } as const;
 
-/** Sample content from OpenGym screenshots at mobile app commit 065b293. */
+/** Sample content mirroring the OpenGym screenshots at mobile app commit 2dbc46d. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
-    split: 'My split', next: 'Next up', startWorkout: 'Start workout',
-    thisWeek: 'This week', weeklySummary: '2 workouts · 24 sets',
+    split: 'Powerbuilding PPLUL…', next: 'Next up', lastTrained: 'Last: yesterday',
+    startWorkout: 'Start workout', nextBadge: 'Next',
+    thisWeek: 'This week', weeklySummary: '2 workouts · 40 sets',
     yourPlans: 'Your plans', manage: 'Manage',
     set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE',
-    start: 'Start', addSet: 'Add set', week: 'Week', nextField: 'Next', save: 'Save',
+    start: 'Start', addSet: 'Add set', week: 'Week', nextField: 'Next',
+    weightField: 'Weight (kg)', copyTo: 'Copy to set 2',
     statistics: 'Statistics', weeklyTraining: 'Weekly training',
     volumeLoad: 'Volume load', volumeSubtitle: 'Weight × reps · All history',
     exercise: 'Exercise', allExercises: 'All exercises',
     inProgress: 'This week · In progress', volumeAxis: 'Volume (kg)',
-    exerciseProgress: 'Exercise progress', progressExercise: 'Calf Raise',
-    metric: 'Metric', progressMetric: 'Estimated 1RM', period: 'Period', progressPeriod: '4 weeks',
+    activity: 'Activity', workouts: 'Workouts', workoutsSubtitle: 'Days you trained · Last 52 weeks',
+    legendWorkout: 'Workout', legendToday: 'Today',
+    exerciseProgress: 'Exercise progress', progressExercise: 'Leg Press',
+    metric: 'Metric', progressMetric: 'Estimated 1RM', period: 'Period', progressPeriod: '12 weeks',
+    latest: 'Latest', change: 'Change', bestInPeriod: 'Best in period',
+    perWorkout: 'Per workout', progressUnit: 'kg',
   },
   nextWorkout: {
-    name: 'Full Body',
-    groups: ['Chest', 'Back', 'Shoulders', 'Legs'],
-    summary: 'Day 5 of 5 · 6 exercises · 17 sets',
+    name: 'Leg Day',
+    groups: ['Legs'],
+    summary: 'Day 3 of 5 · 7 exercises · 23 sets',
+    dayIndex: 2,
   },
+  /** One entry per weekday; `sets` drives the bar height, as in the app. */
   activity: [
-    { day: 'M', trained: false }, { day: 'T', trained: true },
-    { day: 'W', trained: false }, { day: 'T', trained: true },
-    { day: 'F', trained: false, today: true },
-    { day: 'S', trained: false }, { day: 'S', trained: false },
+    { day: 'M', sets: 18 }, { day: 'T', sets: 22 },
+    { day: 'W', sets: 0, today: true },
+    { day: 'T', sets: 0 }, { day: 'F', sets: 0 },
+    { day: 'S', sets: 0 }, { day: 'S', sets: 0 },
   ],
   plans: [
     { name: 'Push Day', initials: 'PD', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
-    { name: 'Upper Body', initials: 'UB', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
     { name: 'Pull Day', initials: 'PD', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
-    { name: 'Leg Day', initials: 'LD', summary: '7 exercises · 21 sets', color: ['#995a00', '#da9200'] },
-    { name: 'Full Body', initials: 'FB', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
+    { name: 'Leg Day', initials: 'LD', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
+    { name: 'Upper Body', initials: 'UB', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
+    { name: 'Lower Body', initials: 'LB', summary: '6 exercises · 19 sets', color: ['#00771a', '#57b45a'] },
   ],
   workout: config.sampleWorkout,
   workoutWeek: 6,
   workoutTime: '00:00',
-  keypad: { set: 3, previous: '70 × 7', weight: 70, reps: 7, rpe: 9 },
+  keypad: { set: 1, nextSet: 2, weight: 100 },
   statistics: {
-    volume: '16,069 kg',
-    period: 'W40 · 2026 · 28 Sep 2026 – 4 Oct 2026',
+    volume: '18,642 kg',
+    period: 'W41 · 2026 · 5 Oct 2026 – 11 Oct 2026',
+    axisMax: 80,
     weeks: [
-      { week: 'W35', volume: 12.8 }, { week: 'W36', volume: 28.7 },
-      { week: 'W37', volume: 30.5 }, { week: 'W38', volume: 23.2 },
-      { week: 'W39', volume: 11.7 }, { week: 'W40', volume: 16.1 },
+      { week: 'W36', volume: 26.9 }, { week: 'W37', volume: 30.1 },
+      { week: 'W38', volume: 14.0 }, { week: 'W39', volume: 28.8 },
+      { week: 'W40', volume: 24.3 }, { week: 'W41', volume: 18.6 },
     ],
+    /** Trained weekdays (0 = Monday) for the last 15 weeks, oldest first. */
+    heatmap: [
+      [0, 1, 3, 4], [0, 2, 3, 5], [0, 1, 3, 4], [1, 2, 4, 5], [0, 1, 3, 4],
+      [0, 2, 4], [0, 1, 3, 4], [0, 1, 2, 4], [1, 3, 4, 5], [0, 1, 3, 4],
+      [0, 2, 3, 4], [0, 1, 3], [0, 1, 3, 4], [0, 2, 3, 5], [0, 1],
+    ],
+    todayColumn: 14,
+    todayRow: 2,
+    progress: {
+      latest: '200 kg', change: '+40 kg', best: '200 kg',
+      min: 150, max: 225, step: 25,
+      points: [
+        { label: '10 Sep', value: 160 }, { label: '17 Sep', value: 173 },
+        { label: '24 Sep', value: 187 }, { label: '1 Oct', value: 200 },
+      ],
+    },
   },
   screenLabels: { plan: 'Home', log: 'Workout', progress: 'Statistics', keypad: 'Keypad' },
 } as const;
