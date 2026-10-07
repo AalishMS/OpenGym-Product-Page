@@ -1,18 +1,25 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { AppMockup } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
 import { config } from '../config';
 import { releases } from '../releases';
 import './Hero.css';
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+const HEADLINE = [['Make', 'every'], ['set', 'count.']];
+
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const phoneY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   const staggerContainer = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.12, delayChildren: 0.5 },
     },
   };
 
@@ -21,7 +28,7 @@ export function Hero() {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 0.7, ease: EASE },
     },
   };
 
@@ -36,15 +43,15 @@ export function Hero() {
       y: 0,
       rotate: 0,
       transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1] as const,
+        duration: 0.9,
+        ease: EASE,
         delay: 0.4,
       },
     },
   };
 
   return (
-    <section className="hero">
+    <section className="hero" ref={sectionRef}>
       <div className="container hero-container">
         <motion.div
           className="hero-content"
@@ -55,11 +62,31 @@ export function Hero() {
           <motion.p className="eyebrow" variants={itemFadeUp}>
             {config.hero.eyebrow}
           </motion.p>
-          <motion.h1 className="hero-headline" variants={itemFadeUp}>
-            Make <span className="hero-accent">every</span>
-            <br />
-            set count.
-          </motion.h1>
+          <h1 className="hero-headline">
+            <span className="sr-only">OpenGym — Free Gym App &amp; Offline Workout Tracker. Make every set count.</span>
+            <span aria-hidden="true">
+              {HEADLINE.map((line, lineIndex) => (
+                <span className="hero-line" key={line.join(' ')}>
+                  {line.map((word, wordIndex) => {
+                    const delay = 0.08 + (lineIndex * line.length + wordIndex) * 0.09;
+                    const accent = word === 'every';
+                    return (
+                      <span className="hero-word-mask" key={word}>
+                        <motion.span
+                          className={`hero-word ${accent ? 'hero-accent' : ''}`}
+                          initial={{ y: shouldReduceMotion ? 0 : '110%', opacity: shouldReduceMotion ? 0 : 1 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{ duration: 0.8, ease: EASE, delay }}
+                        >
+                          {word}
+                        </motion.span>
+                      </span>
+                    );
+                  })}
+                </span>
+              ))}
+            </span>
+          </h1>
           <motion.p className="hero-product-label" variants={itemFadeUp}>
             {config.hero.productLabel}
           </motion.p>
@@ -82,7 +109,7 @@ export function Hero() {
           <motion.div className="hero-download-info" variants={itemFadeUp}>
             <p>{config.hero.signInNote}</p>
             <div className="hero-download-meta">
-              <span>{config.hero.versionLabel} · {releases[0].version}</span>
+              <span>{config.hero.versionLabel} · {releases[0].version} · {config.hero.updatedLabel}</span>
               <a href="#installation">{config.installation.linkLabel}</a>
             </div>
           </motion.div>
@@ -92,18 +119,20 @@ export function Hero() {
         </motion.div>
 
         <div className="hero-visual">
-          <motion.div
-            className="hero-phone-wrapper"
-            variants={phoneAnimation}
-            initial="hidden"
-            animate="show"
-          >
-            <PhoneFrame tiltOnHover={true}>
-              <AppMockup screen="log" theme="light" />
-            </PhoneFrame>
-            <div className="hero-phone-caption">
-              {config.hero.caption}
-            </div>
+          <motion.div className="hero-parallax" style={shouldReduceMotion ? undefined : { y: phoneY }}>
+            <motion.div
+              className="hero-phone-wrapper"
+              variants={phoneAnimation}
+              initial="hidden"
+              animate="show"
+            >
+              <PhoneFrame tiltOnHover={true}>
+                <AppMockup screen="log" theme="light" />
+              </PhoneFrame>
+              <div className="hero-phone-caption">
+                {config.hero.caption}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

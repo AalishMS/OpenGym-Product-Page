@@ -5,6 +5,13 @@
 
 import { releases } from './releases';
 
+const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
+  new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'UTC' }).format(new Date(date));
+
+const firstRelease = releases[releases.length - 1];
+const releaseSpanDays =
+  (Date.parse(releases[0].date) - Date.parse(firstRelease.date)) / 86_400_000;
+
 export const config = {
   brand: {
     name: 'OpenGym',
@@ -35,6 +42,55 @@ export const config = {
     versionLabel: 'Android APK',
     caption: 'Your session, at a glance · Sample data',
     details: ['Offline after sign-in', 'Free & open source', 'Local-first data'],
+    updatedLabel: `Updated ${formatDate(releases[0].date, { month: 'short', day: 'numeric' })}`,
+  },
+
+  loggingDemo: {
+    title: 'Try it yourself',
+    subtitle: 'Interactive preview with sample data',
+    exercise: 'Bench Press',
+    // Last session's sets; the demo starts from these, like the app's "Previous" column.
+    previous: [
+      { weight: 70, reps: 8 },
+      { weight: 70, reps: 8 },
+      { weight: 70, reps: 7 },
+    ],
+    weightStep: 2.5,
+    restSeconds: 60,
+    columns: ['Set', 'Previous', 'kg', 'Reps'],
+    bestLabel: 'Best e1RM',
+    hint: 'Beat your best estimated 1RM to set a new PR. Try 72.5 kg × 8.',
+    completeLabel: 'Complete set',
+    restLabel: 'Rest',
+    skipLabel: 'Skip rest',
+    finishedLabel: 'Workout complete',
+    resetLabel: 'Start over',
+    prLabel: 'New PR',
+    volumeLabel: 'Volume',
+    e1rmLabel: 'Top e1RM',
+  },
+
+  progressShowcase: {
+    eyebrow: 'PROGRESS YOU CAN SEE',
+    headline: ['Twelve weeks.', 'One line going up.'],
+    description:
+      'Every set you log feeds your estimated 1RM. Pick an exercise and watch the work add up, week after week.',
+    exercise: 'Squat',
+    metric: 'Estimated 1RM',
+    unit: 'kg',
+    caption: 'Sample data · 12 weeks',
+    latestLabel: 'Latest',
+    changeLabel: 'Change',
+    prLabel: 'PRs',
+    points: [100, 102.5, 105, 105, 107.5, 110, 110, 112.5, 115, 117.5, 117.5, 122.5],
+  },
+
+  changelog: {
+    eyebrow: 'CHANGELOG',
+    title: `${releases.length} releases since ${formatDate(firstRelease.date, { month: 'long', year: 'numeric' })}.`,
+    description: `A new version about every ${Math.round(releaseSpanDays / (releases.length - 1))} days. Here's what changed lately.`,
+    count: 3,
+    allLabel: 'All releases',
   },
 
   offline: {

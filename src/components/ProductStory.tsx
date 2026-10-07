@@ -184,6 +184,14 @@ export default function ProductStory() {
                 className={`story-tab-btn indicator-pill ${activeStage === i ? 'active' : ''}`}
                 onClick={() => handleSelect(i)}
               >
+                {activeStage === i && (
+                  <motion.span
+                    layoutId="story-pill"
+                    className="indicator-pill-bg"
+                    aria-hidden="true"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                  />
+                )}
                 <span className="story-tab-step">0{i + 1}</span>
                 <span className="story-tab-label">
                   {stage.id === 'plan'
@@ -233,6 +241,14 @@ export default function ProductStory() {
               onKeyDown={(event) => handleTabKeyDown(event, i)}
             >
               {stage.id === 'plan' ? 'Plan' : stage.id === 'log' ? 'Log' : 'Progress'}
+              {activeStage === i && (
+                <motion.span
+                  layoutId="story-tab-underline"
+                  className="story-tab-underline"
+                  aria-hidden="true"
+                  transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                />
+              )}
             </button>
           ))}
         </div>

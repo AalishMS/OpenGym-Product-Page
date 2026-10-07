@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import ProductStory from './components/ProductStory';
 import LoggingDemo from './components/LoggingDemo';
+import { ProgressShowcase } from './components/ProgressShowcase';
 import { OfflineSection } from './components/OfflineSection';
 import { Personalization } from './components/Personalization';
 import { FAQ } from './components/FAQ';
@@ -44,6 +45,7 @@ function App() {
             <Hero />
             <ProductStory />
             <LoggingDemo />
+            <ProgressShowcase />
             <OfflineSection />
             <Personalization />
             <Installation />

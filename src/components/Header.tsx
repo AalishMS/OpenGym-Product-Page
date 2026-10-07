@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import { config } from '../config';
 import './Header.css';
 export function Header() {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
   useEffect(() => {
     if (!open) return;
     const close = (event: KeyboardEvent) => {
@@ -69,6 +73,11 @@ export function Header() {
           </a>
         </nav>
       </div>
+      <motion.div
+        className="header-progress"
+        aria-hidden="true"
+        style={{ scaleX: shouldReduceMotion ? scrollYProgress : smoothProgress }}
+      />
     </header>
   );
 }

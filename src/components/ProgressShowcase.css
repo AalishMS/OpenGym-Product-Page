@@ -1,0 +1,260 @@
+.progress-section {
+  padding-top: var(--space-section);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Headline left, supporting copy right, like a journal spread. */
+.progress-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-xl) clamp(32px, 6vw, 96px);
+  margin-bottom: var(--space-3xl);
+}
+
+.progress-header .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.progress-headline {
+  font: 700 var(--text-display)/1.05 var(--font-display);
+  letter-spacing: -0.045em;
+}
+
+.progress-headline span {
+  display: block;
+}
+
+.progress-headline span + span {
+  color: var(--color-text-secondary);
+}
+
+.progress-description {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+
+.progress-card {
+  border-top: 1px solid var(--color-text-primary);
+  padding-top: var(--space-lg);
+}
+
+.progress-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.progress-chip {
+  font: 500 var(--text-small)/1.6 var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.progress-chip b {
+  color: var(--color-text-primary);
+}
+
+.progress-stats {
+  display: flex;
+  gap: clamp(24px, 5vw, 64px);
+}
+
+.progress-stats dt {
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.progress-stats dd {
+  font: 700 clamp(1.25rem, 2.4vw, 1.75rem)/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.progress-positive {
+  color: var(--color-success);
+}
+
+.progress-chart {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.progress-chart svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.progress-grid {
+  stroke: var(--color-border);
+}
+
+.progress-line {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.progress-dot {
+  fill: var(--color-bg);
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+}
+
+.progress-dot--last {
+  fill: var(--color-accent);
+}
+
+.progress-callout {
+  position: absolute;
+  transform: translate(-100%, calc(-100% - 16px));
+}
+
+.progress-callout > div {
+  padding: 4px 10px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font: 600 var(--text-small)/1.4 var(--font-mono);
+  white-space: nowrap;
+}
+
+.progress-callout span {
+  color: var(--color-accent);
+  margin-right: 6px;
+}
+
+.progress-axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+}
+
+.progress-axis span {
+  position: absolute;
+  transform: translateX(-50%);
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.progress-caption {
+  margin-top: var(--space-md);
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+/* Changelog ledger */
+.changelog-band {
+  margin-top: var(--space-section);
+  padding: clamp(56px, 7vw, 96px) 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.changelog-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-2xl) clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+
+.changelog-title {
+  font: 700 var(--text-heading)/1.15 var(--font-display);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-md);
+}
+
+.changelog-description {
+  color: var(--color-text-secondary);
+  font-size: var(--text-small);
+  max-width: 340px;
+}
+
+.changelog-all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  margin-top: var(--space-md);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.changelog-all:hover {
+  color: var(--color-text-primary);
+}
+
+.changelog-list {
+  border-top: 1px solid var(--color-border);
+}
+
+.changelog-list a {
+  display: grid;
+  grid-template-columns: 64px 72px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--duration-fast);
+}
+
+.changelog-list a:hover .changelog-release-title {
+  color: var(--color-accent);
+}
+
+.changelog-list time,
+.changelog-version,
+.changelog-count {
+  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.changelog-version {
+  color: var(--color-text-primary);
+}
+
+.changelog-release-title {
+  font-weight: 600;
+  transition: color var(--duration-fast);
+}
+
+@media (max-width: 860px) {
+  .progress-header,
+  .changelog-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .progress-axis span:nth-child(even) {
+    display: none;
+  }
+  .progress-callout {
+    transform: translate(-100%, calc(-100% - 12px));
+  }
+  .progress-callout > div {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .changelog-list a {
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: var(--space-xs) var(--space-md);
+  }
+  .changelog-release-title {
+    grid-column: 2;
+  }
+  .changelog-count {
+    display: none;
+  }
+}

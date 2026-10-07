@@ -185,9 +185,22 @@
   color: #0d0d0d;
 }
 
+.indicator-pill {
+  position: relative;
+  isolation: isolate;
+}
+
 .indicator-pill.active {
-  background: #0d0d0d;
   color: #f0ede8;
+}
+
+/* Shared between pills so the active background slides to the new tab. */
+.indicator-pill-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #0d0d0d;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -279,9 +292,21 @@
     border-bottom-color: var(--color-text-secondary);
   }
 
+  .story-tab {
+    position: relative;
+  }
+
   .story-tab.active {
     color: var(--color-text-primary);
-    border-bottom-color: var(--color-accent);
+  }
+
+  .story-tab-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--color-accent);
   }
 
   /* Animated Content */
