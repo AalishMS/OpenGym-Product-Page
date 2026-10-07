@@ -79,6 +79,14 @@
   transform-origin: left;
 }
 
+.header-github {
+  gap: 6px;
+}
+
+.header-github-icon {
+  flex-shrink: 0;
+}
+
 .header-cta {
   display: inline-flex;
   align-items: center;
