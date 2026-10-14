@@ -3,7 +3,8 @@
  * All copy, URLs, and asset paths are managed here for easy updates.
  */
 
-import { releases } from './releases';
+import { releases, releasesCheckedAt } from './releases';
+import type { Release } from './githubReleases';
 
 const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'UTC' }).format(new Date(date));
@@ -28,7 +29,12 @@ export const config = {
   },
 
   releasePage: {
-    checkedAt: 'October 7, 2026',
+    checkedAt: formatDate(releasesCheckedAt, { month: 'long', day: 'numeric', year: 'numeric' }),
+    apiUrl: 'https://api.github.com/repos/AalishMS/OpenGym/releases',
+    liveSource: 'Release details synced from GitHub · Historical highlights summarized from releases and commits.',
+    fallbackSource: 'Showing saved release details · Last checked',
+    githubLabel: 'View all releases on GitHub ↗',
+    notesFallback: 'See the full changelog on GitHub for the changes in this release.',
   },
 
   hero: {
@@ -283,6 +289,25 @@ export const config = {
     },
   ],
 } as const;
+
+export function configForReleases(history: readonly Release[]) {
+  const latest = history[0];
+  const oldest = history.reduce((a, b) => a.date < b.date ? a : b);
+  const newest = history.reduce((a, b) => a.date > b.date ? a : b);
+  const spanDays = (Date.parse(newest.date) - Date.parse(oldest.date)) / 86_400_000;
+  return {
+    ...config,
+    links: { ...config.links, download: latest.apkUrl || latest.url, latestRelease: latest.url },
+    hero: { ...config.hero, updatedLabel: `Updated ${formatDate(latest.date, { month: 'short', day: 'numeric' })}` },
+    changelog: {
+      ...config.changelog,
+      title: `${history.length} releases since ${formatDate(oldest.date, { month: 'long', year: 'numeric' })}.`,
+      description: history.length > 1
+        ? `A new version about every ${Math.max(1, Math.round(spanDays / (history.length - 1)))} days. Here's what changed lately.`
+        : "Here's what changed in the latest release.",
+    },
+  };
+}
 
 /** Sample content mirroring the OpenGym screenshots at mobile app commit 2dbc46d. */
 export const mockupData = {

@@ -2,14 +2,14 @@ import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { AppMockup } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
-import { config } from '../config';
-import { releases } from '../releases';
+import { useReleaseData } from '../releaseContext';
 import './Hero.css';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const HEADLINE = [['Make', 'every'], ['set', 'count.']];
 
 export function Hero() {
+  const { config, releases } = useReleaseData();
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });

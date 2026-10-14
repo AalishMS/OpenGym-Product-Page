@@ -1,12 +1,11 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { config } from '../config';
-import { releases } from '../releases';
+import { useReleaseData } from '../releaseContext';
 import { AnimatedNumber } from './AnimatedNumber';
 import './ProgressShowcase.css';
 
-const showcase = config.progressShowcase;
-const changelog = config.changelog;
+import { config as savedConfig } from '../config';
+const showcase = savedConfig.progressShowcase;
 const shortDate = (date: string) =>
   new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(date));
 
@@ -32,6 +31,8 @@ const change = latest - points[0];
 const gridValues = [100, 110, 120];
 
 export function ProgressShowcase() {
+  const { config, releases } = useReleaseData();
+  const changelog = config.changelog;
   const chartRef = useRef<HTMLDivElement>(null);
   const inView = useInView(chartRef, { once: true, amount: 0.4 });
   const shouldReduceMotion = useReducedMotion();

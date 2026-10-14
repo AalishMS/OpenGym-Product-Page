@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
-import { config } from '../config';
+import { useReleaseData } from '../releaseContext';
 import './Header.css';
 export function Header() {
+  const { config } = useReleaseData();
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const shouldReduceMotion = useReducedMotion();

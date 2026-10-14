@@ -1,6 +1,23 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
-// Last checked: 2026-10-07. Add new releases here, newest first.
+// Saved fallback when the public GitHub API is unavailable. Newest first.
+export const releasesCheckedAt = '2026-10-14';
 export const releases = [
+  {
+    version: 'v1.0.12+13',
+    date: '2026-10-14',
+    title: 'An optional AI Coach. Clearer plans and progress.',
+    changes: [
+      'Added an opt-in AI Coach in Settings, with chat, training summaries, and proposed workout plan changes that you can review before applying.',
+      'Added a choice of which proposed changes to apply, with validation and checks for plans that changed during the conversation.',
+      'Refined accent colors and arranged named colors in an even grid in Settings.',
+      'Refreshed plan menus, the workout keypad, and shared screen headers.',
+      'Improved Statistics charts and heatmap labels, and made saved workout values easier to read in History.',
+      'Fixed Delete week and kept dismissed offline notices hidden for 30 minutes.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.12%2B13',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.11+12...v1.0.12+13',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.12%2B13/OpenGym-v1.0.12-13.apk',
+  },
   {
     version: 'v1.0.11+12',
     date: '2026-10-07',

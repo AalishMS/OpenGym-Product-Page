@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { releases } from '../releases';
-import { config } from '../config';
+import { useReleaseData } from '../releaseContext';
 import './Releases.css';
 
 export function Releases() {
+  const { config, releases, synced } = useReleaseData();
   const [query, setQuery] = useState('');
   const filtered = releases.filter((release) =>
     [release.version, release.title, ...release.changes]
@@ -17,7 +17,7 @@ export function Releases() {
     return () => {
       document.title = config.meta.title;
     };
-  }, []);
+  }, [config.meta.title]);
 
   return (
     <section className="releases-page container">
@@ -57,14 +57,13 @@ export function Releases() {
         />
       </div>
       <p className="release-source">
-        Summarized from GitHub releases and commits · Checked{' '}
-        {config.releasePage.checkedAt}.{' '}
+        {synced ? config.releasePage.liveSource : `${config.releasePage.fallbackSource} ${config.releasePage.checkedAt}.`}{' '}
         <a
           href={`${config.links.repository}/releases`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Check GitHub for newer releases ↗
+          {config.releasePage.githubLabel}
         </a>
       </p>
       <div aria-live="polite" className="sr-only">
@@ -102,13 +101,13 @@ export function Releases() {
                 ))}
               </ul>
               <div className="release-links">
-                <a
+                {release.apkUrl && <a
                   href={release.apkUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Download APK ↗
-                </a>
+                </a>}
                 <a href={release.url} target="_blank" rel="noopener noreferrer">
                   View release ↗
                 </a>

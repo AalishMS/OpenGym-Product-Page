@@ -1,8 +1,8 @@
-import { config } from '../config';
-import { releases } from '../releases';
+import { useReleaseData } from '../releaseContext';
 import './Installation.css';
 
 export function Installation() {
+  const { config, releases } = useReleaseData();
   return (
     <section id="installation" className="installation-section" aria-labelledby="installation-title">
       <div className="container">

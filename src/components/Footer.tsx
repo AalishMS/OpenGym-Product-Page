@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { config } from '../config';
+import { useReleaseData } from '../releaseContext';
 import './Footer.css';
 
 export function Footer() {
+  const { config } = useReleaseData();
   return (
     <footer className="footer-wrapper">
       <section className="footer-cta-section">
