@@ -1,7 +1,37 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-10-14';
+export const releasesCheckedAt = '2026-10-29';
 export const releases = [
+  {
+    version: 'v1.0.14+15',
+    date: '2026-10-29',
+    title: 'Training blocks. A clearer view of each block.',
+    changes: [
+      'Added training blocks: organize a split into blocks of weeks, with each workout progressing through the weeks on its own.',
+      'Added a block menu to create, rename, and reorder blocks, a choice of what comes next when a block ends, and a starting week for new plans.',
+      'Pinned block and week navigation to the workout screen, with controls to add the next week.',
+      'Stats now opens on the current block, with workouts, sets, volume, and records compared with the previous block, plus sets per week and the biggest estimated 1RM gains.',
+      'Simplified Exercise progress with time-range and measure selectors, plain-language measure explanations, and a list of every lift with its trend.',
+      'Refreshed the plan editors, saved RPE targets, and opened the workout straight from the current-day card on Home.',
+      'Fixed Back and navigation across Home, plan management, the exercise picker, and notification shortcuts, and recovered stale timers when starting a workout.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.14%2B15',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.13+14...v1.0.14+15',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.14%2B15/OpenGym-v1.0.14-15.apk',
+  },
+  {
+    version: 'v1.0.13+14',
+    date: '2026-10-14',
+    title: 'More reliable in-app updates.',
+    changes: [
+      'Downloaded updates through Android so they keep going when you lock the phone or switch apps.',
+      'Showed a notification when an update is ready to install, and resumed an interrupted download after restarting the app.',
+      'Offered the downloaded update again after a cancelled install, and explained why an install failed.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.13%2B14',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.12+13...v1.0.13+14',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.13%2B14/OpenGym-v1.0.13-14.apk',
+  },
   {
     version: 'v1.0.12+13',
     date: '2026-10-14',

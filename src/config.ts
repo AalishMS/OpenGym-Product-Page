@@ -167,14 +167,14 @@ export const config = {
    * section uses these to demonstrate theme customization.
    */
   appAccents: [
-    { name: 'Electric Blue', seed: '#00A8FF' },
-    { name: 'Warm Amber', seed: '#FF9500' },
-    { name: 'Deep Orange', seed: '#FF5722' },
-    { name: 'Hot Pink', seed: '#FF1493' },
-    { name: 'Cyan', seed: '#00CED1' },
-    { name: 'Purple', seed: '#8B5CF6' },
-    { name: 'Steel Gray', seed: '#7C8AA0' },
-    { name: 'Green', seed: '#22C55E' },
+    { name: 'Blue', seed: '#6AA9ED' },
+    { name: 'Amber', seed: '#DB9339' },
+    { name: 'Coral', seed: '#E98764' },
+    { name: 'Rose', seed: '#E282A4' },
+    { name: 'Teal', seed: '#41B9B9' },
+    { name: 'Violet', seed: '#A399E1' },
+    { name: 'Slate', seed: '#96A6BB' },
+    { name: 'Green', seed: '#59BD79' },
   ] as const,
 
   /** Sample workout data used across the page for visual consistency. */
@@ -213,7 +213,7 @@ export const config = {
       id: 'plan',
       title: 'Plan your week.',
       description:
-        'Build your own split or pick a bundled program. Keep your exercises, target sets, and notes ready for your next session.',
+        'Build your own split or pick a bundled program, then group your weeks into training blocks. Your exercises, target sets, and notes are ready for your next session.',
     },
     {
       id: 'log',
@@ -309,77 +309,105 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content mirroring the OpenGym screenshots at mobile app commit 2dbc46d. */
+/** Sample content mirroring the OpenGym screenshots at mobile app commit 782dcd8. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
-    split: 'Powerbuilding PPLUL…', next: 'Next up', lastTrained: 'Last: yesterday',
+    time: '9:41', split: 'My Split', next: 'Next up',
     startWorkout: 'Start workout', nextBadge: 'Next',
-    thisWeek: 'This week', weeklySummary: '2 workouts · 40 sets',
+    thisWeek: 'This week', weeklySummary: '2 workouts · 24 sets',
     yourPlans: 'Your plans', manage: 'Manage',
     set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE',
-    start: 'Start', addSet: 'Add set', week: 'Week', nextField: 'Next',
-    weightField: 'Weight (kg)', copyTo: 'Copy to set 2',
-    statistics: 'Statistics', weeklyTraining: 'Weekly training',
-    volumeLoad: 'Volume load', volumeSubtitle: 'Weight × reps · All history',
-    exercise: 'Exercise', allExercises: 'All exercises',
-    inProgress: 'This week · In progress', volumeAxis: 'Volume (kg)',
-    activity: 'Activity', workouts: 'Workouts', workoutsSubtitle: 'Days you trained · Last 52 weeks',
+    pause: 'Pause', addSet: 'Add set', week: 'Week', block: 'Block 1', done: 'Done',
+    statistics: 'Statistics', workouts: 'Workouts', workoutsSubtitle: 'Days you trained · Last 16 weeks',
     legendWorkout: 'Workout', legendToday: 'Today',
-    exerciseProgress: 'Exercise progress', progressExercise: 'Leg Press',
-    metric: 'Metric', progressMetric: 'Estimated 1RM', period: 'Period', progressPeriod: '12 weeks',
-    latest: 'Latest', change: 'Change', bestInPeriod: 'Best in period',
-    perWorkout: 'Per workout', progressUnit: 'kg',
+    exerciseProgress: 'Exercise progress',
+    measureHint: 'The most you could lift for one rep, estimated from your best set.',
+    showAll: 'Show all 18 lifts',
   },
   nextWorkout: {
-    name: 'Leg Day',
-    groups: ['Legs'],
-    summary: 'Day 3 of 5 · 7 exercises · 23 sets',
-    dayIndex: 2,
+    name: 'Full Body',
+    position: 'Workout 1 of 5',
+    groups: 'Chest, Back, Shoulders, Legs',
+    exercises: '6 exercises',
+    sets: '17 sets',
+    planIndex: 0,
+    /** Plans already trained in this rotation, shown as filled rail segments. */
+    trained: [3, 4],
   },
-  /** One entry per weekday; `sets` drives the bar height, as in the app. */
+  /** One entry per weekday; trained days fill the bar, as in the app. */
   activity: [
-    { day: 'M', sets: 18 }, { day: 'T', sets: 22 },
-    { day: 'W', sets: 0, today: true },
-    { day: 'T', sets: 0 }, { day: 'F', sets: 0 },
-    { day: 'S', sets: 0 }, { day: 'S', sets: 0 },
+    { day: 'M', trained: true }, { day: 'T' },
+    { day: 'W', trained: true }, { day: 'T', today: true },
+    { day: 'F' }, { day: 'S' }, { day: 'S' },
   ],
   plans: [
-    { name: 'Push Day', initials: 'PD', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
-    { name: 'Pull Day', initials: 'PD', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
-    { name: 'Leg Day', initials: 'LD', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
-    { name: 'Upper Body', initials: 'UB', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
-    { name: 'Lower Body', initials: 'LB', summary: '6 exercises · 19 sets', color: ['#00771a', '#57b45a'] },
+    { name: 'Full Body', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
+    { name: 'Push Day', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
+    { name: 'Upper Body', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
+    { name: 'Pull Day', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
+    { name: 'Leg Day', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
   ],
-  workout: config.sampleWorkout,
+  workout: {
+    planName: 'Push Day',
+    exercises: [
+      {
+        name: 'Bench Press',
+        sets: [
+          { set: 1, weight: 70, reps: 8, rpe: 8 },
+          { set: 2, weight: 70, reps: 8, rpe: 8 },
+          { set: 3, weight: 70, reps: 7, rpe: 9 },
+          { set: 4, weight: 70, reps: 5, rpe: 10 },
+        ],
+      },
+      {
+        name: 'Incline Dumbbell Press',
+        sets: [
+          { set: 1, weight: 32, reps: 10, rpe: 7 },
+          { set: 2, weight: 32, reps: 10, rpe: 8 },
+          { set: 3, weight: 32, reps: 8, rpe: 9 },
+        ],
+      },
+      {
+        name: 'Overhead Press',
+        sets: [
+          { set: 1, weight: 45, reps: 8, rpe: 8 },
+          { set: 2, weight: 45, reps: 8, rpe: 9 },
+        ],
+      },
+    ],
+  },
   workoutWeek: 6,
-  workoutTime: '00:00',
-  keypad: { set: 1, nextSet: 2, weight: 100 },
+  visibleWeeks: [4, 5, 6],
+  workoutTime: { log: '00:20', keypad: '00:25' },
+  /** The keypad edits the reps of the last Bench Press set. */
+  keypad: { set: 4, field: 'Reps', value: '5' },
   statistics: {
-    volume: '18,642 kg',
-    period: 'W41 · 2026 · 5 Oct 2026 – 11 Oct 2026',
-    axisMax: 80,
-    weeks: [
-      { week: 'W36', volume: 26.9 }, { week: 'W37', volume: 30.1 },
-      { week: 'W38', volume: 14.0 }, { week: 'W39', volume: 28.8 },
-      { week: 'W40', volume: 24.3 }, { week: 'W41', volume: 18.6 },
+    workoutStats: [
+      { label: 'Workout days', value: '14' },
+      { label: 'Week streak', value: '6 weeks' },
+      { label: 'Days per week', value: '2.3' },
     ],
-    /** Trained weekdays (0 = Monday) for the last 15 weeks, oldest first. */
+    /** Trained weekdays (0 = Monday) for the last 16 weeks, oldest first. */
     heatmap: [
-      [0, 1, 3, 4], [0, 2, 3, 5], [0, 1, 3, 4], [1, 2, 4, 5], [0, 1, 3, 4],
-      [0, 2, 4], [0, 1, 3, 4], [0, 1, 2, 4], [1, 3, 4, 5], [0, 1, 3, 4],
-      [0, 2, 3, 4], [0, 1, 3], [0, 1, 3, 4], [0, 2, 3, 5], [0, 1],
+      [], [], [], [], [], [], [], [], [], [],
+      [4, 5], [0, 4, 5], [0, 4, 5], [4, 5], [0, 4], [0, 2],
     ],
-    todayColumn: 14,
-    todayRow: 2,
-    progress: {
-      latest: '200 kg', change: '+40 kg', best: '200 kg',
-      min: 150, max: 225, step: 25,
-      points: [
-        { label: '10 Sep', value: 160 }, { label: '17 Sep', value: 173 },
-        { label: '24 Sep', value: 187 }, { label: '1 Oct', value: 200 },
-      ],
-    },
+    todayColumn: 15,
+    todayRow: 3,
+    months: [
+      { label: 'Jul', column: 0 }, { label: 'Aug', column: 2 },
+      { label: 'Sep', column: 7 }, { label: 'Oct', column: 11 },
+    ],
+    ranges: ['4W', '12W', '6M', '1Y', 'All'],
+    measures: ['Est. 1RM', 'Top weight', 'Best set', 'Volume'],
+    lifts: [
+      { name: 'Leg Press', value: '200 kg', change: '+26.67 kg', points: [173.3, 186.7, 200] },
+      { name: 'Romanian Deadlift', value: '95 kg', change: '+12.67 kg', points: [82.3, 88.7, 95] },
+      { name: 'Squat', value: '114 kg', change: '+12 kg', points: [102, 108, 114] },
+      { name: 'Barbell Row', value: '88.67 kg', change: '+6.33 kg', points: [82.3, 85.5, 88.7] },
+      { name: 'Bicep Curl', value: '22.4 kg', change: '+2.8 kg', points: [19.6, 22.4, 22.4] },
+    ],
   },
   screenLabels: { plan: 'Home', log: 'Workout', progress: 'Statistics', keypad: 'Keypad' },
 } as const;

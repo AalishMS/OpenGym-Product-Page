@@ -15,7 +15,7 @@ Built with React 19, TypeScript, and Vite.
 - **Interactive 3D Phone Mockup:** Responsive phone mockup with pointer tilt effect on desktop and reduced-motion fallback.
 - **Walkthrough Story:** Step-by-step presentation of core app flows (planning, logging, tracking progress) synced to scroll position.
 - **Set Logging Demo:** Live interactive component demonstrating the in-app set logging interface (weight, reps, RPE).
-- **Theme Switcher:** Live preview showing the 7 accent color themes available in OpenGym.
+- **Theme Switcher:** Live preview showing the 8 accent color themes available in OpenGym.
 - **Offline Architecture:** Explains the local SQLite storage model and optional cloud sync.
 - **FAQ Section:** Answers common questions about data export, APK installation, and sync.
 
