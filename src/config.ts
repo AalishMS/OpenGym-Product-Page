@@ -91,6 +91,21 @@ export const config = {
     points: [100, 102.5, 105, 105, 107.5, 110, 110, 112.5, 115, 117.5, 117.5, 122.5],
   },
 
+  history: {
+    eyebrow: 'HOW IT GOT HERE',
+    headline: ['Seven months', 'of iterations.'],
+    description:
+      'Screenshots pulled from the git history, from the first commit to today. Drag along the timeline or use the arrow keys to step through each version.',
+    trackLabel: 'OpenGym version history',
+    dayLabel: 'day',
+    noScreens: 'No screenshots survived from day zero.',
+    homeLabel: 'Home',
+    workoutLabel: 'Workout',
+    previous: 'Previous version',
+    next: 'Next version',
+    stats: { commits: 'commits', contributors: 'contributors', linesOfCode: 'lines of code' },
+  },
+
   changelog: {
     eyebrow: 'CHANGELOG',
     title: `${releases.length} releases since ${formatDate(firstRelease.date, { month: 'long', year: 'numeric' })}.`,

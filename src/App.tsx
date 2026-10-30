@@ -8,6 +8,7 @@ import LoggingDemo from './components/LoggingDemo';
 import { ProgressShowcase } from './components/ProgressShowcase';
 import { OfflineSection } from './components/OfflineSection';
 import { Personalization } from './components/Personalization';
+import { History } from './components/History';
 import { FAQ } from './components/FAQ';
 import { Installation } from './components/Installation';
 import { Footer } from './components/Footer';
@@ -48,6 +49,7 @@ function App() {
             <ProgressShowcase />
             <OfflineSection />
             <Personalization />
+            <History />
             <Installation />
             <FAQ />
           </>
