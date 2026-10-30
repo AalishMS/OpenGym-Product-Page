@@ -9,6 +9,7 @@ const paths = {
   delete: 'M9 4h12v16H9L2 12l7-8Zm3 5 6 6m0-6-6 6',
   plus: 'M12 5v14M5 12h14',
   back: 'm12 19-7-7 7-7M5 12h14',
+  pause: 'M7 4h3v16H7zM14 4h3v16h-3z',
   play: 'm6 3 15 9-15 9V3Z',
   stop: 'M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z',
   more: 'M5 12h.01M12 12h.01M19 12h.01',

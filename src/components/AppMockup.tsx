@@ -39,7 +39,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
       </header>
       <div className="replica-home-body">
         <div className="replica-next-card">
-          <p className="replica-next-label">{copy.next}</p>
+          <p className="replica-next-label">{copy.next}<span>{next.lastTrained}</span></p>
           <p className="replica-next-position">{next.position}</p>
           <div className="replica-split-rail">
             {mockupData.plans.map((plan, i) => (
@@ -138,7 +138,7 @@ function Workout({ keypad }: { keypad: boolean }) {
         <MockIcon name="back" />
         <div className="replica-workout-title"><b>{mockupData.workout.planName}</b><p>{copy.block} · {copy.week} {mockupData.workoutWeek}</p></div>
         <span className="replica-workout-time">{mockupData.workoutTime[keypad ? 'keypad' : 'log']}</span>
-        <span className="replica-workout-pause">{copy.pause}</span><MockIcon name="check" /><MockIcon name="menu" />
+        <span className="replica-workout-pause" aria-label={copy.pause}><MockIcon name="pause" /></span><MockIcon name="check" /><MockIcon name="menu" />
       </header>
       <div className="replica-plan-tabs">
         {mockupData.plans.map((plan, i) => <span key={plan.name} className={i === planIndex ? 'selected' : ''}>{plan.name}</span>)}
@@ -162,83 +162,32 @@ function Workout({ keypad }: { keypad: boolean }) {
   );
 }
 
-function Heatmap() {
-  const { heatmap, todayColumn, todayRow, months } = mockupData.statistics;
-  return (
-    <div className="replica-heatmap">
-      <div className="replica-heatmap-months">
-        {months.map(month => <span key={month.label} style={{ '--column': month.column } as CSSProperties}>{month.label}</span>)}
-      </div>
-      <div className="replica-heatmap-body">
-        <div className="replica-heatmap-days">{['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => <span key={i}>{day}</span>)}</div>
-        <div className="replica-heatmap-grid">
-          {heatmap.map((trained, column) => (
-            <div key={column}>
-              {Array.from({ length: 7 }, (_, row) => {
-                if (column === todayColumn && row > todayRow) return <i key={row} className="replica-cell replica-cell--future" />;
-                const today = column === todayColumn && row === todayRow;
-                return <i key={row} className={`replica-cell ${(trained as readonly number[]).includes(row) ? 'on' : ''} ${today ? 'today' : ''}`} />;
-              })}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Sparkline({ points }: { points: readonly number[] }) {
-  const min = Math.min(...points), max = Math.max(...points);
-  const x = (i: number) => 2 + i * 58 / (points.length - 1);
-  const y = (value: number) => 24 - (value - min) / (max - min || 1) * 20;
-  const last = points.length - 1;
-  return (
-    <svg className="replica-sparkline" viewBox="0 0 64 28" aria-hidden="true">
-      <polyline points={points.map((value, i) => `${x(i)},${y(value)}`).join(' ')} />
-      <circle cx={x(last)} cy={y(points[last])} r="2.5" />
-    </svg>
-  );
-}
-
 function Statistics() {
   const stats = mockupData.statistics;
   return (
     <>
       <header className="replica-page-header">{copy.statistics}</header>
-      {/* Scrolled to the Workouts card, as in the app capture. */}
       <div className="replica-stats-viewport">
         <div className="replica-stats-body">
-          <div className="replica-stats-card replica-activity-card">
-            <h4>{copy.workouts}</h4><p>{copy.workoutsSubtitle}</p>
-            <div className="replica-workout-stats">
-              {stats.workoutStats.map(stat => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}
+          <h3 className="replica-section-title">{stats.title}</h3>
+          <div className="replica-stats-card replica-training-block">
+            <h4>{stats.block}</h4><p>{stats.period}</p>
+            <div className="replica-block-totals">
+              {stats.totals.map(stat => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong><small>{stat.detail}</small></div>)}
             </div>
-            <Heatmap />
-            <div className="replica-legend">
-              <span><i className="replica-cell on" />{copy.legendWorkout}</span>
-              <span><i className="replica-cell today" />{copy.legendToday}</span>
+            <div className="replica-weekly-sets">
+              <h4>{stats.setsLabel}</h4>
+              <div className="replica-set-bars">
+                {stats.weeks.map((sets, i) => <div key={i} className={i + 1 === stats.currentWeek ? 'current' : ''}>
+                  <span>{sets || ''}</span><i style={{ height: sets * 1.05 }} /><small>W{i + 1}</small>
+                </div>)}
+              </div>
             </div>
+            <div className="replica-strength-heading"><h4>{stats.gainsLabel}</h4><span>{stats.measure}</span></div>
+            {stats.gains.map(gain => <div className="replica-strength-gain" key={gain.name}><span>{gain.name}</span><small>{gain.value}</small><strong>{gain.change}</strong></div>)}
           </div>
-          <h3 className="replica-section-title">{copy.exerciseProgress}</h3>
-          <div className="replica-stats-card replica-progress-card">
-            <div className="replica-range">
-              {stats.ranges.map((range, i) => <span key={range} className={i === 0 ? 'selected' : ''}>{range}</span>)}
-            </div>
-            <div className="replica-measures">
-              {stats.measures.map((measure, i) => <span key={measure} className={i === 0 ? 'selected' : ''}>{measure}</span>)}
-            </div>
-            <p className="replica-measure-hint">{copy.measureHint}</p>
-            <div className="replica-lifts">
-              {stats.lifts.map((lift, i) => (
-                <div key={lift.name} className={`replica-lift ${i === 0 ? 'selected' : ''}`}>
-                  <div><b>{lift.name}</b><p>{lift.value}</p></div>
-                  <Sparkline points={lift.points} />
-                  <strong><MockIcon name="trend" />{lift.change}</strong>
-                </div>
-              ))}
-            </div>
-            <p className="replica-show-all"><MockIcon name="chevron" />{copy.showAll}</p>
-          </div>
+          <h3 className="replica-section-title">{stats.weeklyTitle}</h3>
+          <div className="replica-stats-card replica-weekly-training"><h4>{stats.weightTitle}</h4><p>{stats.weightDescription}</p><div><MockIcon name="layers" />{stats.allExercises}<MockIcon name="chevron" /></div></div>
         </div>
       </div>
       <BottomNav stats />

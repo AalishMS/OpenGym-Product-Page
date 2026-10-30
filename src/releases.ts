@@ -1,7 +1,22 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-10-29';
+export const releasesCheckedAt = '2026-10-30';
 export const releases = [
+  {
+    version: 'v1.0.15+16',
+    date: '2026-10-30',
+    title: 'Clearer workout controls, history, and training blocks.',
+    changes: [
+      'Redesigned the workout preset browser and started preset programs with four-week training blocks.',
+      'Simplified the workout header around the session clock and kept the keypad open when switching exercises.',
+      'Added week deletion by holding its tab.',
+      'Redesigned History as a timeline, with exercise cards in workout details.',
+      'Made training block statistics more compact, with weekly set totals and strength gains.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.15%2B16',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.14+15...v1.0.15+16',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.15%2B16/OpenGym-v1.0.15-16.apk',
+  },
   {
     version: 'v1.0.14+15',
     date: '2026-10-29',
