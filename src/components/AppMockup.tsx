@@ -39,7 +39,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
       </header>
       <div className="replica-home-body">
         <div className="replica-next-card">
-          <p className="replica-next-label">{copy.next}<span>{next.lastTrained}</span></p>
+          <p className="replica-next-label">{copy.next}</p>
           <p className="replica-next-position">{next.position}</p>
           <div className="replica-split-rail">
             {mockupData.plans.map((plan, i) => (
@@ -66,7 +66,6 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
               </div>
             ))}
           </div>
-          <div className="replica-activity-scroll" />
         </div>
         <div className="replica-plans-heading"><b>{copy.yourPlans}<small>{mockupData.plans.length}</small></b><span>{copy.manage}</span></div>
         <div className="replica-plan-list">
@@ -85,7 +84,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
   );
 }
 
-interface SetEntry { set: number; weight: number; reps: number; rpe: number }
+interface SetEntry { set: number; weight: number; reps: number }
 function SetTable({ sets, editing = -1 }: { sets: readonly SetEntry[]; editing?: number }) {
   return (
     <div className="replica-set-table">
@@ -94,18 +93,17 @@ function SetTable({ sets, editing = -1 }: { sets: readonly SetEntry[]; editing?:
       </div>
       {sets.map((set, i) => (
         <div className="replica-set-line" key={set.set}>
-          <span>{set.set}</span><span className="replica-prev">{set.weight} × {set.reps}</span>
-          <b>{set.weight}</b><b className={i === editing ? 'editing' : ''}>{set.reps}</b><span className="replica-rpe">{set.rpe}</span>
+          <span>{set.set}</span><span className="replica-prev">{copy.empty}</span>
+          <b className={i === editing ? 'editing' : ''}>{set.weight}</b><b>{set.reps}</b><span className="replica-rpe">{copy.empty}</span>
         </div>
       ))}
     </div>
   );
 }
 
-const KEYS = ['+2.5', '1', '2', '3', 'RPE', '−2.5', '4', '5', '6', 'DONE', '+1', '7', '8', '9', '−1', '.', '0', 'Delete', 'Hide'];
-// Reps are whole numbers, so the plate steps and the decimal point are disabled.
+const KEYS = ['+2.5', '1', '2', '3', 'RPE', '−2.5', '4', '5', '6', 'NEXT', '+1', '7', '8', '9', '−1', '.', '0', 'Delete', 'Hide'];
 const KEY_KINDS: Partial<Record<string, string>> = {
-  '+2.5': 'disabled', '−2.5': 'disabled', '.': 'disabled', '+1': 'accent', '−1': 'accent', RPE: 'label', DONE: 'done',
+  '+2.5': 'accent', '−2.5': 'accent', '+1': 'step', '−1': 'step', RPE: 'label', NEXT: 'next',
 };
 
 function Keypad() {
@@ -113,13 +111,16 @@ function Keypad() {
   return (
     <div className="replica-keypad">
       <p className="replica-keypad-context"><b>{copy.set} {entry.set}</b> · {entry.field}</p>
-      <p className="replica-keypad-value">{entry.value}</p>
+      <div className="replica-keypad-row">
+        <p className="replica-keypad-value">{entry.value}</p>
+        <span className="replica-keypad-copy"><MockIcon name="copy" />{entry.copyTo}</span>
+      </div>
       <div className="replica-key-grid">
         {KEYS.map(value => {
           const kind = KEY_KINDS[value];
           return (
             <span key={value} className={`replica-key ${kind ? `replica-key--${kind}` : ''}`}>
-              {value === 'Delete' ? <MockIcon name="delete" /> : value === 'Hide' ? <MockIcon name="keyboard" /> : value === 'DONE' ? copy.done : value}
+              {value === 'Delete' ? <MockIcon name="delete" /> : value === 'Hide' ? <MockIcon name="keyboard" /> : value === 'NEXT' ? copy.nextKey : value}
             </span>
           );
         })}
@@ -136,8 +137,7 @@ function Workout({ keypad }: { keypad: boolean }) {
     <>
       <header className="replica-workout-header" style={{ '--plan-light': planColor[0], '--plan-dark': planColor[1] } as CSSProperties}>
         <MockIcon name="back" />
-        <div className="replica-workout-title"><b>{mockupData.workout.planName}</b><p>{copy.block} · {copy.week} {mockupData.workoutWeek}</p></div>
-        <span className="replica-workout-time">{mockupData.workoutTime[keypad ? 'keypad' : 'log']}</span>
+        <div className="replica-workout-title"><b>{mockupData.workout.planName}</b><p>{copy.block} · {copy.week} {mockupData.workoutWeek}<span className="replica-workout-time">{mockupData.workoutTime[keypad ? 'keypad' : 'log']}</span></p></div>
         <span className="replica-workout-pause" aria-label={copy.pause}><MockIcon name="pause" /></span><MockIcon name="check" /><MockIcon name="menu" />
       </header>
       <div className="replica-plan-tabs">
@@ -169,25 +169,38 @@ function Statistics() {
       <header className="replica-page-header">{copy.statistics}</header>
       <div className="replica-stats-viewport">
         <div className="replica-stats-body">
-          <h3 className="replica-section-title">{stats.title}</h3>
-          <div className="replica-stats-card replica-training-block">
-            <h4>{stats.block}</h4><p>{stats.period}</p>
-            <div className="replica-block-totals">
-              {stats.totals.map(stat => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong><small>{stat.detail}</small></div>)}
+          <h3 className="replica-section-title">{stats.weeklyTitle}</h3>
+          <div className="replica-stats-card replica-weekly-training">
+            <h4>{stats.weightTitle}</h4><p>{stats.weightDescription}</p>
+            <div className="replica-exercise-field">
+              <small>{copy.exercise}</small><MockIcon name="layers" />{stats.allExercises}<MockIcon name="chevron" />
             </div>
-            <div className="replica-weekly-sets">
-              <h4>{stats.setsLabel}</h4>
-              <div className="replica-set-bars">
-                {stats.weeks.map((sets, i) => <div key={i} className={i + 1 === stats.currentWeek ? 'current' : ''}>
-                  <span>{sets || ''}</span><i style={{ height: sets * 1.05 }} /><small>W{i + 1}</small>
-                </div>)}
+            <p className="replica-week-label">{stats.selectedLabel}</p>
+            <strong className="replica-week-value">{stats.selectedValue}</strong>
+            <p className="replica-week-range">{stats.selectedRange}</p>
+            <p className="replica-week-compare">{stats.comparison}</p>
+            <p className="replica-volume-unit">{stats.chartLabel}</p>
+            <div className="replica-volume-chart">
+              <div className="replica-volume-axis">
+                {stats.axis.map(label => <div key={label}><span>{label}</span><i /></div>)}
+              </div>
+              <div className="replica-volume-bars">
+                {stats.weeks.map(week => (
+                  <div key={week.label} className={'selected' in week ? 'selected' : ''}>
+                    <span>{week.value}</span>
+                    <i style={{ height: `${(week.volume / stats.axisMax) * 100}%` }} />
+                    <small>{week.label}</small>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="replica-strength-heading"><h4>{stats.gainsLabel}</h4><span>{stats.measure}</span></div>
-            {stats.gains.map(gain => <div className="replica-strength-gain" key={gain.name}><span>{gain.name}</span><small>{gain.value}</small><strong>{gain.change}</strong></div>)}
+            <i className="replica-volume-scroll" />
           </div>
-          <h3 className="replica-section-title">{stats.weeklyTitle}</h3>
-          <div className="replica-stats-card replica-weekly-training"><h4>{stats.weightTitle}</h4><p>{stats.weightDescription}</p><div><MockIcon name="layers" />{stats.allExercises}<MockIcon name="chevron" /></div></div>
+          <h3 className="replica-section-title">{copy.activity}</h3>
+          <div className="replica-stats-card replica-workout-days">
+            <h4>{copy.workouts}</h4><p>{copy.workoutsSubtitle}</p>
+            <div>{stats.workoutStats.map(stat => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}</div>
+          </div>
         </div>
       </div>
       <BottomNav stats />

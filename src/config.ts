@@ -240,7 +240,7 @@ export const config = {
       id: 'progress',
       title: 'See the work adding up.',
       description:
-        'Follow your training consistency and your top weights over time. Personal records give every small improvement a place.',
+        'Follow your weekly weight lifted, how often you train, and every lift over time. Personal records give every small improvement a place.',
     },
   ],
   samplePlans: [
@@ -324,97 +324,96 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content mirroring the OpenGym screenshots at mobile app commit ca70986. */
+/** Sample content mirroring the OpenGym screenshots at mobile app commit 5318981. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
     time: '9:41', split: 'My Split', next: 'Next up',
     startWorkout: 'Start workout', nextBadge: 'Next',
-    thisWeek: 'This week', weeklySummary: '2 workouts · 24 sets',
+    thisWeek: 'This week', weeklySummary: '1 workout · 12 sets',
     yourPlans: 'Your plans', manage: 'Manage',
-    set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE',
-    pause: 'Pause', addSet: 'Add set', week: 'Week', block: 'Block 1', done: 'Done',
+    set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE', empty: '–',
+    pause: 'Pause', addSet: 'Add set', week: 'Week', block: 'Block 1', nextKey: 'Next',
     statistics: 'Statistics', workouts: 'Workouts', workoutsSubtitle: 'Days you trained · Last 16 weeks',
-    legendWorkout: 'Workout', legendToday: 'Today',
-    exerciseProgress: 'Exercise progress',
-    measureHint: 'The most you could lift for one rep, estimated from your best set.',
-    showAll: 'Show all 18 lifts',
+    exercise: 'Exercise', activity: 'Activity',
   },
   nextWorkout: {
-    name: 'Push Day',
-    position: 'Workout 3 of 5',
-    groups: 'Chest, Shoulders, Arms',
+    name: 'Full Body',
+    position: 'Workout 4 of 5',
+    groups: 'Chest, Back, Shoulders, Legs',
     exercises: '6 exercises',
-    sets: '18 sets',
-    lastTrained: 'Last: 6 days ago',
-    planIndex: 2,
+    sets: '17 sets',
+    planIndex: 3,
     /** Plans already trained in this rotation, shown as filled rail segments. */
-    trained: [1, 4],
+    trained: [2],
   },
   /** One entry per weekday; trained days fill the bar, as in the app. */
   activity: [
     { day: 'M' }, { day: 'T', trained: true },
-    { day: 'W' }, { day: 'T', trained: true },
-    { day: 'F', today: true }, { day: 'S' }, { day: 'S' },
+    { day: 'W', today: true }, { day: 'T' },
+    { day: 'F' }, { day: 'S' }, { day: 'S' },
   ],
   plans: [
     { name: 'Upper Body', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
-    { name: 'Leg Day', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
-    { name: 'Push Day', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
-    { name: 'Full Body', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
     { name: 'Pull Day', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
+    { name: 'Leg Day', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
+    { name: 'Full Body', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
+    { name: 'Push Day', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
   ],
+  /** The first week of a new block, so no previous values or RPE are logged yet. */
   workout: {
-    planName: 'Push Day',
+    planName: 'Full Body',
     exercises: [
+      {
+        name: 'Squat',
+        sets: [
+          { set: 1, weight: 95, reps: 6 },
+          { set: 2, weight: 95, reps: 6 },
+          { set: 3, weight: 95, reps: 6 },
+        ],
+      },
       {
         name: 'Bench Press',
         sets: [
-          { set: 1, weight: 70, reps: 8, rpe: 8 },
-          { set: 2, weight: 70, reps: 8, rpe: 8 },
-          { set: 3, weight: 70, reps: 7, rpe: 9 },
-          { set: 4, weight: 70, reps: 5, rpe: 10 },
+          { set: 1, weight: 70, reps: 8 },
+          { set: 2, weight: 70, reps: 8 },
+          { set: 3, weight: 70, reps: 8 },
         ],
       },
       {
-        name: 'Incline Dumbbell Press',
+        name: 'Deadlift',
         sets: [
-          { set: 1, weight: 32, reps: 10, rpe: 7 },
-          { set: 2, weight: 32, reps: 10, rpe: 8 },
-          { set: 3, weight: 32, reps: 8, rpe: 9 },
-        ],
-      },
-      {
-        name: 'Overhead Press',
-        sets: [
-          { set: 1, weight: 45, reps: 8, rpe: 8 },
-          { set: 2, weight: 45, reps: 8, rpe: 9 },
+          { set: 1, weight: 120, reps: 5 },
+          { set: 2, weight: 120, reps: 5 },
+          { set: 3, weight: 120, reps: 5 },
         ],
       },
     ],
   },
-  workoutWeek: 6,
-  visibleWeeks: [4, 5, 6],
-  workoutTime: { log: '09:28', keypad: '09:33' },
-  /** The keypad edits the reps of the last Bench Press set. */
-  keypad: { set: 4, field: 'Reps', value: '5' },
+  workoutWeek: 1,
+  visibleWeeks: [1],
+  workoutTime: { log: '01:39', keypad: '00:08' },
+  /** The keypad edits the weight of the first Squat set. */
+  keypad: { set: 1, field: 'Weight (kg)', value: '95', copyTo: 'Copy to set 2' },
   statistics: {
-    title: 'Training blocks', block: 'Block 1', period: 'Week 5 of 6 · 26 Sep – 29 Oct 2026',
-    totals: [
-      { label: 'Workouts', value: '14', detail: '2.8/wk' },
-      { label: 'Sets', value: '262', detail: '52/wk' },
-      { label: 'Volume', value: '123 t', detail: '25 t/wk' },
-      { label: 'Records', value: '80', detail: 'new bests' },
-    ],
-    setsLabel: 'Sets each week', weeks: [63, 63, 40, 54, 42, 0], currentWeek: 5,
-    gainsLabel: 'Strength gains', measure: 'Estimated 1RM',
-    gains: [
-      { name: 'Lateral Raise', value: '11.2 → 16.8 kg', change: '+50%' },
-      { name: 'Tricep Pushdown', value: '35 → 49 kg', change: '+40%' },
-      { name: 'Dumbbell Fly', value: '22.4 → 30.8 kg', change: '+37%' },
-    ],
     weeklyTitle: 'Weekly training', weightTitle: 'Weight lifted',
     weightDescription: 'Weight × reps for every set, added up by week', allExercises: 'All exercises',
+    selectedLabel: 'Last week', selectedValue: '11,476 kg',
+    selectedRange: '26 Oct – 1 Nov 2026', comparison: '60% less than the week before',
+    chartLabel: 'Volume (kg)', axis: ['40.0k', '30.0k', '20.0k', '10.0k', '0'], axisMax: 40000,
+    weeks: [
+      { label: '28 Sep', volume: 27900, value: '27.9k' },
+      { label: '5 Oct', volume: 30100, value: '30.1k' },
+      { label: '12 Oct', volume: 14000, value: '14.0k' },
+      { label: '19 Oct', volume: 28800, value: '28.8k' },
+      { label: '26 Oct', volume: 11476, value: '11.5k', selected: true },
+      { label: '2 Nov', volume: 10700, value: '10.7k' },
+    ],
+    workoutStats: [
+      { label: 'Workout days', value: '14' },
+      { label: 'Week streak', value: '6 weeks' },
+      { label: 'Days per week', value: '2.3' },
+    ],
   },
   screenLabels: { plan: 'Home', log: 'Workout', progress: 'Statistics', keypad: 'Keypad' },
 } as const;

@@ -2,7 +2,7 @@
 // committed to the app repo at each point (public/history/), resized to 540px wide.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-10-30 (OpenGym@ca70986).
+// Last checked: 2026-11-04 (OpenGym@5318981).
 export interface HistoryMilestone {
   date: string;
   version: string;
@@ -16,7 +16,7 @@ export interface HistoryMilestone {
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-10-30';
+export const historyEnd = '2026-11-04';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -114,10 +114,23 @@ export const historyMilestones: HistoryMilestone[] = [
     linesOfCode: 48074,
     screens: { home: '/history/2026-10d-home.webp', workout: '/history/2026-10d-workout.webp' },
   },
+  {
+    date: '2026-11-04',
+    version: 'v1.0.16',
+    commit: '5318981',
+    title: 'Focused statistics',
+    summary:
+      'Stats splits into Overview, Strength, Blocks and Records, led by weekly weight lifted and a selectable block trend. The main tabs now swipe sideways.',
+    commits: 322,
+    contributors: 2,
+    linesOfCode: 49081,
+    screens: { home: '/history/2026-11-home.webp', workout: '/history/2026-11-workout.webp' },
+  },
 ];
 
 // Dates of every published release tag, drawn as small ticks on the track.
 export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
+  '2026-11-03',
 ];

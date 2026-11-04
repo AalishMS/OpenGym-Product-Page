@@ -1,7 +1,22 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-10-30';
+export const releasesCheckedAt = '2026-11-04';
 export const releases = [
+  {
+    version: 'v1.0.16+17',
+    date: '2026-11-03',
+    title: 'Statistics, redesigned around your training.',
+    changes: [
+      'Redesigned Stats as four focused views: Overview, Strength, Blocks, and Records.',
+      'Overview opens on weekly weight lifted, with the exact total, a comparison with the week before, and your workout calendar.',
+      'Added a selectable trend chart across training blocks for volume, sets, workouts, and records.',
+      'Swipe between the Home, History, Stats, and Settings tabs.',
+      'Explained locked weeks from the add-week button and marked the active week in the block strip.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.16%2B17',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.15+16...v1.0.16+17',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.16%2B17/OpenGym-v1.0.16-17.apk',
+  },
   {
     version: 'v1.0.15+16',
     date: '2026-10-30',
