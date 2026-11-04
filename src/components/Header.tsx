@@ -57,11 +57,11 @@ export function Header() {
           <a href="#features" className="header-link" onClick={() => setOpen(false)}>
             Features
           </a>
-          <a href="#personalization" className="header-link" onClick={() => setOpen(false)}>
-            Make it yours
-          </a>
           <a href="#history" className="header-link" onClick={() => setOpen(false)}>
             History
+          </a>
+          <a href="#personalization" className="header-link" onClick={() => setOpen(false)}>
+            Make it yours
           </a>
           <a href="#/releases" className="header-link" onClick={() => setOpen(false)}>
             Releases

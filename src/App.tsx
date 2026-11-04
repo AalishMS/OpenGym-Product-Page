@@ -45,11 +45,11 @@ function App() {
           <>
             <Hero />
             <ProductStory />
+            <History />
             <LoggingDemo />
             <ProgressShowcase />
             <OfflineSection />
             <Personalization />
-            <History />
             <Installation />
             <FAQ />
           </>

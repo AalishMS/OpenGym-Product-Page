@@ -64,6 +64,8 @@
 
 .history-screen {
   position: relative;
+  /* The ratio must describe the screen inside the bezel, or the 9:20 captures letterbox. */
+  box-sizing: content-box;
   aspect-ratio: 9 / 20;
   border-radius: 28px;
   border: 8px solid #242424;
