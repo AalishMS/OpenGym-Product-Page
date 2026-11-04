@@ -1,28 +1,32 @@
 .faq-section {
   padding: var(--space-section) 0;
   background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
 }
 
 .faq-headline {
   text-align: center;
-  font-family: var(--font-display);
-  font-size: var(--text-heading);
-  font-weight: 700;
-  margin-bottom: var(--space-3xl);
-  letter-spacing: -0.02em;
+  font: 800 var(--text-display)/1.02 var(--font-display);
+  letter-spacing: -0.045em;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .faq-list {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  transition: background var(--duration-normal), border-color var(--duration-normal);
 }
 
-.faq-item:first-child {
-  border-top: 1px solid var(--color-border);
+.faq-item:has(.faq-trigger[aria-expanded='true']) {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border);
 }
 
 .faq-trigger {
@@ -30,26 +34,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-lg) 0;
+  padding: 20px 22px;
   text-align: left;
   gap: var(--space-md);
+  border-radius: inherit;
   transition: color var(--duration-fast) ease;
 }
 
-.faq-trigger:hover {
-  color: var(--color-accent);
+.faq-trigger:hover .faq-question {
+  color: var(--color-text-primary);
 }
 
 .faq-trigger:focus-visible {
-  outline-offset: -2px;
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
+  outline-offset: -3px;
 }
 
 .faq-question {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
 }
 
 .faq-icon {
@@ -57,14 +61,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
   color: var(--color-text-secondary);
 }
 
+.faq-trigger[aria-expanded='true'] .faq-icon {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
 .faq-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .faq-answer-container {
@@ -72,10 +83,9 @@
 }
 
 .faq-answer {
-  padding-bottom: var(--space-xl);
-  padding-right: var(--space-2xl); /* indent effect via right padding for text wrap, and slightly offset visually */
-  padding-left: 2px;
+  padding: 0 22px 24px;
+  max-width: 62ch;
   color: var(--color-text-secondary);
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.65;
 }

@@ -41,20 +41,14 @@ export function ProgressShowcase() {
   return (
     <section id="progress" className="progress-section" aria-labelledby="progress-title">
       <div className="container">
-        <motion.div
-          className="progress-header"
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className="section-head">
           <p className="eyebrow">{showcase.eyebrow}</p>
-          <h2 id="progress-title" className="progress-headline">
+          <h2 id="progress-title" className="section-title">
             <span>{showcase.headline[0]}</span>
             <span>{showcase.headline[1]}</span>
           </h2>
-          <p className="progress-description">{showcase.description}</p>
-        </motion.div>
+          <p className="section-lede">{showcase.description}</p>
+        </div>
 
         <div className="progress-card" ref={chartRef}>
           <div className="progress-card-top">
@@ -148,8 +142,8 @@ export function ProgressShowcase() {
             <p className="eyebrow">{changelog.eyebrow}</p>
             <h2 className="changelog-title">{changelog.title}</h2>
             <p className="changelog-description">{changelog.description}</p>
-            <a className="changelog-all" href="#/releases">
-              {changelog.allLabel} <span aria-hidden="true">→</span>
+            <a className="text-link changelog-all" href="#/releases">
+              {changelog.allLabel}
             </a>
           </div>
           <ol className="changelog-list" role="list">

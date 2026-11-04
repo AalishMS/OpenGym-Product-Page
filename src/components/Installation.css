@@ -1,19 +1,19 @@
 .installation-section {
-  padding: clamp(3rem, 7vw, 6rem) 0;
+  padding: var(--space-section) 0;
   border-top: 1px solid var(--color-border);
 }
 
 .installation-header {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .installation-header h2 {
-  font: 700 var(--text-heading)/1.15 var(--font-display);
-  letter-spacing: -0.03em;
+  font: 800 var(--text-display)/1.02 var(--font-display);
+  letter-spacing: -0.045em;
   margin-bottom: var(--space-md);
 }
 
@@ -30,7 +30,8 @@
 }
 
 .installation-version {
-  font: 500 var(--text-caption)/1.6 var(--font-mono);
+  font-size: var(--text-small);
+  font-variant-numeric: tabular-nums;
   color: var(--color-text-secondary);
   margin-top: var(--space-md);
 }
@@ -41,42 +42,62 @@
   gap: var(--space-sm);
   min-height: 44px;
   font-size: var(--text-small);
-  color: var(--color-accent);
+  font-weight: 600;
+  color: var(--color-text-primary);
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 5px;
 }
 
 .installation-release-link:hover {
-  color: var(--color-text-primary);
+  text-decoration-color: var(--color-accent);
 }
 
+/* The steps are a real sequence, so they are numbered. */
 .installation-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-xl);
-  list-style: decimal;
+  gap: 2px;
+  counter-reset: step;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
 }
 
 .installation-steps li {
   display: block;
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-lg);
+  padding: 28px 24px 32px;
+  background: var(--color-surface);
+  transition: background var(--duration-normal);
+}
+
+.installation-steps li:hover {
+  background: var(--color-surface-elevated);
 }
 
 .installation-step-number {
-  display: block;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-accent) 16%, transparent);
   color: var(--color-accent);
-  font: 600 var(--text-small)/1.6 var(--font-mono);
-  margin-bottom: var(--space-md);
+  font-size: var(--text-small);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  transition: background var(--duration-slow), color var(--duration-slow);
 }
 
 .installation-steps h3 {
-  font: 600 1rem/1.4 var(--font-display);
+  font: 700 1.0625rem/1.35 var(--font-display);
+  letter-spacing: -0.015em;
   margin-bottom: var(--space-sm);
 }
 
 .installation-steps p {
   font-size: var(--text-small);
+  line-height: 1.6;
 }
 
 @media (max-width: 1023px) {
@@ -88,10 +109,16 @@
 @media (max-width: 600px) {
   .installation-header {
     flex-direction: column;
+    align-items: flex-start;
     gap: var(--space-lg);
   }
   .installation-steps {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-lg);
+  }
+  .installation-steps li {
+    padding: 22px 20px 26px;
+  }
+  .installation-step-number {
+    margin-bottom: 18px;
   }
 }

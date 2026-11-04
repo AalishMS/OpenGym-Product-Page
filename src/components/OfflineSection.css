@@ -1,10 +1,28 @@
 .offline-section {
-  --offline-paper: color-mix(in srgb, var(--color-accent) 16%, var(--color-bg-light));
-  --offline-ink: var(--color-accent-dim);
-  --offline-rule: color-mix(in srgb, var(--offline-ink) 18%, transparent);
+  /* The app's own light theme: its paper background and the accent solved for it. */
+  --offline-paper: var(--color-bg-light);
+  --offline-ink: var(--color-accent-ink-light);
+  --offline-fill: var(--color-accent-fill-light);
+  --offline-wash: var(--color-accent-muted-light);
+  --offline-rule: rgba(0, 0, 0, 0.1);
   background: var(--offline-paper);
   color: var(--color-text-dark);
-  padding: clamp(64px, 8vw, 112px) 0;
+  padding: var(--space-section) 0;
+  position: relative;
+  transition: background var(--duration-slower) var(--ease-out);
+}
+
+.offline-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 60% at 85% 20%, color-mix(in srgb, var(--offline-wash) 70%, transparent), transparent 70%);
+  transition: background var(--duration-slower) var(--ease-out);
+}
+
+.offline-section .container {
+  position: relative;
 }
 
 .offline-content {
@@ -16,8 +34,8 @@
 
 .offline-eyebrow,
 .offline-demo-caption {
-  font: 500 11px/1.5 var(--font-mono);
-  letter-spacing: 0.1em;
+  font-size: var(--text-small);
+  font-weight: 600;
   color: var(--offline-ink);
 }
 
@@ -25,19 +43,20 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .offline-eyebrow::before {
   content: '';
-  width: 22px;
+  width: 18px;
   height: 2px;
+  border-radius: 2px;
   background: currentColor;
 }
 
 .offline-headline {
-  font: 700 clamp(3rem, 5.4vw, 4.5rem)/1.02 var(--font-display);
-  letter-spacing: -0.055em;
+  font: 800 clamp(3rem, 5.6vw, 4.75rem)/0.98 var(--font-display);
+  letter-spacing: -0.05em;
   margin-bottom: 26px;
 }
 
@@ -50,9 +69,10 @@
 }
 
 .offline-body {
-  max-width: 400px;
-  font-size: 16px;
-  line-height: 1.75;
+  max-width: 420px;
+  font-size: var(--text-subheading);
+  line-height: 1.5;
+  color: var(--color-text-dark-secondary);
 }
 
 .offline-sign-in {
@@ -62,8 +82,9 @@
   max-width: 390px;
   margin-top: 18px;
   color: var(--offline-ink);
-  font-size: 12px;
-  line-height: 1.7;
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 .offline-sign-in svg {
@@ -82,16 +103,16 @@
 }
 
 .offline-details dt {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--text-small);
+  font-weight: 700;
   margin-bottom: 4px;
 }
 
 .offline-details dd {
-  font-size: 12px;
+  font-size: var(--text-small);
   color: var(--color-text-dark-secondary);
-  line-height: 1.65;
-  max-width: 350px;
+  line-height: 1.6;
+  max-width: 360px;
 }
 
 .offline-visual {
@@ -102,13 +123,16 @@
 
 .offline-demo-caption {
   margin-bottom: 12px;
-  letter-spacing: 0;
 }
 
 .offline-log {
-  border: 1px solid var(--offline-ink);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);
   overflow: hidden;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 30px 60px -30px rgba(0, 0, 0, 0.35),
+    0 10px 24px -14px rgba(0, 0, 0, 0.2);
 }
 
 .offline-connection {
@@ -116,16 +140,17 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 20px;
-  background: var(--offline-ink);
-  color: var(--color-bg-light);
+  padding: 12px 20px;
+  background: #161616;
+  color: #f3f0ea;
 }
 
 .offline-network {
   display: flex;
   align-items: center;
   gap: 8px;
-  font: 400 11px/1.4 var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: 600;
 }
 
 .offline-network svg {
@@ -142,7 +167,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: var(--text-small);
+  font-weight: 500;
   padding: 0 2px;
   flex-shrink: 0;
 }
@@ -152,22 +178,21 @@
 }
 
 .offline-switch-track {
-  width: 34px;
-  height: 20px;
-  border: 1px solid var(--color-accent);
+  width: 40px;
+  height: 24px;
   border-radius: var(--radius-pill);
   padding: 3px;
-  background: transparent;
-  transition: background var(--duration-fast);
+  background: rgba(255, 255, 255, 0.18);
+  transition: background var(--duration-normal);
 }
 
 .offline-switch-track > span {
   display: block;
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: var(--color-accent);
-  transition: transform var(--duration-fast), background var(--duration-fast);
+  background: #fff;
+  transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal);
 }
 
 .offline-mode-toggle[aria-checked='true'] .offline-switch-track {
@@ -175,16 +200,16 @@
 }
 
 .offline-mode-toggle[aria-checked='true'] .offline-switch-track > span {
-  background: var(--offline-ink);
-  transform: translateX(14px);
+  background: var(--color-on-accent);
+  transform: translateX(16px);
 }
 
 .offline-mode-toggle:hover .offline-switch-track {
-  box-shadow: 0 0 0 3px rgb(169 202 232 / 15%);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
 }
 
 .offline-log-page {
-  background: var(--color-bg-light);
+  background: #fff;
   padding: 24px 28px 0;
 }
 
@@ -198,13 +223,13 @@
 }
 
 .offline-log-heading h3 {
-  font: 700 28px/1.2 var(--font-display);
+  font: 800 28px/1.2 var(--font-display);
   letter-spacing: -0.04em;
 }
 
 .offline-log-heading > span {
-  color: var(--offline-ink);
-  font: 400 11px/1.5 var(--font-mono);
+  color: var(--color-text-dark-secondary);
+  font-size: var(--text-small);
 }
 
 .offline-exercise-heading {
@@ -212,13 +237,13 @@
 }
 
 .offline-exercise-heading > span {
-  font: 400 10px/1.5 var(--font-mono);
+  font-size: var(--text-caption);
   color: var(--color-text-dark-secondary);
 }
 
 .offline-exercise-heading h4 {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   margin-top: 3px;
 }
 
@@ -226,14 +251,13 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
 .offline-set-table thead th {
-  font-size: 10px;
-  font-weight: 400;
+  font-size: var(--text-caption);
+  font-weight: 500;
   color: var(--color-text-dark-secondary);
   padding-bottom: 10px;
 }
@@ -245,14 +269,15 @@
 .offline-set-table tbody th,
 .offline-set-table td {
   border-top: 1px solid var(--offline-rule);
-  padding: 10px 0;
-  font-size: 14px;
-  font-weight: 400;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .offline-set-table tbody th {
   color: var(--offline-ink);
-  font-size: 11px;
+  font-size: var(--text-small);
+  font-weight: 600;
 }
 
 .offline-set-check {
@@ -267,14 +292,15 @@
   gap: 12px;
   padding: 18px 0;
   border-top: 1px solid var(--offline-rule);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-text-dark-secondary);
 }
 
 .offline-next-exercise > span:last-child {
   flex-shrink: 0;
-  font: 400 10px/1.5 var(--font-mono);
-  color: var(--color-text-dark-secondary);
+  font-size: var(--text-caption);
+  font-weight: 500;
 }
 
 .offline-save-status {
@@ -283,9 +309,10 @@
   gap: 12px;
   padding: 20px 28px;
   margin: 0 -28px;
-  background: color-mix(in srgb, var(--color-accent) 20%, var(--color-bg-light));
+  background: color-mix(in srgb, var(--offline-wash) 55%, #fff);
   border-top: 1px solid var(--offline-rule);
   color: var(--offline-ink);
+  transition: background var(--duration-slower) var(--ease-out);
 }
 
 .offline-save-status svg {
@@ -295,12 +322,12 @@
 }
 
 .offline-save-status strong {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--text-small);
+  font-weight: 700;
 }
 
 .offline-save-status p {
-  font-size: 10px;
+  font-size: var(--text-caption);
   margin-top: 2px;
 }
 

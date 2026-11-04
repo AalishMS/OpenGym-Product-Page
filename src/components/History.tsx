@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, MouseEvent, PointerEvent } from 'react';
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import { config } from '../config';
 import { historyEnd, historyMilestones, historyReleaseDates, historyStart } from '../history';
 import { AnimatedNumber } from './AnimatedNumber';
@@ -23,7 +23,6 @@ export function History() {
   const [active, setActive] = useState(last);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
-  const shouldReduceMotion = useReducedMotion();
   const milestone = historyMilestones[active];
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -113,20 +112,14 @@ export function History() {
       onMouseLeave={() => setHalf(null)}
     >
       <div className="container">
-        <motion.div
-          className="history-header"
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className="section-head">
           <p className="eyebrow">{copy.eyebrow}</p>
-          <h2 id="history-title" className="history-headline">
+          <h2 id="history-title" className="section-title">
             <span>{copy.headline[0]}</span>
             <span>{copy.headline[1]}</span>
           </h2>
-          <p className="history-description">{copy.description}</p>
-        </motion.div>
+          <p className="section-lede">{copy.description}</p>
+        </div>
 
         <div className="history-stage">
           {screenKeys.map((key) => (

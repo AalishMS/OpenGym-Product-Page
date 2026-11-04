@@ -26,7 +26,7 @@ export function Releases() {
       </a>
       <div className="releases-intro">
         <div>
-          <p className="eyebrow">BUILT IN THE OPEN</p>
+          <p className="eyebrow">Built in the open</p>
           <h1>
             A little better.
             <br />

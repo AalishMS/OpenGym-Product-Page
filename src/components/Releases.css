@@ -18,7 +18,7 @@
   margin: 45px 0 60px;
 }
 .releases-intro h1 {
-  font: 700 clamp(40px, 6vw, 72px)/1.05 var(--font-display);
+  font: 800 clamp(40px, 6vw, 72px)/1.02 var(--font-display);
   letter-spacing: -0.05em;
   margin-bottom: 24px;
 }
@@ -45,11 +45,17 @@
   width: 320px;
   max-width: 100%;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
   padding: 12px 16px;
   color: var(--color-text-primary);
   font: 14px var(--font-body);
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+.release-toolbar input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 .release-source {
   font-size: 12px;
@@ -77,21 +83,25 @@
   gap: 12px;
 }
 .release-version {
-  font: 600 21px var(--font-mono);
+  font: 800 24px var(--font-display);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 .release-badge {
-  color: var(--color-accent);
-  background: var(--color-accent-muted);
-  border-radius: 5px;
-  padding: 3px 8px;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
   font-size: 12px;
+  font-weight: 700;
 }
 .release-meta time {
   color: var(--color-text-secondary);
   font-size: 12px;
 }
 .release-body h2 {
-  font: 600 25px var(--font-display);
+  font: 800 26px/1.2 var(--font-display);
+  letter-spacing: -0.03em;
   margin-bottom: 20px;
 }
 .release-body ul {
@@ -110,7 +120,8 @@
   gap: 12px 24px;
   margin-top: 24px;
   color: var(--color-accent);
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 600;
 }
 .release-links a:hover {
   text-decoration: underline;

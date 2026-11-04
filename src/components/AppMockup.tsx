@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { config, mockupData } from '../config';
 import { previewPalette } from './previewTone';
 import { MockIcon } from './MockIcon';
+import { useAccent } from '../accentContext';
 import './AppMockup.css';
 
 export type MockScreen = 'plan' | 'log' | 'keypad' | 'progress';
@@ -209,9 +210,11 @@ function Statistics() {
 }
 
 /** 432 × 960 logical pixels, matching the 1080 × 2400 app captures. */
-export function AppMockup({ screen = 'plan', theme = 'light', accent = config.appAccents[4].seed }: {
+export function AppMockup({ screen = 'plan', theme = 'light', accent: accentProp }: {
   screen?: MockScreen; theme?: 'light' | 'dark'; accent?: string;
 }) {
+  const { accent: siteAccent } = useAccent();
+  const accent = accentProp ?? siteAccent.seed;
   const host = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   useLayoutEffect(() => {

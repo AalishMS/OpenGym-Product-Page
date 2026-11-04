@@ -5,7 +5,7 @@ import { PhoneFrame } from './PhoneFrame';
 import { config } from '../config';
 import './ProductStory.css';
 
-const STAGE_CATEGORIES = ['WORKOUT BUILDER', 'LIVE LOGGING', 'PROGRESSION'];
+const STAGE_LABELS: Record<string, string> = { plan: 'Plan', log: 'Log', progress: 'Progress' };
 
 export default function ProductStory() {
   const [activeStage, setActiveStage] = useState(0);
@@ -123,13 +123,15 @@ export default function ProductStory() {
 
   return (
     <section id="features" className="product-story-section container">
-      <div className="story-header">
-        <p className="eyebrow">FROM THE FIRST REP TO THE NEXT RECORD</p>
-        <h2>
-          A place for all
-          <br />
-          the work you put in.
+      <div className="section-head">
+        <h2 className="section-title">
+          <span>A place for all</span>
+          <span>the work you put in.</span>
         </h2>
+        <p className="section-lede">
+          Three screens carry the whole routine: the plan for the week, the set you are logging right now, and the
+          record of everything that came before.
+        </p>
       </div>
 
       <div className="product-story desktop-only">
@@ -145,21 +147,13 @@ export default function ProductStory() {
               >
                 <button
                   type="button"
-                  aria-label={`0${i + 1} ${stage.title}`}
+                  aria-label={`${STAGE_LABELS[stage.id]}: ${stage.title}`}
                   className={`story-choice ${activeStage === i ? 'active' : ''}`}
                   onClick={() => handleSelect(i)}
                   aria-pressed={activeStage === i}
                   aria-controls="feature-preview"
                 >
-                  <div className="story-stage-head">
-                    <span className="story-step">0{i + 1}</span>
-                    <span className="story-stage-category">
-                      {STAGE_CATEGORIES[i]}
-                    </span>
-                    <span className="story-arrow" aria-hidden="true">
-                      ↗
-                    </span>
-                  </div>
+                  <span className="story-rail" aria-hidden="true" />
                   <div className="story-stage-body">
                     <strong>{stage.title}</strong>
                     <span className="story-desc">{stage.description}</span>
@@ -192,14 +186,7 @@ export default function ProductStory() {
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                   />
                 )}
-                <span className="story-tab-step">0{i + 1}</span>
-                <span className="story-tab-label">
-                  {stage.id === 'plan'
-                    ? 'Plan'
-                    : stage.id === 'log'
-                      ? 'Log'
-                      : 'Progress'}
-                </span>
+                <span className="story-tab-label">{STAGE_LABELS[stage.id]}</span>
               </button>
             ))}
           </div>
@@ -220,7 +207,7 @@ export default function ProductStory() {
               </AnimatePresence>
             </div>
           </PhoneFrame>
-          <p>App preview · Sample data</p>
+          <p>Sample data</p>
         </div>
       </div>
 
@@ -240,7 +227,7 @@ export default function ProductStory() {
               onClick={() => setActiveStage(i)}
               onKeyDown={(event) => handleTabKeyDown(event, i)}
             >
-              {stage.id === 'plan' ? 'Plan' : stage.id === 'log' ? 'Log' : 'Progress'}
+              {STAGE_LABELS[stage.id]}
               {activeStage === i && (
                 <motion.span
                   layoutId="story-tab-underline"
@@ -270,7 +257,6 @@ export default function ProductStory() {
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 className="story-stage-animated-text"
               >
-                <span className="story-stage-category-mobile">{STAGE_CATEGORIES[activeStage]}</span>
                 <h3>{activeStory.title}</h3>
                 <p>{activeStory.description}</p>
               </motion.div>

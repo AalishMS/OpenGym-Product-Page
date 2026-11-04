@@ -5,30 +5,29 @@ import { previewTone } from './previewTone';
 import { PhoneFrame } from './PhoneFrame';
 import './Personalization.css';
 import { config, mockupData } from '../config';
+import { useAccent } from '../accentContext';
 
 const SCREEN_LABELS = mockupData.screenLabels;
 
 export function Personalization() {
   const [theme, setTheme] = useState<'dark' | 'light'>('light');
   const [screen, setScreen] = useState<MockScreen>('plan');
-  const [accent, setAccent] = useState<{ name: string; seed: string }>(
-    config.appAccents[4],
-  );
+  const { accent, setAccent } = useAccent();
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <section id="personalization" className="personalization-section">
       <div className="container personalization-content">
         <div className="personalization-header">
-          <p className="eyebrow">A LITTLE MORE YOU</p>
+          <p className="eyebrow">Make it yours</p>
           <h2 className="personalization-headline">
             Your routine.
             <br />
             Your kind of color.
           </h2>
           <p className="personalization-subtitle">
-            Quiet neutrals. A color you love. Find your combination and see it
-            come to life.
+            Quiet neutrals and one color you pick. Choose an accent here and the
+            app preview, and this whole page, follow it.
           </p>
         </div>
 
@@ -67,7 +66,7 @@ export function Personalization() {
               </PhoneFrame>
             </div>
           </div>
-          <p>Live theme preview · Sample data</p>
+          <p>Sample data</p>
         </div>
 
         <div className="personalization-controls">

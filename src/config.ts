@@ -38,16 +38,25 @@ export const config = {
   },
 
   hero: {
-    eyebrow: 'YOUR TRAINING. YOUR TERMS.',
     productLabel: 'Free open-source gym app for Android',
     description:
-      'Plan your workouts, log weight, reps, and RPE, and follow your progress.',
+      'Plan the week, log every set in a few taps, and watch the numbers climb. Free, open source, and yours to keep offline.',
     signInNote: 'An internet connection is required to sign in on first launch.',
     downloadLabel: 'Download for Android',
-    exploreLabel: 'Explore the app',
+    exploreLabel: 'See how it works',
     versionLabel: 'Android APK',
+    versionShort: releases[0].version.split('+')[0],
     caption: 'Your session, at a glance · Sample data',
-    details: ['Offline after sign-in', 'Free & open source', 'Local-first data'],
+    /** Small cards that float beside the phone once the page has loaded. */
+    chips: [
+      { label: 'Set 2 logged', value: '100 kg × 6' },
+      { label: 'New record', value: '122.5 kg' },
+    ],
+    proof: [
+      { title: 'Free and open source', text: 'Every line is on GitHub.' },
+      { title: 'Works offline', text: 'Sign in once, then train anywhere.' },
+      { title: 'Your data stays yours', text: 'Stored on your phone, exportable as JSON.' },
+    ],
     updatedLabel: `Updated ${formatDate(releases[0].date, { month: 'short', day: 'numeric' })}`,
   },
 
@@ -77,7 +86,7 @@ export const config = {
   },
 
   progressShowcase: {
-    eyebrow: 'PROGRESS YOU CAN SEE',
+    eyebrow: 'Progress you can see',
     headline: ['Twelve weeks.', 'One line going up.'],
     description:
       'Every set you log feeds your estimated 1RM. Pick an exercise and watch the work add up, week after week.',
@@ -92,7 +101,7 @@ export const config = {
   },
 
   history: {
-    eyebrow: 'HOW IT GOT HERE',
+    eyebrow: 'How it got here',
     headline: ['Seven months', 'of iterations.'],
     description:
       'Screenshots pulled from the git history, from the first commit to today. Drag along the timeline or use the arrow keys to step through each version.',
@@ -107,7 +116,7 @@ export const config = {
   },
 
   changelog: {
-    eyebrow: 'CHANGELOG',
+    eyebrow: 'Changelog',
     title: `${releases.length} releases since ${formatDate(firstRelease.date, { month: 'long', year: 'numeric' })}.`,
     description: `A new version about every ${Math.round(releaseSpanDays / (releases.length - 1))} days. Here's what changed lately.`,
     count: 3,
@@ -115,7 +124,7 @@ export const config = {
   },
 
   offline: {
-    eyebrow: 'OFFLINE TRAINING',
+    eyebrow: 'Offline training',
     headline: ['No signal.', 'Keep lifting.'],
     description:
       'Your plans, sets, and history stay on your phone. Log your workout wherever you train, even when the gym’s Wi-Fi gives up.',
@@ -140,7 +149,7 @@ export const config = {
 
   installation: {
     linkLabel: 'Installation help',
-    eyebrow: 'READY FOR YOUR NEXT SESSION',
+    eyebrow: 'Install',
     title: 'Install OpenGym on Android.',
     description: 'Download the APK directly from GitHub Releases.',
     releaseLabel: 'View release details',
@@ -313,7 +322,11 @@ export function configForReleases(history: readonly Release[]) {
   return {
     ...config,
     links: { ...config.links, download: latest.apkUrl || latest.url, latestRelease: latest.url },
-    hero: { ...config.hero, updatedLabel: `Updated ${formatDate(latest.date, { month: 'short', day: 'numeric' })}` },
+    hero: {
+      ...config.hero,
+      versionShort: latest.version.split('+')[0],
+      updatedLabel: `Updated ${formatDate(latest.date, { month: 'short', day: 'numeric' })}`,
+    },
     changelog: {
       ...config.changelog,
       title: `${history.length} releases since ${formatDate(oldest.date, { month: 'long', year: 'numeric' })}.`,
