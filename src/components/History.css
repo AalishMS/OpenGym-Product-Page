@@ -28,7 +28,7 @@
   width: min(220px, 40vw);
 }
 
-.history-phone--workout {
+.history-phone--raised {
   transform: translateY(-28px);
 }
 
@@ -58,7 +58,8 @@
 }
 
 .history-screen img {
-  object-fit: contain;
+  object-fit: cover;
+  object-position: top;
   transform: scale(1.04);
 }
 
@@ -283,7 +284,7 @@
 }
 
 @media (max-width: 640px) {
-  .history-phone--workout {
+  .history-phone--raised {
     transform: translateY(-16px);
   }
 

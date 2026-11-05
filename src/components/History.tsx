@@ -16,8 +16,8 @@ const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'UTC' }).format(new Date(date));
 
 const last = historyMilestones.length - 1;
-const months = Array.from({ length: 7 }, (_, i) => `2026-${String(i + 4).padStart(2, '0')}-01`);
-const screenKeys = ['home', 'workout'] as const;
+const months = Array.from({ length: 8 }, (_, i) => `2026-${String(i + 4).padStart(2, '0')}-01`);
+const screenSlots = [0, 1] as const;
 
 export function History() {
   const [active, setActive] = useState(last);
@@ -122,15 +122,15 @@ export function History() {
         </div>
 
         <div className="history-stage">
-          {screenKeys.map((key) => (
-            <figure key={key} className={`history-phone history-phone--${key}`}>
+          {screenSlots.map((slot) => (
+            <figure key={slot} className={`history-phone ${slot === 1 ? 'history-phone--raised' : ''}`}>
               <div className="history-screen">
                 {historyMilestones.map((item, i) =>
                   item.screens ? (
                     <img
                       key={item.commit}
-                      src={item.screens[key]}
-                      alt={i === active ? `OpenGym ${key} screen, ${formatDate(item.date, { month: 'long', year: 'numeric' })} (${item.version})` : ''}
+                      src={item.screens[slot].src}
+                      alt={i === active ? `${item.screens[slot].alt} (${item.version})` : ''}
                       aria-hidden={i !== active}
                       className={i === active ? 'is-active' : ''}
                       data-side={i < active ? 'before' : i > active ? 'after' : undefined}
@@ -145,11 +145,11 @@ export function History() {
                   className={`history-empty ${milestone.screens ? '' : 'is-active'}`}
                   aria-hidden={!!milestone.screens}
                 >
-                  <span className="history-empty-prompt">{key === 'home' ? '$ git init' : '$ flutter run'}</span>
-                  {key === 'home' && <p>{copy.noScreens}</p>}
+                  <span className="history-empty-prompt">{slot === 0 ? '$ git init' : '$ flutter run'}</span>
+                  {slot === 0 && <p>{copy.noScreens}</p>}
                 </div>
               </div>
-              <figcaption>{key === 'home' ? copy.homeLabel : copy.workoutLabel}</figcaption>
+              <figcaption>{milestone.screens?.[slot].label ?? copy.firstCommitLabel}</figcaption>
             </figure>
           ))}
         </div>

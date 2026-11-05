@@ -1,8 +1,18 @@
 // Milestones from the OpenGym git history, oldest first. Screenshots are the ones
-// committed to the app repo at each point (public/history/), resized to 540px wide.
+// committed to the app repo (public/history/), fitted to a 540 × 1200 viewport.
+// Long web captures trim empty space below the journal. Each pair
+// highlights the UI changed at that milestone. captureCommit identifies a later
+// capture when the original screenshots had not caught up with the shipped UI.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-11-04 (OpenGym@5318981).
+// Last checked: 2026-11-05 (OpenGym@29ec45f).
+export interface HistoryScreen {
+  src: string;
+  label: string;
+  alt: string;
+  captureCommit?: string;
+}
+
 export interface HistoryMilestone {
   date: string;
   version: string;
@@ -12,11 +22,11 @@ export interface HistoryMilestone {
   commits: number;
   contributors: number;
   linesOfCode: number;
-  screens?: { home: string; workout: string };
+  screens?: readonly [HistoryScreen, HistoryScreen];
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-11-04';
+export const historyEnd = '2026-11-05';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -40,7 +50,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 18,
     contributors: 1,
     linesOfCode: 8074,
-    screens: { home: '/history/2026-06-home.webp', workout: '/history/2026-06-workout.webp' },
+    screens: [
+      { src: '/history/2026-06-home.webp', label: 'Plan grid', alt: 'The original square workout plan grid with monospace labels' },
+      { src: '/history/2026-06-settings.webp', label: 'Themes and accents', alt: 'Dark Settings with hot-pink controls and named accent colors' },
+    ],
   },
   {
     date: '2026-08-24',
@@ -52,7 +65,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 67,
     contributors: 1,
     linesOfCode: 13916,
-    screens: { home: '/history/2026-08-home.webp', workout: '/history/2026-08-workout.webp' },
+    screens: [
+      { src: '/history/2026-08-home.webp', label: 'OpenGym branding', alt: 'The renamed OpenGym home screen and workout plans' },
+      { src: '/history/2026-08-workout.webp', label: 'Workout log', alt: 'The workout log with updated icons and per-set training values' },
+    ],
   },
   {
     date: '2026-09-07',
@@ -64,7 +80,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 115,
     contributors: 1,
     linesOfCode: 24053,
-    screens: { home: '/history/2026-09-home.webp', workout: '/history/2026-09-workout.webp' },
+    screens: [
+      { src: '/history/2026-09-keypad.webp', label: 'Set entry', alt: 'The custom number keypad in a set-editing sheet' },
+      { src: '/history/2026-09-statistics.webp', label: 'Weekly statistics', alt: 'Weekly training volume bars and an exercise progress selector' },
+    ],
   },
   {
     date: '2026-10-02',
@@ -76,7 +95,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 171,
     contributors: 2,
     linesOfCode: 29076,
-    screens: { home: '/history/2026-10a-home.webp', workout: '/history/2026-10a-workout.webp' },
+    screens: [
+      { src: '/history/2026-10a-home.webp', label: 'Next workout', alt: 'The rebuilt Home screen with a next-workout card and weekly activity' },
+      { src: '/history/2026-10a-workout.webp', label: 'Training log', alt: 'The continuous workout log with aligned set rows' },
+    ],
   },
   {
     date: '2026-10-07',
@@ -88,7 +110,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 201,
     contributors: 2,
     linesOfCode: 30221,
-    screens: { home: '/history/2026-10b-home.webp', workout: '/history/2026-10b-workout.webp' },
+    screens: [
+      { src: '/history/2026-10b-keypad.webp', label: 'Faster keypad', alt: 'Rectangular keypad keys with weight adjustments and a tall Next key' },
+      { src: '/history/2026-10b-statistics.webp', label: 'Exercise progress', alt: 'An estimated one-rep-max trend with exercise, measure, and period selectors' },
+    ],
   },
   {
     date: '2026-10-29',
@@ -100,7 +125,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 296,
     contributors: 2,
     linesOfCode: 46939,
-    screens: { home: '/history/2026-10c-home.webp', workout: '/history/2026-10c-workout.webp' },
+    screens: [
+      { src: '/history/2026-10c-block-menu.webp', label: 'Training blocks', alt: 'The training block menu for switching, creating, renaming, and reordering blocks' },
+      { src: '/history/2026-10c-block-create.webp', label: 'Create a block', alt: 'The create-block dialog with a block name and week count' },
+    ],
   },
   {
     date: '2026-10-30',
@@ -112,7 +140,10 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 311,
     contributors: 2,
     linesOfCode: 48074,
-    screens: { home: '/history/2026-10d-home.webp', workout: '/history/2026-10d-workout.webp' },
+    screens: [
+      { src: '/history/2026-10d-history.webp', label: 'Workout timeline', alt: 'Workout history arranged as dated session cards with exercise summaries' },
+      { src: '/history/2026-10d-workout.webp', label: 'Session controls', alt: 'The simplified workout header with its session clock and pause control' },
+    ],
   },
   {
     date: '2026-11-04',
@@ -124,7 +155,25 @@ export const historyMilestones: HistoryMilestone[] = [
     commits: 322,
     contributors: 2,
     linesOfCode: 49081,
-    screens: { home: '/history/2026-11-home.webp', workout: '/history/2026-11-workout.webp' },
+    screens: [
+      { src: '/history/2026-11-overview.webp', label: 'Weekly overview', alt: 'Focused Stats tabs with weekly weight lifted, workout totals, and a training calendar', captureCommit: '29ec45f' },
+      { src: '/history/2026-11-blocks.webp', label: 'Block trends', alt: 'The Blocks view with a selectable training trend, weekly workload, and strength gains', captureCommit: '29ec45f' },
+    ],
+  },
+  {
+    date: '2026-11-05',
+    version: 'v1.0.17',
+    commit: '29ec45f',
+    title: 'A journal you can pick up again',
+    summary:
+      'History becomes a ruled journal with monthly totals and exercise summaries. Home can resume the workout in progress, the selected tab gets an accent marker, and updates download quietly in the background.',
+    commits: 335,
+    contributors: 2,
+    linesOfCode: 51699,
+    screens: [
+      { src: '/history/2026-11b-history.webp', label: 'Ruled workout journal', alt: 'The redesigned History journal with monthly totals, dated rows, exercise summaries, and PR markers' },
+      { src: '/history/2026-11b-home.webp', label: 'Home and navigation', alt: 'Home with a next-workout card and an accent rule marking the selected bottom tab' },
+    ],
   },
 ];
 
@@ -132,5 +181,5 @@ export const historyMilestones: HistoryMilestone[] = [
 export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
-  '2026-11-03',
+  '2026-11-03', '2026-11-05',
 ];

@@ -104,12 +104,11 @@ export const config = {
     eyebrow: 'How it got here',
     headline: ['Seven months', 'of iterations.'],
     description:
-      'Screenshots pulled from the git history, from the first commit to today. Drag along the timeline or use the arrow keys to step through each version.',
+      'From the first plan grid to today’s training journal. Each milestone shows the screens that changed. Drag along the timeline or use the arrow keys to explore.',
     trackLabel: 'OpenGym version history',
     dayLabel: 'day',
     noScreens: 'No screenshots survived from day zero.',
-    homeLabel: 'Home',
-    workoutLabel: 'Workout',
+    firstCommitLabel: 'First commit',
     previous: 'Previous version',
     next: 'Next version',
     stats: { commits: 'commits', contributors: 'contributors', linesOfCode: 'lines of code' },
@@ -243,7 +242,7 @@ export const config = {
       id: 'log',
       title: 'Stay with your workout.',
       description:
-        'Log weight, reps, and RPE in a few taps. Previous values fill in for you, and a session timer keeps track of the time.',
+        'Log weight, reps, and RPE in a few taps. Previous values fill in for you, a timer tracks the session, and you can resume your workout from any tab.',
     },
     {
       id: 'progress',
@@ -337,41 +336,39 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content mirroring the OpenGym screenshots at mobile app commit 5318981. */
+/** Sample content based on OpenGym@29ec45f, with a workout in progress. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
-    time: '9:41', split: 'My Split', next: 'Next up',
-    startWorkout: 'Start workout', nextBadge: 'Next',
-    thisWeek: 'This week', weeklySummary: '1 workout · 12 sets',
+    time: '9:41', split: 'My split', next: 'In progress',
+    startWorkout: 'Resume workout', nextBadge: 'Next',
+    thisWeek: 'This week', weeklySummary: '4 workouts · 58 sets',
     yourPlans: 'Your plans', manage: 'Manage',
     set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE', empty: '–',
     pause: 'Pause', addSet: 'Add set', week: 'Week', block: 'Block 1', nextKey: 'Next',
-    statistics: 'Statistics', workouts: 'Workouts', workoutsSubtitle: 'Days you trained · Last 16 weeks',
-    exercise: 'Exercise', activity: 'Activity',
+    statistics: 'Statistics',
   },
+  activeWorkout: { status: 'Workout in progress', name: 'Full Body', elapsed: '12:48' },
   nextWorkout: {
     name: 'Full Body',
-    position: 'Workout 4 of 5',
+    position: 'Workout 3 of 3',
     groups: 'Chest, Back, Shoulders, Legs',
     exercises: '6 exercises',
-    sets: '17 sets',
-    planIndex: 3,
+    sets: '17 sets · ~55 min',
+    planIndex: 2,
     /** Plans already trained in this rotation, shown as filled rail segments. */
-    trained: [2],
+    trained: [0, 1],
   },
   /** One entry per weekday; trained days fill the bar, as in the app. */
   activity: [
-    { day: 'M' }, { day: 'T', trained: true },
-    { day: 'W', today: true }, { day: 'T' },
+    { day: 'M', trained: true }, { day: 'T', trained: true },
+    { day: 'W' }, { day: 'T', trained: true, today: true },
     { day: 'F' }, { day: 'S' }, { day: 'S' },
   ],
   plans: [
-    { name: 'Upper Body', summary: '6 exercises · 20 sets', color: ['#657000', '#a9b000'] },
-    { name: 'Pull Day', summary: '7 exercises · 22 sets', color: ['#b7421c', '#f47755'] },
-    { name: 'Leg Day', summary: '7 exercises · 23 sets', color: ['#995a00', '#da9200'] },
+    { name: 'Upper Body', summary: '6 exercises · 17 sets', color: ['#43779a', '#8ebce0'] },
+    { name: 'Push Day', summary: '6 exercises · 17 sets', color: ['#b7421c', '#f47755'] },
     { name: 'Full Body', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
-    { name: 'Push Day', summary: '6 exercises · 18 sets', color: ['#b2336c', '#e96c9f'] },
   ],
   /** The first week of a new block, so no previous values or RPE are logged yet. */
   workout: {
@@ -405,28 +402,33 @@ export const mockupData = {
   },
   workoutWeek: 1,
   visibleWeeks: [1],
-  workoutTime: { log: '01:39', keypad: '00:08' },
+  workoutTime: { log: '12:48', keypad: '12:48' },
   /** The keypad edits the weight of the first Squat set. */
   keypad: { set: 1, field: 'Weight (kg)', value: '95', copyTo: 'Copy to set 2' },
   statistics: {
-    weeklyTitle: 'Weekly training', weightTitle: 'Weight lifted',
-    weightDescription: 'Weight × reps for every set, added up by week', allExercises: 'All exercises',
-    selectedLabel: 'Last week', selectedValue: '11,476 kg',
-    selectedRange: '26 Oct – 1 Nov 2026', comparison: '60% less than the week before',
-    chartLabel: 'Volume (kg)', axis: ['40.0k', '30.0k', '20.0k', '10.0k', '0'], axisMax: 40000,
+    tabs: ['Overview', 'Strength', 'Blocks', 'Records'],
+    weeklyTitle: 'Weekly training', weightTitle: 'Weight lifted', allExercises: 'All exercises',
+    selectedLabel: 'Last week', selectedValue: '11,746 kg',
+    selectedRange: '26 Oct – 1 Nov 2026', comparison: '-49% vs previous week',
+    chartLabel: 'Tap a week to inspect', chartMax: '40 t', axisMax: 40000,
     weeks: [
-      { label: '28 Sep', volume: 27900, value: '27.9k' },
-      { label: '5 Oct', volume: 30100, value: '30.1k' },
-      { label: '12 Oct', volume: 14000, value: '14.0k' },
-      { label: '19 Oct', volume: 28800, value: '28.8k' },
-      { label: '26 Oct', volume: 11476, value: '11.5k', selected: true },
-      { label: '2 Nov', volume: 10700, value: '10.7k' },
+      { label: '28 Sep', volume: 12700 },
+      { label: '5 Oct', volume: 28800 },
+      { label: '12 Oct', volume: 30700 },
+      { label: '19 Oct', volume: 23300 },
+      { label: '26 Oct', volume: 11746, selected: true },
+      { label: '2 Nov', volume: 16000 },
     ],
     workoutStats: [
-      { label: 'Workout days', value: '14' },
-      { label: 'Week streak', value: '6 weeks' },
-      { label: 'Days per week', value: '2.3' },
+      { label: 'Workouts', value: '2' },
+      { label: 'Sets', value: '31' },
+      { label: 'Reps', value: '273' },
     ],
+    calendarTitle: 'Training rhythm',
+    months: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+    days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    trainingDays: [126, 130, 131, 133, 137, 138, 140, 144, 145, 147, 151, 152, 154, 156],
+    calendarCaption: '14 training days in 23 weeks', todayLabel: 'Today',
   },
   screenLabels: { plan: 'Home', log: 'Workout', progress: 'Statistics', keypad: 'Keypad' },
 } as const;

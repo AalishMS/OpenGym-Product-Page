@@ -29,6 +29,20 @@ function BottomNav({ stats = false }: { stats?: boolean }) {
   );
 }
 
+function ActiveWorkout() {
+  const workout = mockupData.activeWorkout;
+  const plan = mockupData.plans.find(plan => plan.name === workout.name)!;
+  return (
+    <div className="replica-active-workout" style={{ '--plan-light': plan.color[0], '--plan-dark': plan.color[1] } as CSSProperties}>
+      <i />
+      <MockIcon name="timer" />
+      <div><small>{workout.status}</small><b>{workout.name}</b></div>
+      <strong>{workout.elapsed}</strong>
+      <MockIcon name="chevronRight" />
+    </div>
+  );
+}
+
 function Home({ theme }: { theme: 'light' | 'dark' }) {
   const next = mockupData.nextWorkout;
   const trained: readonly number[] = next.trained;
@@ -61,7 +75,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
             {mockupData.activity.map((day, i) => (
               <div key={i}>
                 <div className="replica-day-track">
-                  <i className={'trained' in day ? 'trained' : 'today' in day ? 'today' : ''} />
+                  <i className={`${'trained' in day ? 'trained' : ''} ${'today' in day ? 'today' : ''}`} />
                 </div>
                 <span>{day.day}</span>
               </div>
@@ -80,6 +94,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
           ))}
         </div>
       </div>
+      <ActiveWorkout />
       <BottomNav />
     </>
   );
@@ -165,45 +180,55 @@ function Workout({ keypad }: { keypad: boolean }) {
 
 function Statistics() {
   const stats = mockupData.statistics;
+  const trainingDays: readonly number[] = stats.trainingDays;
   return (
     <>
       <header className="replica-page-header">{copy.statistics}</header>
+      <div className="replica-stats-tabs">
+        {stats.tabs.map((tab, i) => <span key={tab} className={i === 0 ? 'selected' : ''}>{tab}</span>)}
+      </div>
       <div className="replica-stats-viewport">
         <div className="replica-stats-body">
-          <h3 className="replica-section-title">{stats.weeklyTitle}</h3>
-          <div className="replica-stats-card replica-weekly-training">
-            <h4>{stats.weightTitle}</h4><p>{stats.weightDescription}</p>
-            <div className="replica-exercise-field">
-              <small>{copy.exercise}</small><MockIcon name="layers" />{stats.allExercises}<MockIcon name="chevron" />
-            </div>
-            <p className="replica-week-label">{stats.selectedLabel}</p>
+          <div className="replica-stats-heading">
+            <h3>{stats.weeklyTitle}</h3>
+            <span>{stats.allExercises}<MockIcon name="chevron" /></span>
+          </div>
+          <div className="replica-weekly-training">
+            <p className="replica-week-range">{stats.selectedLabel} / {stats.selectedRange}</p>
             <strong className="replica-week-value">{stats.selectedValue}</strong>
-            <p className="replica-week-range">{stats.selectedRange}</p>
-            <p className="replica-week-compare">{stats.comparison}</p>
-            <p className="replica-volume-unit">{stats.chartLabel}</p>
+            <p className="replica-week-compare">{stats.weightTitle}<b>{stats.comparison}</b></p>
+            <p className="replica-volume-unit"><span>{stats.chartLabel}</span><span>{stats.chartMax}</span></p>
             <div className="replica-volume-chart">
               <div className="replica-volume-axis">
-                {stats.axis.map(label => <div key={label}><span>{label}</span><i /></div>)}
+                {[0, 1, 2].map(line => <div key={line}><i /></div>)}
               </div>
               <div className="replica-volume-bars">
                 {stats.weeks.map(week => (
                   <div key={week.label} className={'selected' in week ? 'selected' : ''}>
-                    <span>{week.value}</span>
                     <i style={{ height: `${(week.volume / stats.axisMax) * 100}%` }} />
                     <small>{week.label}</small>
                   </div>
                 ))}
               </div>
             </div>
-            <i className="replica-volume-scroll" />
           </div>
-          <h3 className="replica-section-title">{copy.activity}</h3>
-          <div className="replica-stats-card replica-workout-days">
-            <h4>{copy.workouts}</h4><p>{copy.workoutsSubtitle}</p>
-            <div>{stats.workoutStats.map(stat => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}</div>
+          <div className="replica-workout-totals">
+            {stats.workoutStats.map(stat => <div key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}
+          </div>
+          <div className="replica-calendar">
+            <h3>{stats.calendarTitle}</h3>
+            <div className="replica-calendar-months">{stats.months.map(month => <span key={month}>{month}</span>)}</div>
+            <div className="replica-calendar-chart">
+              <div className="replica-calendar-days">{stats.days.map((day, i) => <span key={i}>{day}</span>)}</div>
+              <div className="replica-calendar-cells">
+                {Array.from({ length: 161 }, (_, i) => <i key={i} className={`${trainingDays.includes(i) ? 'trained' : ''} ${i === 157 ? 'today' : ''}`} />)}
+              </div>
+            </div>
+            <p><i className="trained" />{stats.calendarCaption}<i className="today" />{stats.todayLabel}</p>
           </div>
         </div>
       </div>
+      <ActiveWorkout />
       <BottomNav stats />
     </>
   );
@@ -228,7 +253,7 @@ export function AppMockup({ screen = 'plan', theme = 'light', accent: accentProp
   const palette = previewPalette(accent, theme === 'dark');
   const style = Object.fromEntries(Object.entries(palette).map(([key, value]) => [`--replica-${key}`, value])) as CSSProperties;
   return (
-    <div ref={host} className={`mock-app mock-app--${theme}`} style={style} role="img" aria-label={`${theme} ${mockupData.screenLabels[screen]} OpenGym screen recreated from the app screenshot`}>
+    <div ref={host} className={`mock-app mock-app--${theme}`} style={style} role="img" aria-label={`${theme} ${mockupData.screenLabels[screen]} OpenGym preview with sample data`}>
       <div className={`replica-canvas replica-canvas--${screen}`} style={{ transform: `scale(${scale})` }}>
         <StatusBar />
         {screen === 'plan' ? <Home theme={theme} /> : screen === 'progress' ? <Statistics /> : <Workout keypad={screen === 'keypad'} />}

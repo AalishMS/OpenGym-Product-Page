@@ -1,7 +1,23 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-11-04';
+export const releasesCheckedAt = '2026-11-05';
 export const releases = [
+  {
+    version: 'v1.0.17+18',
+    date: '2026-11-05',
+    title: 'Resume your workout. A clearer training journal.',
+    changes: [
+      'Resume the workout in progress from Home or the persistent strip above the bottom navigation.',
+      'Made the selected tab clearer and limited tab switching to deliberate horizontal swipes.',
+      'Redesigned History as a ruled journal with monthly totals, exercise summaries, and personal records.',
+      'Kept exercise progress together with stable exercise identities and preserved merged exercises through sync and backup restores.',
+      'Made in-app updates quieter, with background downloads on Wi-Fi and installation when you are ready.',
+      'Added support for workout timer live updates in the Android status bar.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.17%2B18',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.16+17...v1.0.17+18',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.17%2B18/OpenGym-v1.0.17-18.apk',
+  },
   {
     version: 'v1.0.16+17',
     date: '2026-11-03',

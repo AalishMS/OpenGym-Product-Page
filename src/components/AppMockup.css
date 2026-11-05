@@ -25,7 +25,7 @@
 .replica-canvas p, .replica-canvas h2, .replica-canvas h3, .replica-canvas h4 { margin: 0; }
 .replica-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .replica-canvas, .replica-next-card, .replica-nav, .replica-plan-marker, .replica-set-line > b,
-.replica-stats-card, .replica-keypad, .replica-key, .replica-block-chip {
+.replica-active-workout, .replica-keypad, .replica-key, .replica-block-chip {
   transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
@@ -37,7 +37,16 @@
 .replica-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 97px; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--replica-background); border-top: 1px solid var(--replica-border); }
 .replica-nav > div { display: flex; align-items: center; flex-direction: column; padding-top: 16px; gap: 9px; font-size: 12.5px; color: var(--replica-secondary); }
 .replica-nav .replica-icon { width: 20px; height: 20px; }
-.replica-nav .selected { color: var(--replica-ink); font-weight: 600; }
+.replica-nav .selected { position: relative; color: var(--replica-ink); font-weight: 700; }
+.replica-nav .selected::before { content: ''; position: absolute; top: 0; left: calc(50% - 14px); width: 28px; height: 3px; border-radius: 2px; background: var(--replica-ink); }
+.replica-active-workout { --active-marker: var(--plan-light); position: absolute; left: 0; right: 0; bottom: 97px; height: 56px; display: flex; align-items: center; gap: 8px; padding: 0 17px; border-top: 1px solid var(--replica-border); background: var(--replica-background); }
+.mock-app--dark .replica-active-workout { --active-marker: var(--plan-dark); }
+.replica-active-workout > i { height: 32px; width: 4px; border-radius: 2px; background: var(--active-marker); margin-right: 4px; }
+.replica-active-workout > .replica-icon { width: 18px; height: 18px; color: var(--active-marker); }
+.replica-active-workout > div { flex: 1; }
+.replica-active-workout small { display: block; font-size: 11px; color: var(--replica-secondary); }
+.replica-active-workout b { display: block; font-size: 14px; font-weight: 700; }
+.replica-active-workout strong { font-size: 16px; font-weight: 700; }
 .replica-page-header { position: absolute; z-index: 1; top: 53px; left: 0; right: 0; height: 56px; padding: 15px 17px; border-bottom: 1px solid var(--replica-border); background: var(--replica-background); font-size: 17.5px; font-weight: 600; line-height: 26px; }
 
 /* Home */
@@ -46,7 +55,7 @@
 .replica-split-name { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; }
 .replica-split-name > i { font-style: normal; font-size: 20px; color: var(--replica-secondary); }
 .replica-split-name .replica-icon { width: 14px; height: 14px; margin-left: -2px; color: var(--replica-secondary); }
-.replica-home-body { position: absolute; top: 136px; bottom: 97px; left: 17px; right: 17px; overflow: hidden; }
+.replica-home-body { position: absolute; top: 136px; bottom: 153px; left: 17px; right: 17px; overflow: hidden; }
 .replica-next-card { height: 239px; padding: 16px 17px; border: 1px solid color-mix(in srgb, var(--replica-border) 45%, transparent); border-radius: 14px; background: var(--replica-raised); }
 .replica-next-label { font-size: 15px; font-weight: 600; line-height: 20px; }
 .replica-next-position { margin-top: 5px !important; color: var(--replica-secondary); font-size: 12.5px; line-height: 20px; }
@@ -59,30 +68,30 @@
 .replica-next-summary { display: flex; gap: 13px; margin-top: 9px !important; color: var(--replica-secondary); font-size: 13px; line-height: 18px; }
 .replica-start-workout { height: 50px; margin-top: 13px; border-radius: 12px; background: var(--replica-fill); color: var(--replica-onFill); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; }
 .replica-start-workout .replica-icon { width: 18px; height: 18px; }
-.replica-activity { margin-top: 24px; }
+.replica-activity { margin-top: 20px; }
 .replica-activity-heading { display: flex; justify-content: space-between; align-items: center; height: 20px; font-size: 15px; font-weight: 500; }
 .replica-activity-heading > span:last-child { display: flex; align-items: center; gap: 8px; color: var(--replica-secondary); font-size: 13px; font-weight: 400; }
 .replica-activity-heading .replica-icon { width: 15px; height: 15px; }
-.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 28px; }
+.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 20px; }
 .replica-activity-days > div { text-align: center; }
-.replica-day-track { height: 54px; display: flex; align-items: end; }
+.replica-day-track { height: 42px; display: flex; align-items: end; }
 .replica-day-track > i { display: block; width: 100%; height: 5px; border-radius: 3px; background: var(--replica-border); }
-.replica-day-track > i.trained { height: 54px; border-radius: 6px; background: var(--replica-fill); }
-.replica-day-track > i.today { height: 41px; border-radius: 4px; background: transparent; border: 1.5px dashed var(--replica-text); }
+.replica-day-track > i.trained { height: 42px; border-radius: 6px; background: var(--replica-fill); }
+.replica-day-track > i.today { height: 42px; outline: 1.5px dashed var(--replica-text); outline-offset: 3px; }
 .replica-activity-days span { display: block; margin-top: 9px; color: var(--replica-secondary); font-size: 12px; line-height: 14px; }
 .replica-plans-heading { display: flex; justify-content: space-between; align-items: center; height: 37px; margin-top: 23px; padding-bottom: 12px; border-bottom: 1px solid var(--replica-border); }
 .replica-plans-heading > b { font-size: 16px; font-weight: 500; }
 .replica-plans-heading small { margin-left: 8px; color: var(--replica-secondary); font-size: 13px; }
 .replica-plans-heading > span { padding-right: 13px; color: var(--replica-ink); font-size: 16px; font-weight: 500; }
 .replica-plan-list { margin-top: 5px; }
-.replica-plan-row { display: flex; align-items: center; gap: 14px; height: 92px; padding: 0 12px; border-bottom: 1px solid var(--replica-border); }
+.replica-plan-row { display: flex; align-items: center; gap: 14px; height: 78px; padding: 0 12px; border-bottom: 1px solid var(--replica-border); }
 .replica-plan-marker { display: grid; place-items: center; width: 45px; height: 45px; border-radius: 10px; background: color-mix(in srgb, var(--plan-color) 12.5%, var(--replica-raised)); color: #000; font-size: 15px; font-weight: 500; }
 .mock-app--dark .replica-plan-marker { color: #fff; background: color-mix(in srgb, var(--plan-color) 18%, var(--replica-background)); }
 .replica-plan-row > div { flex: 1; }
 .replica-plan-row b { font-size: 16px; font-weight: 500; }
 .replica-plan-row p { margin-top: 2px !important; color: var(--replica-secondary); font-size: 13px; }
 .replica-plan-row > .replica-icon { margin: 0 15px 0 0; color: var(--replica-secondary); }
-.replica-plan-row--next { height: 83px; border: 1.5px solid var(--replica-text); border-radius: 14px; background: var(--replica-raised); }
+.replica-plan-row--next { height: 78px; border: 1.5px solid var(--replica-text); border-radius: 14px; background: var(--replica-raised); }
 .mock-app--dark .replica-plan-row--next { border-color: var(--replica-border); }
 .replica-next-badge { margin-right: 1px; padding: 2px 8px; border-radius: 6px; background: var(--replica-surface); color: var(--replica-text); font-size: 13px; font-style: normal; }
 .mock-app--dark .replica-next-badge { background: var(--replica-background); }
@@ -150,40 +159,46 @@
 .replica-key--next { grid-column: 5; grid-row: 2 / span 2; background: var(--replica-fill); color: var(--replica-onFill); font-size: 15px; }
 .replica-key .replica-icon { width: 24px; height: 24px; }
 
-/* Statistics */
-.replica-stats-viewport { position: absolute; top: 109px; bottom: 97px; left: 0; right: 0; overflow: hidden; }
-.replica-stats-body { padding: 0 16px; }
-.replica-stats-card { padding: 17px 16px; border-radius: 14px; background: var(--replica-surface); }
-.replica-stats-body .replica-section-title { margin: 12px 0 14px; font-size: 17.5px; font-weight: 600; }
-.replica-stats-card h4 { font-size: 16px; font-weight: 500; }
-.replica-stats-card > p { color: var(--replica-secondary); font-size: 12.5px; margin-top: 3px !important; }
-.replica-exercise-field { position: relative; display: flex; gap: 12px; align-items: center; height: 47px; margin-top: 18px; padding: 0 16px; border: 1px solid var(--replica-border); border-radius: 8px; color: var(--replica-ink); font-size: 16px; font-weight: 500; }
-.replica-exercise-field > small { position: absolute; top: -9px; left: 12px; padding: 0 4px; background: var(--replica-surface); color: var(--replica-secondary); font-size: 11px; font-weight: 400; }
-.replica-exercise-field > .replica-icon--layers { width: 18px; height: 18px; }
-.replica-exercise-field > .replica-icon--chevron { margin-left: auto; width: 16px; height: 16px; color: var(--replica-secondary); }
-.replica-stats-card > .replica-week-label { margin-top: 26px !important; font-size: 12.5px; font-weight: 500; }
-.replica-week-value { display: block; margin-top: 2px; font-size: 32px; font-weight: 700; line-height: 40px; letter-spacing: 0.5px; }
-.replica-stats-card > .replica-week-range { margin-top: 4px !important; }
-.replica-stats-card > .replica-week-compare { margin-top: 2px !important; color: var(--replica-text); }
-.replica-stats-card > .replica-volume-unit { margin: 30px 0 0 41px !important; font-size: 12.5px; font-weight: 500; }
-.replica-volume-chart { position: relative; height: 222px; margin-top: 6px; }
-.replica-volume-axis { position: absolute; top: 18px; left: 0; right: 0; height: 180px; display: flex; flex-direction: column; justify-content: space-between; }
+/* Statistics: focused Overview with an open chart and training calendar. */
+.replica-stats-tabs { position: absolute; top: 109px; left: 0; right: 0; height: 50px; display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--replica-border); }
+.replica-stats-tabs > span { display: grid; place-items: center; font-size: 14px; font-weight: 600; color: var(--replica-secondary); border-bottom: 2px solid transparent; }
+.replica-stats-tabs > .selected { color: var(--replica-text); border-bottom-color: var(--replica-ink); }
+.replica-stats-viewport { position: absolute; top: 159px; bottom: 153px; left: 0; right: 0; overflow: hidden; }
+.replica-stats-body { padding: 20px 24px 0; }
+.replica-stats-heading { display: flex; align-items: center; justify-content: space-between; }
+.replica-stats-heading h3, .replica-calendar h3 { font-size: 17px; font-weight: 600; }
+.replica-stats-heading > span { display: flex; align-items: center; gap: 5px; color: var(--replica-ink); font-size: 13px; font-weight: 600; }
+.replica-stats-heading .replica-icon { width: 16px; height: 16px; }
+.replica-week-range { margin-top: 25px !important; color: var(--replica-secondary); font-size: 12.5px; }
+.replica-week-value { display: block; margin-top: 3px; font-size: 40px; font-weight: 700; line-height: 55px; letter-spacing: -0.5px; }
+.replica-week-compare { display: flex; gap: 8px; margin-top: 7px !important; color: var(--replica-secondary); font-size: 12px; }
+.replica-week-compare b { color: var(--replica-text); font-weight: 600; }
+.replica-volume-unit { display: flex; justify-content: space-between; margin-top: 18px !important; color: var(--replica-secondary); font-size: 11px; }
+.replica-volume-chart { position: relative; height: 145px; margin-top: 4px; }
+.replica-volume-axis { position: absolute; top: 0; left: 0; right: 0; height: 116px; display: flex; flex-direction: column; justify-content: space-between; }
 .replica-volume-axis > div { position: relative; height: 0; }
-.replica-volume-axis span { position: absolute; top: -8px; left: 0; width: 30px; text-align: right; color: var(--replica-secondary); font-size: 10.5px; line-height: 16px; }
-.replica-volume-axis i { position: absolute; left: 41px; right: 0; border-top: 1px solid var(--replica-border); }
-.replica-volume-bars { position: absolute; top: 18px; left: 41px; right: 0; height: 180px; display: flex; }
-.replica-volume-bars > div { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: end; align-items: center; color: var(--replica-secondary); font-size: 10.5px; }
-.replica-volume-bars i { width: 24px; border-radius: 2px 2px 0 0; background: var(--replica-fill); opacity: 0.65; }
-.replica-volume-bars span { margin-bottom: 6px; line-height: 14px; }
-.replica-volume-bars small { position: absolute; bottom: -24px; font-size: 11.5px; white-space: nowrap; }
+.replica-volume-axis i { position: absolute; left: 0; right: 0; border-top: 1px solid var(--replica-border); }
+.replica-volume-bars { position: absolute; top: 0; left: 0; right: 0; height: 116px; display: flex; }
+.replica-volume-bars > div { position: relative; flex: 1; display: flex; justify-content: end; align-items: center; flex-direction: column; color: var(--replica-secondary); }
+.replica-volume-bars i { width: 26px; border-radius: 2px 2px 0 0; background: var(--replica-fill); opacity: 0.65; }
+.replica-volume-bars small { position: absolute; bottom: -23px; font-size: 10px; white-space: nowrap; }
 .replica-volume-bars .selected { color: var(--replica-text); }
-.replica-volume-bars .selected small { font-weight: 600; }
+.replica-volume-bars .selected small { font-weight: 700; }
 .replica-volume-bars .selected i { opacity: 1; }
-.replica-volume-scroll { display: block; height: 8px; margin: 12px 0 0 52px; border-radius: 4px; background: var(--replica-border); opacity: 0.6; }
-.replica-weekly-training + .replica-section-title { margin-top: 36px !important; }
-.replica-workout-days > div { display: flex; gap: 24px; margin-top: 18px; }
-.replica-workout-days span { display: block; color: var(--replica-secondary); font-size: 12.5px; font-weight: 500; }
-.replica-workout-days strong { display: block; font-size: 17px; font-weight: 500; }
+.replica-workout-totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 15px 0 20px; border-bottom: 1px solid var(--replica-border); }
+.replica-workout-totals strong { display: block; font-size: 24px; font-weight: 600; }
+.replica-workout-totals span { display: block; margin-top: 2px; font-size: 12px; color: var(--replica-secondary); }
+.replica-calendar { margin-top: 14px; }
+.replica-calendar-months { display: flex; justify-content: space-between; margin: 11px 0 7px 22px; color: var(--replica-secondary); font-size: 10px; }
+.replica-calendar-chart { display: flex; gap: 9px; }
+.replica-calendar-days { display: grid; grid-template-rows: repeat(7, 11px); gap: 4px; color: var(--replica-secondary); font-size: 10px; line-height: 11px; }
+.replica-calendar-cells { flex: 1; display: grid; grid-auto-flow: column; grid-template-columns: repeat(23, 1fr); grid-template-rows: repeat(7, 11px); gap: 4px; }
+.replica-calendar-cells > i { background: var(--replica-border); border-radius: 2px; }
+.replica-calendar .trained { background: var(--replica-fill); }
+.replica-calendar .today { border: 1.5px solid var(--replica-ink); background: transparent; }
+.replica-calendar > p { display: flex; align-items: center; gap: 6px; margin-top: 10px !important; color: var(--replica-secondary); font-size: 10px; }
+.replica-calendar > p > i { width: 11px; height: 11px; border-radius: 2px; }
+.replica-calendar > p > .today { margin-left: 10px; }
 @media (prefers-reduced-motion: reduce) {
   .mock-app *, .mock-app *::before, .mock-app *::after { transition: none; }
 }
