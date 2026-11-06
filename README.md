@@ -14,9 +14,11 @@ Built with React 19, TypeScript, and Vite.
 | :---: | :---: | :---: | :---: |
 | <img src="./public/screenshots/history.png" width="200" alt="Ruled workout journal with monthly totals" /> | <img src="./public/screenshots/statistics_2.png" width="200" alt="Training block trends" /> | <img src="./public/screenshots/statistics_3.png" width="200" alt="Exercise strength progress" /> | <img src="./public/screenshots/statistics_records.png" width="200" alt="Personal records" /> |
 
-The current gallery and app previews reflect **v1.0.17+18**, checked against
-OpenGym commit `29ec45f` on November 5, 2026. The previews use sample data and show
-the workout resume strip, selected-tab marker, and focused Statistics views.
+The current gallery and app previews reflect **v1.0.19+20**, checked against
+OpenGym commit `ca88ab9` on November 6, 2026. The previews use sample data and show
+the labeled Finish action, populated previous sets, the seven-day workload strip,
+and focused Statistics views. Release highlights also cover live records and
+shareable workout summaries.
 
 The History timeline uses two captures of the UI changed at each milestone,
 with individual captions and alt text configured in `src/history.ts`. Historical

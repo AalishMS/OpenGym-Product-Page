@@ -72,12 +72,12 @@
 .replica-activity-heading { display: flex; justify-content: space-between; align-items: center; height: 20px; font-size: 15px; font-weight: 500; }
 .replica-activity-heading > span:last-child { display: flex; align-items: center; gap: 8px; color: var(--replica-secondary); font-size: 13px; font-weight: 400; }
 .replica-activity-heading .replica-icon { width: 15px; height: 15px; }
-.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 20px; }
+.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; margin-top: 20px; }
 .replica-activity-days > div { text-align: center; }
 .replica-day-track { height: 42px; display: flex; align-items: end; }
 .replica-day-track > i { display: block; width: 100%; height: 5px; border-radius: 3px; background: var(--replica-border); }
 .replica-day-track > i.trained { height: 42px; border-radius: 6px; background: var(--replica-fill); }
-.replica-day-track > i.today { height: 42px; outline: 1.5px dashed var(--replica-text); outline-offset: 3px; }
+.replica-day-track > i.today { height: 42px; }
 .replica-activity-days span { display: block; margin-top: 9px; color: var(--replica-secondary); font-size: 12px; line-height: 14px; }
 .replica-plans-heading { display: flex; justify-content: space-between; align-items: center; height: 37px; margin-top: 23px; padding-bottom: 12px; border-bottom: 1px solid var(--replica-border); }
 .replica-plans-heading > b { font-size: 16px; font-weight: 500; }
@@ -202,3 +202,9 @@
 @media (prefers-reduced-motion: reduce) {
   .mock-app *, .mock-app *::before, .mock-app *::after { transition: none; }
 }
+
+.replica-activity-days .is-today > span { position: relative; color: var(--replica-ink); font-weight: 700; }
+.replica-activity-days .is-today > span::after { content: ''; display: block; width: 4px; height: 4px; margin: 4px auto 0; border-radius: 50%; background: var(--replica-ink); }
+.replica-workout-header .replica-workout-pause { left: 276px; }
+.replica-workout-finish { left: 328px; top: 21px; display: flex; align-items: center; gap: 4px; font-size: 14px; color: var(--replica-ink); }
+.replica-workout-finish .replica-icon { width: 18px; height: 18px; }

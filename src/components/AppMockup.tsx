@@ -73,7 +73,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
           </div>
           <div className="replica-activity-days">
             {mockupData.activity.map((day, i) => (
-              <div key={i}>
+              <div key={i} className={'today' in day ? 'is-today' : ''}>
                 <div className="replica-day-track">
                   <i className={`${'trained' in day ? 'trained' : ''} ${'today' in day ? 'today' : ''}`} />
                 </div>
@@ -100,7 +100,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
   );
 }
 
-interface SetEntry { set: number; weight: number; reps: number }
+interface SetEntry { set: number; weight: number; reps: number; previous: string; rpe: number }
 function SetTable({ sets, editing = -1 }: { sets: readonly SetEntry[]; editing?: number }) {
   return (
     <div className="replica-set-table">
@@ -109,8 +109,8 @@ function SetTable({ sets, editing = -1 }: { sets: readonly SetEntry[]; editing?:
       </div>
       {sets.map((set, i) => (
         <div className="replica-set-line" key={set.set}>
-          <span>{set.set}</span><span className="replica-prev">{copy.empty}</span>
-          <b className={i === editing ? 'editing' : ''}>{set.weight}</b><b>{set.reps}</b><span className="replica-rpe">{copy.empty}</span>
+          <span>{set.set}</span><span className="replica-prev">{set.previous}</span>
+          <b className={i === editing ? 'editing' : ''}>{set.weight}</b><b>{set.reps}</b><span className="replica-rpe">{set.rpe}</span>
         </div>
       ))}
     </div>
@@ -154,7 +154,7 @@ function Workout({ keypad }: { keypad: boolean }) {
       <header className="replica-workout-header" style={{ '--plan-light': planColor[0], '--plan-dark': planColor[1] } as CSSProperties}>
         <MockIcon name="back" />
         <div className="replica-workout-title"><b>{mockupData.workout.planName}</b><p>{copy.block} · {copy.week} {mockupData.workoutWeek}<span className="replica-workout-time">{mockupData.workoutTime[keypad ? 'keypad' : 'log']}</span></p></div>
-        <span className="replica-workout-pause" aria-label={copy.pause}><MockIcon name="pause" /></span><MockIcon name="check" /><MockIcon name="menu" />
+        <span className="replica-workout-pause" aria-label={copy.pause}><MockIcon name="pause" /></span><span className="replica-workout-finish"><MockIcon name="check" />{copy.finish}</span><MockIcon name="menu" />
       </header>
       <div className="replica-plan-tabs">
         {mockupData.plans.map((plan, i) => <span key={plan.name} className={i === planIndex ? 'selected' : ''}>{plan.name}</span>)}

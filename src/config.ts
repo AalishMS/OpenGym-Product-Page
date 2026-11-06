@@ -236,13 +236,13 @@ export const config = {
       id: 'plan',
       title: 'Plan your week.',
       description:
-        'Build your own split or pick a bundled program, then group your weeks into training blocks. Your exercises, target sets, and notes are ready for your next session.',
+        'Build your own split or pick a bundled program, including a five-day full-body preset, then group your weeks into training blocks. Your exercises, target sets, and notes are ready for your next session.',
     },
     {
       id: 'log',
       title: 'Stay with your workout.',
       description:
-        'Log weight, reps, and RPE in a few taps. Previous values fill in for you, a timer tracks the session, and you can resume your workout from any tab.',
+        'Log weight, reps, and RPE in a few taps. Previous values fill in for you, live PR markers celebrate your best sets, and a shareable summary wraps up each workout.',
     },
     {
       id: 'progress',
@@ -336,7 +336,7 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content based on OpenGym@29ec45f, with a workout in progress. */
+/** Sample content based on OpenGym@ca88ab9, with a workout in progress. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
@@ -345,7 +345,7 @@ export const mockupData = {
     thisWeek: 'This week', weeklySummary: '4 workouts · 58 sets',
     yourPlans: 'Your plans', manage: 'Manage',
     set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE', empty: '–',
-    pause: 'Pause', addSet: 'Add set', week: 'Week', block: 'Block 1', nextKey: 'Next',
+    pause: 'Pause', finish: 'Finish', addSet: 'Add set', week: 'Week', block: 'Block 1', nextKey: 'Next',
     statistics: 'Statistics',
   },
   activeWorkout: { status: 'Workout in progress', name: 'Full Body', elapsed: '12:48' },
@@ -370,32 +370,32 @@ export const mockupData = {
     { name: 'Push Day', summary: '6 exercises · 17 sets', color: ['#b7421c', '#f47755'] },
     { name: 'Full Body', summary: '6 exercises · 17 sets', color: ['#00771a', '#57b45a'] },
   ],
-  /** The first week of a new block, so no previous values or RPE are logged yet. */
+  /** Sample session with previous-set context and logged effort values. */
   workout: {
     planName: 'Full Body',
     exercises: [
       {
         name: 'Squat',
         sets: [
-          { set: 1, weight: 95, reps: 6 },
-          { set: 2, weight: 95, reps: 6 },
-          { set: 3, weight: 95, reps: 6 },
+          { set: 1, weight: 95, reps: 6, previous: '95 × 6', rpe: 8 },
+          { set: 2, weight: 95, reps: 6, previous: '95 × 6', rpe: 9 },
+          { set: 3, weight: 95, reps: 6, previous: '95 × 6', rpe: 10 },
         ],
       },
       {
         name: 'Bench Press',
         sets: [
-          { set: 1, weight: 70, reps: 8 },
-          { set: 2, weight: 70, reps: 8 },
-          { set: 3, weight: 70, reps: 8 },
+          { set: 1, weight: 70, reps: 8, previous: '70 × 8', rpe: 8 },
+          { set: 2, weight: 70, reps: 8, previous: '70 × 8', rpe: 9 },
+          { set: 3, weight: 70, reps: 8, previous: '70 × 8', rpe: 10 },
         ],
       },
       {
         name: 'Deadlift',
         sets: [
-          { set: 1, weight: 120, reps: 5 },
-          { set: 2, weight: 120, reps: 5 },
-          { set: 3, weight: 120, reps: 5 },
+          { set: 1, weight: 120, reps: 5, previous: '120 × 5', rpe: 8 },
+          { set: 2, weight: 120, reps: 5, previous: '120 × 5', rpe: 9 },
+          { set: 3, weight: 120, reps: 5, previous: '120 × 5', rpe: 10 },
         ],
       },
     ],

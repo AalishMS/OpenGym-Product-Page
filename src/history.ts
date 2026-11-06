@@ -5,7 +5,7 @@
 // capture when the original screenshots had not caught up with the shipped UI.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-11-05 (OpenGym@29ec45f).
+// Last checked: 2026-11-06 (OpenGym@ca88ab9).
 export interface HistoryScreen {
   src: string;
   label: string;
@@ -26,7 +26,7 @@ export interface HistoryMilestone {
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-11-05';
+export const historyEnd = '2026-11-06';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -175,11 +175,26 @@ export const historyMilestones: HistoryMilestone[] = [
       { src: '/history/2026-11b-home.webp', label: 'Home and navigation', alt: 'Home with a next-workout card and an accent rule marking the selected bottom tab' },
     ],
   },
+  {
+    date: '2026-11-06',
+    version: 'v1.0.19',
+    commit: 'ca88ab9',
+    title: 'Feedback for every session',
+    summary:
+      'Live record markers and shareable workout summaries celebrate progress. Offline fonts, a full seven-day Home strip, animated statistics and a five-day full-body preset refine everyday training.',
+    commits: 351,
+    contributors: 2,
+    linesOfCode: 52497,
+    screens: [
+      { src: '/history/2026-11c-home.webp', label: 'Your training week', alt: 'Home with a populated seven-day workload strip and realistic workout plans', captureCommit: 'ca88ab9' },
+      { src: '/history/2026-11c-workout.webp', label: 'Set-by-set context', alt: 'Workout logging with previous weights and reps, RPE values, and the labeled Finish action', captureCommit: 'ca88ab9' },
+    ],
+  },
 ];
 
 // Dates of every published release tag, drawn as small ticks on the track.
 export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
-  '2026-11-03', '2026-11-05',
+  '2026-11-03', '2026-11-05', '2026-11-06',
 ];

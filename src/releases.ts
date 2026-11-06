@@ -1,7 +1,23 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-11-05';
+export const releasesCheckedAt = '2026-11-06';
 export const releases = [
+  {
+    version: 'v1.0.19+20',
+    date: '2026-11-06',
+    title: 'Records while you lift. A summary worth sharing.',
+    changes: [
+      'Mark personal records while entering sets and show when you beat your previous set.',
+      'Finish each workout with a compact summary of duration, volume, sets, and records, and share it as an image.',
+      'Recognize bodyweight training in workout history and live records.',
+      'Bundle the app fonts for offline use and fit all seven days in the Home weekly strip.',
+      'Animate Statistics figures, honor reduced motion, and swipe through Statistics sections before changing main tabs.',
+      'Add Aalish’s five-day full-body preset, with heavy and volume days and per-exercise cues.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.19%2B20',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.17+18...v1.0.19+20',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.19%2B20/OpenGym-v1.0.19-20.apk',
+  },
   {
     version: 'v1.0.17+18',
     date: '2026-11-05',
