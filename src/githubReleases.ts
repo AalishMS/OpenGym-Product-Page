@@ -1,5 +1,5 @@
-import { config } from './config';
-import { releases } from './releases';
+import { config } from './config.ts';
+import { releases } from './releases.ts';
 
 export interface Release {
   version: string;

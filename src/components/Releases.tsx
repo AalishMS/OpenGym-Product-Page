@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useReleaseData } from '../releaseContext';
 import './Releases.css';
 
@@ -12,16 +12,9 @@ export function Releases() {
       .includes(query.toLowerCase().trim()),
   );
 
-  useEffect(() => {
-    document.title = 'OpenGym Releases · Free Android Gym App Updates';
-    return () => {
-      document.title = config.meta.title;
-    };
-  }, [config.meta.title]);
-
   return (
     <section className="releases-page container">
-      <a className="release-back" href="#">
+      <a className="release-back" href="/">
         ← Back to OpenGym
       </a>
       <div className="releases-intro">

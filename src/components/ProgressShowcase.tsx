@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useRef } from 'react';
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useReleaseData } from '../releaseContext';
 import { AnimatedNumber } from './AnimatedNumber';
 import './ProgressShowcase.css';
@@ -142,14 +143,14 @@ export function ProgressShowcase() {
             <p className="eyebrow">{changelog.eyebrow}</p>
             <h2 className="changelog-title">{changelog.title}</h2>
             <p className="changelog-description">{changelog.description}</p>
-            <a className="text-link changelog-all" href="#/releases">
+            <a className="text-link changelog-all" href="/releases/">
               {changelog.allLabel}
             </a>
           </div>
           <ol className="changelog-list" role="list">
             {releases.slice(0, changelog.count).map((release) => (
               <li key={release.version}>
-                <a href="#/releases">
+                <a href="/releases/">
                   <time dateTime={release.date}>{shortDate(release.date)}</time>
                   <span className="changelog-version">{release.version.split('+')[0]}</span>
                   <span className="changelog-release-title">{release.title}</span>

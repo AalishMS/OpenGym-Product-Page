@@ -3,10 +3,10 @@ import { useReleaseData } from '../releaseContext';
 import './Header.css';
 
 const NAV = [
-  { href: '#features', label: 'Features' },
-  { href: '#history', label: 'History' },
-  { href: '#personalization', label: 'Make it yours' },
-  { href: '#/releases', label: 'Releases' },
+  { href: '/#features', label: 'Features' },
+  { href: '/#history', label: 'History' },
+  { href: '/#personalization', label: 'Make it yours' },
+  { href: '/releases/', label: 'Releases' },
 ];
 
 export function Header() {
@@ -53,7 +53,7 @@ export function Header() {
       }}
     >
       <div className="container header-container">
-        <a href="#" className="header-logo" onClick={() => setOpen(false)} aria-label="OpenGym home">
+        <a href="/" className="header-logo" onClick={() => setOpen(false)} aria-label="OpenGym home">
           <span className="header-logo-mark" aria-hidden="true">&gt;</span>
           OpenGym
         </a>

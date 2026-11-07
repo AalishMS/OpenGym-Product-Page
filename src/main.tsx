@@ -1,16 +1,12 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import './index.css';
-import App from './App';
-import { ReleaseProvider } from './ReleaseProvider';
-import { AccentProvider } from './AccentProvider';
+import { SiteRoot } from './SiteRoot';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ReleaseProvider>
-      <AccentProvider>
-        <App />
-      </AccentProvider>
-    </ReleaseProvider>
-  </StrictMode>
-);
+const container = document.getElementById('root')!;
+const app = <SiteRoot path={window.location.pathname} />;
+
+if (container.querySelector('main')) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}

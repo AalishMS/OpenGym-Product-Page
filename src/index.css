@@ -425,3 +425,14 @@ section[id],
     scroll-behavior: auto !important;
   }
 }
+
+/* Keep pre-rendered content readable when scripts are disabled or unavailable. */
+@media (scripting: none) {
+  [style*="opacity:0"] {
+    opacity: 1 !important;
+  }
+
+  .hero-word {
+    transform: none !important;
+  }
+}

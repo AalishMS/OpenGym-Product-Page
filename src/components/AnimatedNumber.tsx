@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useEffect, useRef, useState } from 'react';
-import { animate, useInView, useReducedMotion } from 'framer-motion';
+import { animate, useInView } from 'framer-motion';
 
 interface AnimatedNumberProps {
   value: number;
@@ -14,12 +15,15 @@ export function AnimatedNumber({ value, decimals = 0, fromZeroInView = false, du
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const shouldReduceMotion = useReducedMotion();
-  const [display, setDisplay] = useState(fromZeroInView ? 0 : value);
+  const [display, setDisplay] = useState(value);
   const current = useRef(display);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     if (shouldReduceMotion || (fromZeroInView && !inView)) return;
-    const controls = animate(current.current, value, {
+    const start = fromZeroInView && !hasAnimated.current ? 0 : current.current;
+    hasAnimated.current = true;
+    const controls = animate(start, value, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (latest) => {

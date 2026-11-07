@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import React from 'react';
-import { useReducedMotion } from 'framer-motion';
+
 import './PhoneFrame.css';
 
 interface PhoneFrameProps {

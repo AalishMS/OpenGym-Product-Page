@@ -3,8 +3,8 @@
  * All copy, URLs, and asset paths are managed here for easy updates.
  */
 
-import { releases, releasesCheckedAt } from './releases';
-import type { Release } from './githubReleases';
+import { releases, releasesCheckedAt } from './releases.ts';
+import type { Release } from './githubReleases.ts';
 
 const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
   new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'UTC' }).format(new Date(date));
@@ -40,7 +40,7 @@ export const config = {
   hero: {
     productLabel: 'Free open-source gym app for Android',
     description:
-      'Plan the week, log every set in a few taps, and watch the numbers climb. Free, open source, and yours to keep offline.',
+      'OpenGym is a free, open-source workout tracker for Android. Plan routines, log weight, reps, and RPE, and track personal records. Sign in once, then train offline.',
     signInNote: 'An internet connection is required to sign in on first launch.',
     downloadLabel: 'Download for Android',
     exploreLabel: 'See how it works',
@@ -175,13 +175,24 @@ export const config = {
   },
 
   meta: {
+    siteUrl: 'https://open-gym-product-page.vercel.app/',
+    releasesTitle: 'OpenGym Releases — Android APK Downloads & Changelog',
+    releasesDescription: 'Explore OpenGym Android app releases, download APKs, and read changes to workout logging, training plans, offline storage, and progress tracking.',
+    features: [
+      'Free, open-source workout tracker for Android',
+      'Offline workout logging after initial online sign-in',
+      'Weight, reps, and RPE logging with rest timers',
+      'Custom workout plans, training splits, and blocks',
+      'Workout history, personal records, and estimated one-rep max trends',
+      'Local data storage with JSON export and import',
+      'Supported account data syncs when online',
+    ],
     title: 'OpenGym — Free Open-Source Gym App & Offline Workout Tracker',
     description:
       'OpenGym is a free, open-source gym app and offline workout tracker for Android. Plan routines, log weight and reps, track PRs, and keep your data local.',
-    keywords:
-      'OpenGym, free gym app, gym app, open source workout tracker android, offline gym tracker apk, local-first workout log, lifting tracker, fitness journal',
-    ogImage: 'https://open-gym-product-page.vercel.app/og-image.png',
-    themeColor: '#0D0D0D',
+    ogImage: '/og-image.png',
+    ogImageAlt: 'OpenGym — Free open-source workout tracker for Android.',
+    themeColor: '#0b0b0b',
   },
 
   /**
@@ -286,6 +297,14 @@ export const config = {
   },
 
   faq: [
+    {
+      q: 'What is OpenGym?',
+      a: 'OpenGym is a free, open-source workout tracker for Android. It lets you build workout routines and training blocks, log weight, reps, and RPE, and review workout history, personal records, and estimated one-rep max trends.',
+    },
+    {
+      q: 'Which platforms does OpenGym support?',
+      a: 'OpenGym is available for Android as an APK from the official GitHub Releases page. This website offers interactive previews of the Android app.',
+    },
     {
       q: 'Does the app work without an internet connection?',
       a: 'A connection is required to sign in on first launch. After that, your workout data is stored locally first, so you can create plans, log workouts, and review your history without a connection.',

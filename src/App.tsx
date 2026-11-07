@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { Releases } from './components/Releases';
 import { Header } from './components/Header';
@@ -12,17 +12,18 @@ import { History } from './components/History';
 import { FAQ } from './components/FAQ';
 import { Installation } from './components/Installation';
 import { Footer } from './components/Footer';
+import { isReleasesPath } from './seo';
 
-function App() {
-  const [isReleases, setIsReleases] = useState(
-    window.location.hash.startsWith('#/releases'),
-  );
+function App({ path }: { path: string }) {
+  const isReleases = isReleasesPath(path);
   useEffect(() => {
     const navigate = () => {
-      setIsReleases(window.location.hash.startsWith('#/releases'));
-      if (window.location.hash.startsWith('#/') || !window.location.hash)
-        window.scrollTo({ top: 0, behavior: 'instant' });
+      // Preserve bookmarks to the old hash-based release page.
+      if (window.location.hash.startsWith('#/releases')) {
+        window.location.replace('/releases/');
+      }
     };
+    navigate();
     window.addEventListener('hashchange', navigate);
     return () => window.removeEventListener('hashchange', navigate);
   }, []);

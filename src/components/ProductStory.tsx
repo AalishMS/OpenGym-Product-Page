@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useState, useEffect, useRef, type KeyboardEvent } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AppMockup, type MockScreen } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
 import { config } from '../config';

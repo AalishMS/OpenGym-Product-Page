@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { AppMockup } from './AppMockup';
 import { PhoneFrame } from './PhoneFrame';
 import { useReleaseData } from '../releaseContext';
@@ -36,6 +37,7 @@ export function Hero() {
       <div className="hero-glow" aria-hidden="true" />
       <div className="container hero-container">
         <div className="hero-content">
+          <p className="eyebrow">{config.hero.productLabel}</p>
           <h1 className="hero-headline">
             <span className="sr-only">OpenGym — Free Gym App &amp; Offline Workout Tracker. Make every set count.</span>
             <span aria-hidden="true">

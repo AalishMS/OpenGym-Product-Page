@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { config } from '../config';
 import { AnimatedNumber } from './AnimatedNumber';
 import './LoggingDemo.css';

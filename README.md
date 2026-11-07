@@ -84,7 +84,7 @@ OpenGym_Product_Page/
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22.12+ (recommended) or 20.19+
 - npm, pnpm, or yarn
 
 ### Installation
@@ -109,7 +109,7 @@ Starts the local development server at `http://localhost:5173`.
 npm run build
 ```
 
-Compiles TypeScript and bundles production assets into `dist/`.
+Compiles TypeScript, bundles production assets, and pre-renders the homepage and release history into `dist/`. Both pages deliver their content before JavaScript runs; React hydrates the static HTML to enable interactive previews.
 
 To test the production build locally:
 
@@ -138,3 +138,46 @@ Site copy, download links, sample workouts, FAQ items, and theme palettes are de
 ## License
 
 This project is open-source under the MIT License.
+
+## Search and AI search
+
+SEO copy, the canonical origin (`meta.siteUrl`), social image, and product facts
+are configured in `src/config.ts`. `src/seo.ts` builds per-page titles,
+descriptions, canonical URLs, social previews, and JSON-LD from that source.
+The FAQ schema uses the same questions and answers as the visible FAQ. The
+schema describes the free Android app without invented ratings or reviews.
+FAQ markup helps describe the content; it does not promise Google FAQ rich results.
+
+`npm run build` generates:
+
+- `dist/index.html`: the complete product page, including installation and FAQ.
+- `dist/releases/index.html`: a separate, indexable release history.
+- `dist/robots.txt`: permits search crawling, including OpenAI and Claude search/retrieval agents. The existing general allow policy is preserved.
+- `dist/sitemap.xml`: lists the two canonical pages. It omits `lastmod` rather than presenting an app release date as the date a page changed.
+- `dist/llms.txt`: an optional plain-text product and source guide. It is not a ranking directive or a requirement for Google, ChatGPT, or Claude.
+
+The build uses the checked-in release snapshot with no external network calls.
+Visitors can still receive newer release data from GitHub after hydration.
+Update `src/releases.ts` and rebuild when publishing updated release content
+for crawlers. Old `#/releases` bookmarks redirect to `/releases/` in the browser.
+Serve the entire `dist/` directory so `/releases/` resolves to its generated
+`index.html`; do not rewrite that route to the homepage.
+
+Run `npm run check:seo` after a production build to check pre-rendered content,
+FAQ/schema consistency, canonical URLs, sitemap entries, crawler directives,
+and local links and assets.
+
+After deployment:
+
+1. Confirm `meta.siteUrl` matches the production domain before building. Update it when moving to a custom domain.
+2. Verify the property in Google Search Console and Bing Webmaster Tools, submit `/sitemap.xml`, and inspect both public URLs. Check the available Google generative AI visibility controls/reports in Search Console.
+3. Use Google's Rich Results Test and Schema.org Validator to inspect the deployed structured data. No ratings are fabricated to satisfy software-app rich-result eligibility.
+4. Ensure hosting/CDN rules permit public pages and assets for Googlebot, Bingbot, OAI-SearchBot, Claude-SearchBot, and Claude-User. A robots allow rule does not bypass a firewall or authentication.
+
+These changes improve accessibility to crawlers and help describe the product;
+indexing, rankings, and inclusion in AI-generated answers remain up to each service.
+
+Official guidance:
+[Google AI search optimization](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide),
+[OpenAI crawlers](https://developers.openai.com/api/docs/bots), and
+[Anthropic crawlers](https://privacy.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler).

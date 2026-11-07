@@ -1,5 +1,6 @@
+import { useReducedMotion } from '../useReducedMotion';
 import { useState, type CSSProperties } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { AppMockup, type MockScreen } from './AppMockup';
 import { previewTone } from './previewTone';
 import { PhoneFrame } from './PhoneFrame';
