@@ -1,7 +1,22 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-11-06';
+export const releasesCheckedAt = '2026-11-12';
 export const releases = [
+  {
+    version: 'v1.0.20+21',
+    date: '2026-11-12',
+    title: 'Fix any logged workout, right where you logged it.',
+    changes: [
+      'Edit completed workouts directly in the workout screen: sets, RPE, notes, exercises, and their order save automatically.',
+      'Correct a logged workout’s start date, time, and duration from the workout menu, including date-only fixes.',
+      'Keep unsaved edits to a logged workout when you go back.',
+      'Lighten the block button in the workout screen, with a divider between the block and its weeks.',
+      'Load richer sample data: three months of multi-block training with deloads, a week off, and a block in progress.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.20%2B21',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.19+20...v1.0.20+21',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.20%2B21/OpenGym-v1.0.20-21.apk',
+  },
   {
     version: 'v1.0.19+20',
     date: '2026-11-06',

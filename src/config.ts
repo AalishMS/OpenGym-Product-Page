@@ -355,7 +355,7 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content based on OpenGym@ca88ab9, with a workout in progress. */
+/** Sample content based on OpenGym@797b177, with a workout in progress. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',

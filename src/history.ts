@@ -5,7 +5,7 @@
 // capture when the original screenshots had not caught up with the shipped UI.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-11-06 (OpenGym@ca88ab9).
+// Last checked: 2026-11-12 (OpenGym@797b177).
 export interface HistoryScreen {
   src: string;
   label: string;
@@ -26,7 +26,7 @@ export interface HistoryMilestone {
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-11-06';
+export const historyEnd = '2026-11-12';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -190,11 +190,26 @@ export const historyMilestones: HistoryMilestone[] = [
       { src: '/history/2026-11c-workout.webp', label: 'Set-by-set context', alt: 'Workout logging with previous weights and reps, RPE values, and the labeled Finish action', captureCommit: 'ca88ab9' },
     ],
   },
+  {
+    date: '2026-11-12',
+    version: 'v1.0.20',
+    commit: '797b177',
+    title: 'Logs that stay editable',
+    summary:
+      'Completed workouts open for editing right in the workout screen, with date and duration corrections from its menu. The block button becomes lighter ink beside its weeks, and sample data now spans three months of training blocks.',
+    commits: 359,
+    contributors: 2,
+    linesOfCode: 52798,
+    screens: [
+      { src: '/history/2026-11d-workout.webp', label: 'Lighter block button', alt: 'The workout screen with a borderless block button divided from its week tabs by a hairline' },
+      { src: '/history/2026-11d-block-menu.webp', label: 'Multi-block training', alt: 'The training block menu listing Foundation, Hypertrophy, and the active Strength block' },
+    ],
+  },
 ];
 
 // Dates of every published release tag, drawn as small ticks on the track.
 export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
-  '2026-11-03', '2026-11-05', '2026-11-06',
+  '2026-11-03', '2026-11-05', '2026-11-06', '2026-11-12',
 ];
