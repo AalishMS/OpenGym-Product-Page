@@ -18,11 +18,36 @@ const formatDate = (date: string, options: Intl.DateTimeFormatOptions) =>
 const last = historyMilestones.length - 1;
 const months = Array.from({ length: 8 }, (_, i) => `2026-${String(i + 4).padStart(2, '0')}-01`);
 const screenSlots = [0, 1] as const;
+// A horizontal swipe this long (px) on the screens steps one version.
+const SWIPE_DISTANCE = 40;
+// A touch must travel this far (px) sideways on the track before it scrubs.
+const SCRUB_SLOP = 8;
+
+// Click-to-step and its resize cursor are for mice and trackpads only. On a touch
+// screen every tap to read or scroll would otherwise change the version.
+const isFinePointer = (event: MouseEvent<HTMLElement>) => {
+  const { pointerType } = event.nativeEvent as globalThis.PointerEvent;
+  if (pointerType && pointerType !== 'mouse') return false;
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+};
+
+// A press on the timeline track, and a swipe across the screenshots.
+interface Scrub {
+  x: number;
+  touch: boolean;
+  moved: boolean;
+}
+
+interface Swipe {
+  x: number;
+  y: number;
+}
 
 export function History() {
   const [active, setActive] = useState(last);
   const trackRef = useRef<HTMLDivElement>(null);
-  const dragging = useRef(false);
+  const drag = useRef<Scrub | null>(null);
+  const swipe = useRef<Swipe | null>(null);
   const milestone = historyMilestones[active];
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,13 +79,14 @@ export function History() {
   };
 
   const onSectionClick = (event: MouseEvent<HTMLElement>) => {
+    if (!isFinePointer(event)) return;
     const side = halfAt(event);
     if (!side || window.getSelection()?.toString()) return;
     select(active + (side === 'left' ? -1 : 1));
   };
 
   const onSectionMove = (event: MouseEvent<HTMLElement>) => {
-    const side = halfAt(event);
+    const side = isFinePointer(event) ? halfAt(event) : null;
     const canMove = side === 'left' ? active > 0 : side === 'right' ? active < last : false;
     const next = canMove ? side : null;
     if (next !== half) setHalf(next);
@@ -79,11 +105,46 @@ export function History() {
     setActive(nearest);
   };
 
+  // A mouse scrubs from the first press. A touch waits: a tap selects on release and a
+  // sideways drag scrubs, while a vertical swipe is left to the browser to scroll the page.
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    dragging.current = true;
+    const touch = event.pointerType !== 'mouse';
+    drag.current = { x: event.clientX, touch, moved: false };
     event.currentTarget.setPointerCapture(event.pointerId);
+    if (touch) return;
     event.currentTarget.focus();
     selectAt(event.clientX);
+  };
+
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    const gesture = drag.current;
+    if (!gesture) return;
+    if (gesture.touch && !gesture.moved) {
+      if (Math.abs(event.clientX - gesture.x) < SCRUB_SLOP) return;
+      gesture.moved = true;
+    }
+    selectAt(event.clientX);
+  };
+
+  const onPointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    const gesture = drag.current;
+    drag.current = null;
+    if (gesture?.touch && !gesture.moved) selectAt(event.clientX);
+  };
+
+  const onStagePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    swipe.current = event.pointerType === 'mouse' ? null : { x: event.clientX, y: event.clientY };
+  };
+
+  const onStagePointerUp = (event: PointerEvent<HTMLDivElement>) => {
+    const gesture = swipe.current;
+    swipe.current = null;
+    if (!gesture) return;
+    const dx = event.clientX - gesture.x;
+    const dy = event.clientY - gesture.y;
+    if (Math.abs(dx) < SWIPE_DISTANCE || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    // Swiping left brings in the newer version, like turning a page.
+    select(active + (dx < 0 ? 1 : -1));
   };
 
   const onTrackKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -118,10 +179,19 @@ export function History() {
             <span>{copy.headline[0]}</span>
             <span>{copy.headline[1]}</span>
           </h2>
-          <p className="section-lede">{copy.description}</p>
+          <p className="section-lede">
+            {copy.description}{' '}
+            <span className="history-hint history-hint--pointer">{copy.hint.pointer}</span>
+            <span className="history-hint history-hint--touch">{copy.hint.touch}</span>
+          </p>
         </div>
 
-        <div className="history-stage">
+        <div
+          className="history-stage"
+          onPointerDown={onStagePointerDown}
+          onPointerUp={onStagePointerUp}
+          onPointerCancel={() => (swipe.current = null)}
+        >
           {screenSlots.map((slot) => (
             <figure key={slot} className={`history-phone ${slot === 1 ? 'history-phone--raised' : ''}`}>
               <div className="history-screen">
@@ -203,9 +273,9 @@ export function History() {
             aria-valuetext={`${formatDate(milestone.date, { month: 'long', day: 'numeric' })}, ${milestone.version}: ${milestone.title}`}
             onKeyDown={onTrackKeyDown}
             onPointerDown={onPointerDown}
-            onPointerMove={(event) => dragging.current && selectAt(event.clientX)}
-            onPointerUp={() => (dragging.current = false)}
-            onPointerCancel={() => (dragging.current = false)}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={() => (drag.current = null)}
           >
             <div className="history-rail" aria-hidden="true">
               <div className="history-rail-fill" style={{ width: `${position(milestone.date)}%` }} />
@@ -228,6 +298,9 @@ export function History() {
               ))}
             </div>
           </div>
+          <p className="history-position" aria-hidden="true">
+            <b>{active + 1}</b> {copy.positionLabel} {historyMilestones.length}
+          </p>
           <button
             type="button"
             className="history-step"

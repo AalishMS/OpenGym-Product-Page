@@ -75,7 +75,8 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
   --space-5xl: 8rem;
-  --space-section: clamp(6rem, 12vw, 11rem);
+  /* Desktop keeps its generous rhythm; phones drop to 72px so sections don't sit apart by ~200px voids. */
+  --space-section: clamp(4.5rem, 12vw, 11rem);
 
   /* ─── Radii ─── */
   --radius-sm: 8px;

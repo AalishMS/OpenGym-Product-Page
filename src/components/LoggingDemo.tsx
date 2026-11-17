@@ -15,16 +15,20 @@ const formatTime = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 
 const RING = 2 * Math.PI * 15;
+// Phones hide the column headings, so these words label the values in place instead.
+const [, PREVIOUS_LABEL, , REPS_LABEL] = demo.columns;
 
 interface StepperProps {
   value: number;
   unit?: string;
+  /** Shown after the value only on phones, where the column heading is hidden. */
+  mobileUnit?: string;
   label: string;
   onChange: (next: number) => void;
   step: number;
 }
 
-function Stepper({ value, unit, label, onChange, step }: StepperProps) {
+function Stepper({ value, unit, mobileUnit, label, onChange, step }: StepperProps) {
   const shouldReduceMotion = useReducedMotion();
   return (
     <div className="demo-stepper">
@@ -46,6 +50,7 @@ function Stepper({ value, unit, label, onChange, step }: StepperProps) {
           </motion.span>
         </AnimatePresence>
         {unit && <span className="demo-unit" aria-hidden="true">{unit}</span>}
+        {mobileUnit && <span className="demo-unit demo-mobile-only" aria-hidden="true">{mobileUnit}</span>}
       </div>
       <button type="button" className="demo-btn" onClick={() => onChange(value + step)} aria-label={`Increase ${label}`}>
         +
@@ -130,17 +135,21 @@ export default function LoggingDemo() {
                   )}
                 </span>
                 <span className="demo-previous">
+                  {isActive && <span className="demo-previous-label demo-mobile-only">{PREVIOUS_LABEL}</span>}
                   {demo.previous[i].weight} × {demo.previous[i].reps}
                 </span>
                 {isActive ? (
                   <>
                     <Stepper value={set.weight} unit="kg" label={`weight for set ${i + 1}`} step={demo.weightStep} onChange={(v) => update(i, 'weight', v)} />
-                    <Stepper value={set.reps} label={`reps for set ${i + 1}`} step={1} onChange={(v) => update(i, 'reps', v)} />
+                    <Stepper value={set.reps} mobileUnit={REPS_LABEL.toLowerCase()} label={`reps for set ${i + 1}`} step={1} onChange={(v) => update(i, 'reps', v)} />
                   </>
                 ) : (
                   <>
                     <span className="demo-static demo-static--weight">{set.weight}</span>
-                    <span className="demo-static">{set.reps}</span>
+                    <span className="demo-static">
+                      {set.reps}
+                      <span className="demo-static-unit demo-mobile-only" aria-hidden="true"> {REPS_LABEL.toLowerCase()}</span>
+                    </span>
                   </>
                 )}
               </motion.li>

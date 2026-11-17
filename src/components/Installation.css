@@ -109,16 +109,37 @@
 @media (max-width: 600px) {
   .installation-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: var(--space-lg);
+  }
+  .installation-actions {
+    align-items: stretch;
+  }
+  .installation-actions .btn {
+    min-height: 52px;
+  }
+  .installation-version,
+  .installation-release-link {
+    align-self: flex-start;
   }
   .installation-steps {
     grid-template-columns: minmax(0, 1fr);
   }
+  /* The number sits beside its step, so four steps read as one short list. */
   .installation-steps li {
-    padding: 22px 20px 26px;
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 4px 16px;
+    padding: 20px;
   }
   .installation-step-number {
-    margin-bottom: 18px;
+    grid-row: 1 / span 2;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0;
+  }
+  .installation-steps h3 {
+    align-self: center;
+    margin-bottom: 0;
   }
 }

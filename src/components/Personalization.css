@@ -3,6 +3,8 @@
   border-top: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
+  /* clip, not hidden, so the section is not a scroll container and the mobile controls can stick. */
+  overflow: clip;
 }
 
 /* The chosen accent bleeds softly into the section background. */
@@ -27,6 +29,10 @@
   grid-column: 1;
   grid-row: 1;
   margin-bottom: 40px;
+}
+
+.personalization-stage {
+  display: contents;
 }
 
 .personalization-controls {
@@ -253,13 +259,13 @@
 
 @media (max-width: 800px) {
   .personalization-section {
-    padding: var(--space-4xl) 0;
+    padding: var(--space-section) 0;
   }
   .personalization-section::before {
     background: radial-gradient(60% 40% at 50% 45%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%);
   }
   .personalization-content {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
   .personalization-header {
@@ -267,60 +273,110 @@
     grid-row: 1;
     margin-bottom: 0;
   }
-  .personalization-preview {
+
+  /*
+   * The preview and its controls are one unit. The controls pin to the bottom of the
+   * screen while the phone is in view, so every tap shows its result straight away.
+   */
+  .personalization-stage {
     grid-column: 1;
     grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .personalization-preview {
     width: 100%;
     max-width: 360px;
-    margin: 0 auto;
     padding: 20px 14px 12px;
     border-radius: 28px;
   }
   .personalization-phone-stage {
-    width: min(300px, 100%);
+    width: min(260px, 100%);
   }
   .personalization-preview > p {
     margin-top: 10px;
   }
+
   .personalization-controls {
-    grid-column: 1;
-    grid-row: 3;
+    position: sticky;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    z-index: 2;
     width: 100%;
     max-width: 420px;
-    margin: 0 auto;
+    padding: 10px;
+    border-radius: 22px;
+    border: 1px solid var(--color-border-strong);
+    background: color-mix(in srgb, var(--color-bg) 84%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: 0 24px 50px -16px rgba(0, 0, 0, 0.85);
   }
-  .controls-group {
-    gap: 18px;
-  }
+  .controls-group,
   .controls-top-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 14px 16px;
-    width: 100%;
+    flex-direction: column;
+    gap: 10px;
   }
   .control-item {
-    align-items: flex-start;
+    align-items: stretch;
   }
+  /* The controls name themselves (Light, Home, the swatches); the toggles keep aria-labels. */
   .control-label {
-    margin-bottom: 8px;
+    display: none;
   }
-  .theme-btn {
-    padding: 0 14px;
+
+  /* Every option gets an equal share of one row, so nothing wraps onto a stray second line. */
+  .theme-toggle {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    width: 100%;
   }
+  .theme-btn,
+  .theme-toggle[aria-label='Preview screen'] .theme-btn {
+    min-height: 40px;
+    padding: 0 4px;
+    white-space: nowrap;
+  }
+
   .accent-picker {
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    justify-items: center;
+    gap: 5px;
+    padding: 2px 0 4px;
+  }
+  /* All eight share one row: about 33px each on a 360px phone, up to 40px. */
+  .accent-swatch {
+    width: 100%;
+    max-width: 40px;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1;
+  }
+  .accent-swatch.selected,
+  .accent-swatch:focus-visible {
+    outline-offset: 2px;
+  }
+
+  /* The summary line repeats what the controls show; keep it for screen readers only. */
+  .selection-caption-wrapper {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
   }
 }
 
-@media (max-width: 350px) {
-  .personalization-phone-stage {
-    width: min(260px, 100%);
-  }
-  .accent-picker {
-    gap: 8px;
-  }
-  .theme-btn {
-    padding: 0 10px;
-    font-size: 12px;
+@media (max-width: 380px) {
+  .theme-btn,
+  .theme-toggle[aria-label='Preview screen'] .theme-btn {
+    font-size: 0.75rem;
   }
 }

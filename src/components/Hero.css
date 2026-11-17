@@ -325,15 +325,35 @@
   }
 }
 
-@media (max-width: 420px) {
-  .hero-chip-label {
+@media (max-width: 559px) {
+  /* Two equal, full-width buttons instead of two ragged ones. */
+  .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  /*
+   * Version and date share one line; the help link drops below it, so no
+   * separator is left dangling at the end of the first line.
+   */
+  .hero-meta {
+    gap: 4px 14px;
+  }
+
+  .hero-meta > .hero-meta-sep:nth-child(4) {
     display: none;
   }
-  .hero-chip-mark {
-    width: 30px;
-    height: 30px;
+
+  .hero-meta-link {
+    flex-basis: 100%;
   }
+
+  /* There is no room beside the phone, so the chips would sit on the app's own figures. */
   .hero-chip {
-    gap: 8px;
+    display: none;
   }
 }

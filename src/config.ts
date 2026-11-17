@@ -103,8 +103,13 @@ export const config = {
   history: {
     eyebrow: 'How it got here',
     headline: ['Seven months', 'of iterations.'],
-    description:
-      'From the first plan grid to today’s training journal. Each milestone shows the screens that changed. Drag along the timeline or use the arrow keys to explore.',
+    description: 'From the first plan grid to today’s training journal. Each milestone shows the screens that changed.',
+    // Only one hint shows: the first with a mouse or trackpad, the second on touch screens.
+    hint: {
+      pointer: 'Drag along the timeline or use the arrow keys to explore.',
+      touch: 'Swipe the screens or tap the arrows to explore.',
+    },
+    positionLabel: 'of',
     trackLabel: 'OpenGym version history',
     dayLabel: 'day',
     noScreens: 'No screenshots survived from day zero.',

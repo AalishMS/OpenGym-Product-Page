@@ -32,177 +32,183 @@ export function Personalization() {
           </p>
         </div>
 
-        <div
-          className="personalization-preview"
-          style={
-            {
-              '--selected-accent': previewTone(accent.seed, true),
-            } as CSSProperties
-          }
-        >
-          <div className="personalization-phone-stage">
-            <div className="personalization-phone-layer">
-              <PhoneFrame tiltOnHover={true}>
-                <div className="personalization-screen-viewport">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={screen}
-                      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : 0.22,
-                        ease: 'easeOut',
-                      }}
-                      className="personalization-screen-container"
-                    >
-                      <AppMockup
-                        theme={theme}
-                        accent={accent.seed}
-                        screen={screen}
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </PhoneFrame>
-            </div>
-          </div>
-          <p>Sample data</p>
-        </div>
-
-        <div className="personalization-controls">
-          <div className="controls-group">
-            <div className="controls-top-row">
-              <div className="control-item">
-                <p className="control-label">Appearance</p>
-                <div
-                  className="theme-toggle"
-                  aria-label="Preview appearance"
-                >
-                  {(['light', 'dark'] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      type="button"
-                      className={`theme-btn ${theme === mode ? 'active' : ''}`}
-                      aria-pressed={theme === mode}
-                      onClick={() => setTheme(mode)}
-                    >
-                      {theme === mode && !shouldReduceMotion && (
-                        <motion.div
-                          layoutId="activeThemePill"
-                          className="theme-btn-active-pill"
-                          transition={{
-                            type: 'spring',
-                            stiffness: 420,
-                            damping: 32,
-                          }}
+        {/*
+          Desktop lays the preview and controls out in the section grid (this wrapper is
+          display: contents). On phones the wrapper is the range the controls stay pinned in.
+        */}
+        <div className="personalization-stage">
+          <div
+            className="personalization-preview"
+            style={
+              {
+                '--selected-accent': previewTone(accent.seed, true),
+              } as CSSProperties
+            }
+          >
+            <div className="personalization-phone-stage">
+              <div className="personalization-phone-layer">
+                <PhoneFrame tiltOnHover={true}>
+                  <div className="personalization-screen-viewport">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={screen}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
+                        transition={{
+                          duration: shouldReduceMotion ? 0 : 0.22,
+                          ease: 'easeOut',
+                        }}
+                        className="personalization-screen-container"
+                      >
+                        <AppMockup
+                          theme={theme}
+                          accent={accent.seed}
+                          screen={screen}
                         />
-                      )}
-                      <span className="theme-btn-label">
-                        {mode === 'light' ? '☀ Light' : '☾ Dark'}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="control-item">
-                <p className="control-label">Screen</p>
-                <div
-                  className="theme-toggle"
-                  aria-label="Preview screen"
-                >
-                  {(['plan', 'log', 'keypad', 'progress'] as const).map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      className={`theme-btn ${screen === s ? 'active' : ''}`}
-                      aria-pressed={screen === s}
-                      onClick={() => setScreen(s)}
-                    >
-                      {screen === s && !shouldReduceMotion && (
-                        <motion.div
-                          layoutId="activeScreenPill"
-                          className="theme-btn-active-pill"
-                          transition={{
-                            type: 'spring',
-                            stiffness: 420,
-                            damping: 32,
-                          }}
-                        />
-                      )}
-                      <span className="theme-btn-label">
-                        {SCREEN_LABELS[s]}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="control-item">
-              <p className="control-label">Accent color</p>
-              <div className="accent-picker" aria-label="Accent color">
-                {config.appAccents.map((a) => (
-                  <motion.button
-                    key={a.name}
-                    type="button"
-                    className={`accent-swatch ${accent.name === a.name ? 'selected' : ''}`}
-                    style={{ '--swatch-color': a.seed } as CSSProperties}
-                    onClick={() => setAccent(a)}
-                    aria-label={a.name}
-                    aria-pressed={accent.name === a.name}
-                    whileHover={
-                      shouldReduceMotion ? undefined : { scale: 1.12 }
-                    }
-                    whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 450,
-                      damping: 25,
-                    }}
-                  >
-                    <AnimatePresence>
-                      {accent.name === a.name && (
-                        <motion.span
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          exit={{ scale: 0, opacity: 0 }}
-                          transition={{
-                            duration: shouldReduceMotion ? 0 : 0.2,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                          className="accent-check-icon"
-                        >
-                          ✓
-                        </motion.span>
-                      )}
+                      </motion.div>
                     </AnimatePresence>
-                  </motion.button>
-                ))}
+                  </div>
+                </PhoneFrame>
               </div>
             </div>
+            <p>Sample data</p>
+          </div>
 
-            <div className="selection-caption-wrapper">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={`${accent.name}-${theme}-${screen}`}
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
-                  transition={{
-                    duration: shouldReduceMotion ? 0 : 0.22,
-                    ease: 'easeOut',
-                  }}
-                  className="selection-caption"
-                  aria-live="polite"
-                >
-                  <span
-                    className="selection-dot"
-                    style={{ backgroundColor: accent.seed }}
-                  />
-                  {accent.name} · {theme === 'light' ? 'Light' : 'Dark'} appearance · {SCREEN_LABELS[screen]}
-                </motion.p>
-              </AnimatePresence>
+          <div className="personalization-controls">
+            <div className="controls-group">
+              <div className="controls-top-row">
+                <div className="control-item">
+                  <p className="control-label">Appearance</p>
+                  <div
+                    className="theme-toggle"
+                    aria-label="Preview appearance"
+                  >
+                    {(['light', 'dark'] as const).map((mode) => (
+                      <button
+                        key={mode}
+                        type="button"
+                        className={`theme-btn ${theme === mode ? 'active' : ''}`}
+                        aria-pressed={theme === mode}
+                        onClick={() => setTheme(mode)}
+                      >
+                        {theme === mode && !shouldReduceMotion && (
+                          <motion.div
+                            layoutId="activeThemePill"
+                            className="theme-btn-active-pill"
+                            transition={{
+                              type: 'spring',
+                              stiffness: 420,
+                              damping: 32,
+                            }}
+                          />
+                        )}
+                        <span className="theme-btn-label">
+                          {mode === 'light' ? '☀ Light' : '☾ Dark'}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="control-item">
+                  <p className="control-label">Screen</p>
+                  <div
+                    className="theme-toggle"
+                    aria-label="Preview screen"
+                  >
+                    {(['plan', 'log', 'keypad', 'progress'] as const).map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        className={`theme-btn ${screen === s ? 'active' : ''}`}
+                        aria-pressed={screen === s}
+                        onClick={() => setScreen(s)}
+                      >
+                        {screen === s && !shouldReduceMotion && (
+                          <motion.div
+                            layoutId="activeScreenPill"
+                            className="theme-btn-active-pill"
+                            transition={{
+                              type: 'spring',
+                              stiffness: 420,
+                              damping: 32,
+                            }}
+                          />
+                        )}
+                        <span className="theme-btn-label">
+                          {SCREEN_LABELS[s]}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="control-item">
+                <p className="control-label">Accent color</p>
+                <div className="accent-picker" aria-label="Accent color">
+                  {config.appAccents.map((a) => (
+                    <motion.button
+                      key={a.name}
+                      type="button"
+                      className={`accent-swatch ${accent.name === a.name ? 'selected' : ''}`}
+                      style={{ '--swatch-color': a.seed } as CSSProperties}
+                      onClick={() => setAccent(a)}
+                      aria-label={a.name}
+                      aria-pressed={accent.name === a.name}
+                      whileHover={
+                        shouldReduceMotion ? undefined : { scale: 1.12 }
+                      }
+                      whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 450,
+                        damping: 25,
+                      }}
+                    >
+                      <AnimatePresence>
+                        {accent.name === a.name && (
+                          <motion.span
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0, opacity: 0 }}
+                            transition={{
+                              duration: shouldReduceMotion ? 0 : 0.2,
+                              ease: [0.16, 1, 0.3, 1],
+                            }}
+                            className="accent-check-icon"
+                          >
+                            ✓
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="selection-caption-wrapper">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={`${accent.name}-${theme}-${screen}`}
+                    initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -4 }}
+                    transition={{
+                      duration: shouldReduceMotion ? 0 : 0.22,
+                      ease: 'easeOut',
+                    }}
+                    className="selection-caption"
+                    aria-live="polite"
+                  >
+                    <span
+                      className="selection-dot"
+                      style={{ backgroundColor: accent.seed }}
+                    />
+                    {accent.name} · {theme === 'light' ? 'Light' : 'Dark'} appearance · {SCREEN_LABELS[screen]}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>

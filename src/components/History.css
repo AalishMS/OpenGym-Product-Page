@@ -203,7 +203,8 @@
   min-width: 0;
   padding: 21px 10px 0;
   cursor: pointer;
-  touch-action: none;
+  /* Touch: vertical swipes still scroll the page; sideways ones scrub. */
+  touch-action: pan-y pinch-zoom;
   border-radius: var(--radius-sm);
 }
 
@@ -273,6 +274,30 @@
   color: var(--color-text-tertiary);
 }
 
+.history-position {
+  display: none;
+}
+
+/* Only one instruction shows, matched to how the visitor is pointing. */
+.history-hint--touch {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .history-hint--pointer {
+    display: none;
+  }
+
+  .history-hint--touch {
+    display: inline;
+  }
+}
+
+/* Touch: vertical swipes still scroll the page; sideways ones step through versions. */
+.history-stage {
+  touch-action: pan-y pinch-zoom;
+}
+
 @media (max-width: 860px) {
   .history-details {
     grid-template-columns: auto minmax(0, 1fr);
@@ -305,9 +330,85 @@
   .history-stats {
     justify-content: space-between;
   }
+}
+
+/*
+ * Phones and small tablets: the controls sit right under the screens they change,
+ * so a tap on an arrow and the new screenshots are on screen together. The rail gets
+ * the full width, with the arrows and a "3 of 14" position underneath it.
+ */
+@media (max-width: 767px) {
+  .history-section > .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .history-stage {
+    order: 1;
+    gap: 12px;
+    padding-bottom: var(--space-lg);
+  }
+
+  .history-phone {
+    width: min(220px, calc(50% - 6px));
+  }
 
   .history-timeline {
-    gap: var(--space-xs);
+    order: 2;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    grid-template-areas:
+      'track track track'
+      'prev position next';
+    align-items: center;
+    gap: 0 var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .history-details {
+    order: 3;
+    padding-top: var(--space-xl);
+    padding-bottom: 0;
+  }
+
+  .history-track {
+    grid-area: track;
+    padding-top: 16px;
+  }
+
+  .history-months {
+    height: 36px;
+  }
+
+  .history-step {
+    width: 48px;
+    height: 48px;
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+  }
+
+  .history-step:first-child {
+    grid-area: prev;
+  }
+
+  .history-step:last-child {
+    grid-area: next;
+  }
+
+  .history-position {
+    grid-area: position;
+    display: block;
+    text-align: center;
+    font: 500 var(--text-small)/1 var(--font-mono);
+    color: var(--color-text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .history-position b {
+    color: var(--color-text-primary);
+    font-weight: 600;
   }
 }
 

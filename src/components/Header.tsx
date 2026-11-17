@@ -34,6 +34,17 @@ export function Header() {
     return () => window.removeEventListener('keydown', close);
   }, [open]);
 
+  // The open menu covers the page, so the page behind it should not scroll.
+  useEffect(() => {
+    if (!open) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => {
+      root.style.overflow = previous;
+    };
+  }, [open]);
+
   useEffect(() => {
     const close = () => setOpen(false);
     const desktop = window.matchMedia('(min-width: 860px)');
@@ -106,6 +117,7 @@ export function Header() {
           </span>
         </button>
       </div>
+      <div className="header-backdrop" aria-hidden="true" onClick={() => setOpen(false)} />
     </header>
   );
 }

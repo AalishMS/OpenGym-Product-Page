@@ -387,7 +387,27 @@
   box-shadow: 0 10px 24px -8px color-mix(in srgb, var(--color-accent) 70%, transparent);
 }
 
+.demo-mobile-only {
+  display: none;
+}
+
 @media (max-width: 560px) {
+  .demo-mobile-only {
+    display: inline;
+  }
+  .demo-previous-label {
+    margin-right: 6px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+  .demo-value-display .demo-mobile-only {
+    margin-left: 4px;
+  }
+  .demo-static-unit {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+  }
   .demo-card {
     padding: 20px 16px;
   }
