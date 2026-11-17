@@ -181,7 +181,7 @@ export const config = {
     features: [
       'Free, open-source workout tracker for Android',
       'Offline workout logging after initial online sign-in',
-      'Weight, reps, and RPE logging with rest timers',
+      'Weight (kg or lb), reps, and RPE logging with rest timers',
       'Custom workout plans, training splits, and blocks',
       'Workout history, personal records, and estimated one-rep max trends',
       'Local data storage with JSON export and import',
@@ -355,7 +355,7 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content based on OpenGym@797b177, with a workout in progress. */
+/** Sample content based on OpenGym@8e170bc, with a workout in progress. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',

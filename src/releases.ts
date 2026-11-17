@@ -1,7 +1,53 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-11-12';
+export const releasesCheckedAt = '2026-11-17';
 export const releases = [
+  {
+    version: 'v1.0.23+24',
+    date: '2026-11-17',
+    title: 'A lighter, calmer look.',
+    changes: [
+      'Lift the few cards that matter, like the next workout and its plan, as white cards with a soft shadow in light mode and a lifted fill with a hairline in dark mode.',
+      'Replace grey boxes and outlines with filled controls and quiet hairline separators, with a rounder radius scale throughout.',
+      'Create, edit, and reorder training blocks in one bottom sheet, with a single week stepper and a week track showing which weeks can’t be removed.',
+      'Redesign the plan editor header around the plan name, with pills for its block, color, and Save.',
+      'Slide a rounded thumb between choices for the theme and weight unit in Settings.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.23%2B24',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.22+23...v1.0.23+24',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.23%2B24/OpenGym-v1.0.23-24.apk',
+  },
+  {
+    version: 'v1.0.22+23',
+    date: '2026-11-16',
+    title: 'Shape your training blocks from the plan editor.',
+    changes: [
+      'Create and edit training blocks from the plan editor and when duplicating a plan.',
+      'Shorten a block’s unreached weeks, or delete a block with no workouts, from Edit block.',
+      'Start new blocks and new splits at four weeks, and show each preset’s block length before installing it.',
+      'Keep logged workouts safe when a block is shortened or deleted on another device.',
+      'Older versions need this update to keep syncing.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.22%2B23',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.21+22...v1.0.22+23',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.22%2B23/OpenGym-v1.0.22-23.apk',
+  },
+  {
+    version: 'v1.0.21+22',
+    date: '2026-11-13',
+    title: 'Kilograms or pounds. Cleaner set logging.',
+    changes: [
+      'Choose kilograms or pounds in Settings: the logger, keypad, plan editor, and dashboard show and accept your unit, with pounds to the nearest quarter pound.',
+      'Show set figures bare in the workout table, with only the cell being edited highlighted and RPE colored by effort.',
+      'Close the set keypad with a tick, and slide it in and out smoothly.',
+      'Rename an exercise across every plan and past workout, replace one mid-workout, and choose whether new weeks start from last week’s sets.',
+      'Count bodyweight and timed lifts in Statistics and records, and give personal records one consistent definition.',
+      'Fit all seven days of the week strip on phones and follow the system theme on new installs.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.21%2B22',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.20+21...v1.0.21+22',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.21%2B22/OpenGym-v1.0.21-22.apk',
+  },
   {
     version: 'v1.0.20+21',
     date: '2026-11-12',

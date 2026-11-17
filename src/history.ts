@@ -5,7 +5,7 @@
 // capture when the original screenshots had not caught up with the shipped UI.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-11-12 (OpenGym@797b177).
+// Last checked: 2026-11-17 (OpenGym@8e170bc).
 export interface HistoryScreen {
   src: string;
   label: string;
@@ -26,7 +26,7 @@ export interface HistoryMilestone {
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-11-12';
+export const historyEnd = '2026-11-17';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -205,11 +205,41 @@ export const historyMilestones: HistoryMilestone[] = [
       { src: '/history/2026-11d-block-menu.webp', label: 'Multi-block training', alt: 'The training block menu listing Foundation, Hypertrophy, and the active Strength block' },
     ],
   },
+  {
+    date: '2026-11-13',
+    version: 'v1.0.21',
+    commit: 'c397cb7',
+    title: 'Bare figures, any unit',
+    summary:
+      'Set rows drop their grey boxes: weights and reps sit as bare figures, RPE is colored by effort, and the keypad closes with a tick. Weights can be logged in kilograms or pounds, and bodyweight and timed lifts count toward records.',
+    commits: 377,
+    contributors: 2,
+    linesOfCode: 54647,
+    screens: [
+      { src: '/history/2026-11e-keypad.webp', label: 'Bare figures', alt: 'Set rows with bare weight and rep figures, amber and orange RPE values, and the keypad editing a highlighted weight cell' },
+      { src: '/history/2026-11e-settings.webp', label: 'Kilograms or pounds', alt: 'Settings with a Kilograms and Pounds weight unit choice and the Start from last week’s sets switch' },
+    ],
+  },
+  {
+    date: '2026-11-17',
+    version: 'v1.0.23',
+    commit: 'aaaa26c',
+    title: 'Lighter surfaces',
+    summary:
+      'Cards that matter rise as white surfaces with soft shadows, controls become fills instead of outlines, and separators fade to hairlines. Training blocks are created and edited in one bottom sheet, now also from the plan editor.',
+    commits: 395,
+    contributors: 2,
+    linesOfCode: 57560,
+    screens: [
+      { src: '/history/2026-11f-home.webp', label: 'Raised cards', alt: 'Home with the next workout and the next plan raised as white cards with soft shadows above a light grey page', captureCommit: '05f68fa' },
+      { src: '/history/2026-11f-block-create.webp', label: 'Block sheet', alt: 'The Create block bottom sheet with a name field, a week stepper, and a four-week track', captureCommit: '05f68fa' },
+    ],
+  },
 ];
 
 // Dates of every published release tag, drawn as small ticks on the track.
 export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
-  '2026-11-03', '2026-11-05', '2026-11-06', '2026-11-12',
+  '2026-11-03', '2026-11-05', '2026-11-06', '2026-11-12', '2026-11-13', '2026-11-16', '2026-11-17',
 ];

@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { config, mockupData } from '../config';
-import { previewPalette } from './previewTone';
+import { previewPalette, rpeVar } from './previewTone';
 import { MockIcon } from './MockIcon';
 import { useAccent } from '../accentContext';
 import './AppMockup.css';
@@ -110,7 +110,8 @@ function SetTable({ sets, editing = -1 }: { sets: readonly SetEntry[]; editing?:
       {sets.map((set, i) => (
         <div className="replica-set-line" key={set.set}>
           <span>{set.set}</span><span className="replica-prev">{set.previous}</span>
-          <b className={i === editing ? 'editing' : ''}>{set.weight}</b><b>{set.reps}</b><span className="replica-rpe">{set.rpe}</span>
+          <b className={i === editing ? 'editing' : ''}>{set.weight}</b><b>{set.reps}</b>
+          <span className="replica-rpe" style={{ color: rpeVar(set.rpe) }}>@{set.rpe}</span>
         </div>
       ))}
     </div>
@@ -130,6 +131,7 @@ function Keypad() {
       <div className="replica-keypad-row">
         <p className="replica-keypad-value">{entry.value}</p>
         <span className="replica-keypad-copy"><MockIcon name="copy" />{entry.copyTo}</span>
+        <MockIcon name="check" />
       </div>
       <div className="replica-key-grid">
         {KEYS.map(value => {
