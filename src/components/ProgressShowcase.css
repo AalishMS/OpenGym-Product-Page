@@ -218,6 +218,18 @@
   }
 }
 
+@media (max-width: 767px) {
+  .progress-card-top {
+    margin-bottom: var(--space-xl);
+  }
+  .changelog-band {
+    padding: var(--space-2xl) 0;
+  }
+  .changelog-layout {
+    gap: var(--space-lg);
+  }
+}
+
 @media (max-width: 640px) {
   .progress-axis span:nth-child(even) {
     display: none;

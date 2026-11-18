@@ -27,6 +27,22 @@
   gap: var(--space-sm);
 }
 
+/* Phones: the heading lines up with every other section instead of floating centered. */
+@media (max-width: 767px) {
+  .logging-demo-section {
+    align-items: stretch;
+  }
+
+  .demo-header {
+    text-align: left;
+    margin-bottom: var(--space-lg);
+  }
+
+  .demo-subtitle {
+    justify-content: flex-start;
+  }
+}
+
 .info-icon {
   display: inline-flex;
   align-items: center;

@@ -104,6 +104,44 @@
   transform: rotate(45deg);
 }
 
+/* Phones: a plain list divided by hairlines instead of a stack of eight cards. */
+@media (max-width: 767px) {
+  .faq-headline {
+    text-align: left;
+    margin-bottom: var(--space-lg);
+  }
+
+  .faq-list {
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-item,
+  .faq-item[open] {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+  }
+
+  .faq-trigger {
+    min-height: 64px;
+    padding: 14px 0;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+  }
+
+  .faq-answer {
+    padding: 0 0 22px;
+  }
+
+  .faq-trigger:focus-visible {
+    outline-offset: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .faq-icon {
     transition: none;

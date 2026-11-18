@@ -249,6 +249,13 @@ export default function ProductStory() {
           className="story-mobile-panel"
         >
           <div className="story-stage-content">
+            {/* Invisible copies of every stage reserve the tallest text, so the phone doesn't jump between tabs. */}
+            {config.story.map((stage) => (
+              <div key={stage.id} className="story-stage-sizer" aria-hidden="true">
+                <span className="story-stage-title">{stage.title}</span>
+                <span className="story-stage-text">{stage.description}</span>
+              </div>
+            ))}
             <AnimatePresence initial={false} mode="wait">
               <motion.div
                 key={activeStory.id}
@@ -258,8 +265,8 @@ export default function ProductStory() {
                 transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                 className="story-stage-animated-text"
               >
-                <h3>{activeStory.title}</h3>
-                <p>{activeStory.description}</p>
+                <h3 className="story-stage-title">{activeStory.title}</h3>
+                <p className="story-stage-text">{activeStory.description}</p>
               </motion.div>
             </AnimatePresence>
           </div>

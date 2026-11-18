@@ -329,10 +329,69 @@
   }
 }
 
+.story-stage-sizer {
+  display: none;
+}
+
 .story-mobile-panel {
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
+}
+
+/* Phones: the copy lines up with the section above it, and the preview shows the top of the screen. */
+@media (max-width: 767px) {
+  .product-story-section {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .story-mobile,
+  .story-mobile-panel {
+    gap: var(--space-lg);
+  }
+
+  /* Every stage's text shares one cell, so the box is as tall as the longest one. */
+  .story-stage-content {
+    display: grid;
+    min-height: 0;
+  }
+
+  .story-stage-content > * {
+    grid-area: 1 / 1;
+  }
+
+  .story-stage-sizer {
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+  }
+
+  .story-stage-animated-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .story-stage-content .story-stage-title {
+    display: block;
+    font: 800 1.375rem/1.15 var(--font-display);
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+    text-wrap: balance;
+  }
+
+  .story-stage-content .story-stage-text {
+    display: block;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    max-width: none;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .story-phone-preview {
+    max-height: 460px;
+  }
 }
 
 @media (max-width: 370px) {

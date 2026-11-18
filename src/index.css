@@ -75,8 +75,8 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
   --space-5xl: 8rem;
-  /* Desktop keeps its generous rhythm; phones drop to 72px so sections don't sit apart by ~200px voids. */
-  --space-section: clamp(4.5rem, 12vw, 11rem);
+  /* Desktop keeps its generous rhythm; phones drop to 64px so sections don't sit apart by ~200px voids. */
+  --space-section: clamp(4rem, 12vw, 11rem);
 
   /* ─── Radii ─── */
   --radius-sm: 8px;
@@ -295,6 +295,13 @@ ol {
   }
 }
 
+@media (max-width: 767px) {
+  .section-head {
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+}
+
 /* ─── Buttons ─── */
 .btn {
   position: relative;
@@ -353,6 +360,14 @@ ol {
   padding: 0 32px;
   font-size: 1.0625rem;
   border-radius: 14px;
+}
+
+@media (max-width: 559px) {
+  .btn-lg {
+    min-height: 52px;
+    padding: 0 24px;
+    font-size: 1rem;
+  }
 }
 
 /* Text link with an underline that sits below the baseline. */

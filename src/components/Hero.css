@@ -326,7 +326,28 @@
 }
 
 @media (max-width: 559px) {
-  /* Two equal, full-width buttons instead of two ragged ones. */
+  /*
+   * One clear action and the app itself in the first screen. The headline, copy and
+   * gaps shrink so the phone starts above the fold instead of a full swipe down.
+   */
+  .hero {
+    padding-top: calc(var(--header-height) + 2rem);
+  }
+
+  .hero-container {
+    gap: var(--space-xl);
+  }
+
+  .hero-headline {
+    font-size: clamp(2.75rem, 13.5vw, 4rem);
+    margin-bottom: 1.125rem;
+  }
+
+  .hero-subheading {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-lg);
+  }
+
   .hero-actions {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -336,24 +357,41 @@
     width: 100%;
   }
 
-  /*
-   * Version and date share one line; the help link drops below it, so no
-   * separator is left dangling at the end of the first line.
-   */
-  .hero-meta {
-    gap: 4px 14px;
+  /* "See how it works" only scrolls to the next section, which is already one swipe away. */
+  .hero-actions .btn-secondary {
+    display: none;
   }
 
+  /* Version and date on the left, the help link on the right: one quiet line under the button. */
+  .hero-meta {
+    gap: 0 10px;
+    margin-top: 6px;
+  }
+
+  .hero-meta-label,
   .hero-meta > .hero-meta-sep:nth-child(4) {
     display: none;
   }
 
   .hero-meta-link {
-    flex-basis: 100%;
+    margin-left: auto;
+  }
+
+  .hero-visual {
+    max-height: 500px;
+    padding-top: 0;
   }
 
   /* There is no room beside the phone, so the chips would sit on the app's own figures. */
   .hero-chip {
     display: none;
+  }
+}
+
+/* Too narrow for one line: the help link starts its own line at the left edge. */
+@media (max-width: 359px) {
+  .hero-meta-link {
+    flex-basis: 100%;
+    margin-left: 0;
   }
 }

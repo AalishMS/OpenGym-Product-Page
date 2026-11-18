@@ -84,7 +84,11 @@ export function Hero() {
           <motion.div className="hero-meta" {...rise(0.74)}>
             <span className="hero-meta-version">
               <span className="hero-meta-dot" aria-hidden="true" />
-              {config.hero.versionLabel} {releases[0].version.split('+')[0]}
+              {/* Phones drop the label; the download button above already says Android. */}
+              <span>
+                <span className="hero-meta-label">{config.hero.versionLabel} </span>
+                {releases[0].version.split('+')[0]}
+              </span>
             </span>
             <span className="hero-meta-sep" aria-hidden="true" />
             <span>{config.hero.updatedLabel}</span>
