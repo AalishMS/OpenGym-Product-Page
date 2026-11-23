@@ -150,6 +150,11 @@ export function previewPalette(seedHex: string, dark: boolean) {
 }
 /** The replica custom property holding the RPE colour for a logged value. */
 export const rpeVar = (rpe: number) => `var(--replica-rpe${rpeStep(rpe)})`;
+/** Black or white, whichever reads better on a coloured ground (onColor in app_theme.dart). */
+export function onColor(groundHex: string) {
+  const ground = rgb(groundHex);
+  return contrast(ground, [0, 0, 0]) >= contrast(ground, [1, 1, 1]) ? '#000000' : '#ffffff';
+}
 export function previewTone(seed: string, dark: boolean) {
   return previewPalette(seed, dark).ink;
 }

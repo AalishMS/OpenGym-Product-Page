@@ -14,12 +14,12 @@ Built with React 19, TypeScript, and Vite.
 | :---: | :---: | :---: | :---: |
 | <img src="./public/screenshots/history.png" width="200" alt="Ruled workout journal with monthly totals" /> | <img src="./public/screenshots/statistics_2.png" width="200" alt="Training block trends" /> | <img src="./public/screenshots/statistics_3.png" width="200" alt="Exercise strength progress" /> | <img src="./public/screenshots/statistics_records.png" width="200" alt="Personal records" /> |
 
-The current gallery and app previews reflect **v1.0.23+24**, checked against
-OpenGym commit `8e170bc` on November 17, 2026. The previews use sample data from
-three months of multi-block training and show the lighter surface system: white
-raised cards with soft shadows, filled controls, hairline separators, bare set
-figures with effort-colored RPE, and the keypad's close tick. Release highlights
-also cover pounds support and creating, shortening, and deleting training blocks.
+The current gallery and app previews reflect **v1.0.25+26**, checked against
+OpenGym commit `faf963d` on November 23, 2026. The previews use the app's sample
+data and show the color-coded Home: each plan marked by a solid square in its own
+color, rows that say whether a plan is next, in progress, or done this week, and
+a week strip of narrow bars. Release highlights also cover the motion pass in
+v1.0.24, which eases screens between states and fixes sync after sign-in.
 
 The History timeline uses two captures of the UI changed at each milestone,
 with individual captions and alt text configured in `src/history.ts`. Historical

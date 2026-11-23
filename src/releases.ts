@@ -1,7 +1,37 @@
 // Summarized from published GitHub releases and their linked commit comparisons.
 // Saved fallback when the public GitHub API is unavailable. Newest first.
-export const releasesCheckedAt = '2026-11-17';
+export const releasesCheckedAt = '2026-11-23';
 export const releases = [
+  {
+    version: 'v1.0.25+26',
+    date: '2026-11-23',
+    title: 'A color-coded Home.',
+    changes: [
+      'Mark every plan on Home and in Manage with a solid square in its own color, holding its place in the rotation.',
+      'Show where each plan stands this week at the head of its row: Next, In progress, or Done.',
+      'Read “Next up · Workout 3 of 5” and when it was last done on one line, with the week strip always shown as narrow bars.',
+      'Keep plan names as you typed them, like PPL or RDL Focus, and open your paused workout from the In progress plan.',
+      'Show training blocks in Stats right after loading sample data, clearing a split, or importing a backup.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.25%2B26',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.24+25...v1.0.25+26',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.25%2B26/OpenGym-v1.0.25-26.apk',
+  },
+  {
+    version: 'v1.0.24+25',
+    date: '2026-11-19',
+    title: 'Motion that keeps your place.',
+    changes: [
+      'Sync workouts again after sign-in; sync had stopped completing in 1.0.22 and 1.0.23.',
+      'Swipe between workouts with the page following your finger.',
+      'Ease dialogs, sheets, the login form, and the update dialog between states instead of jumping, with no spinner flicker on sign-in.',
+      'Fold away deleted sets, pop record badges only as they are earned, and keep quick saves from jolting the workout log.',
+      'Fix Back after switching workout plans, a Coach crash when switching splits, and the Blocks chart losing its place.',
+    ],
+    url: 'https://github.com/AalishMS/OpenGym/releases/tag/v1.0.24%2B25',
+    compare: 'https://github.com/AalishMS/OpenGym/compare/v1.0.23+24...v1.0.24+25',
+    apkUrl: 'https://github.com/AalishMS/OpenGym/releases/download/v1.0.24%2B25/OpenGym-v1.0.24-25.apk',
+  },
   {
     version: 'v1.0.23+24',
     date: '2026-11-17',

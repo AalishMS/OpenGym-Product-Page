@@ -5,7 +5,7 @@
 // capture when the original screenshots had not caught up with the shipped UI.
 // Stats are measured at that commit: commits = `git rev-list --count`, linesOfCode =
 // lines of Dart under lib/, contributors = distinct people (several aliases are one person).
-// Last checked: 2026-11-17 (OpenGym@8e170bc).
+// Last checked: 2026-11-23 (OpenGym@faf963d).
 export interface HistoryScreen {
   src: string;
   label: string;
@@ -26,7 +26,7 @@ export interface HistoryMilestone {
 }
 
 export const historyStart = '2026-03-29';
-export const historyEnd = '2026-11-17';
+export const historyEnd = '2026-11-23';
 
 export const historyMilestones: HistoryMilestone[] = [
   {
@@ -235,6 +235,21 @@ export const historyMilestones: HistoryMilestone[] = [
       { src: '/history/2026-11f-block-create.webp', label: 'Block sheet', alt: 'The Create block bottom sheet with a name field, a week stepper, and a four-week track', captureCommit: '05f68fa' },
     ],
   },
+  {
+    date: '2026-11-23',
+    version: 'v1.0.25',
+    commit: 'faf963d',
+    title: 'Color-coded Home',
+    summary:
+      'After a motion pass that lets screens ease between states, Home marks every plan with a solid square in its own color. Each row says whether its plan is next, in progress, or done this week, and the week strip is always drawn.',
+    commits: 498,
+    contributors: 2,
+    linesOfCode: 63513,
+    screens: [
+      { src: '/history/2026-11g-home.webp', label: 'Plan colors', alt: 'Home with five plans marked by solid numbered squares in pink, red, amber, olive, and green, and Leg Day tagged Next' },
+      { src: '/history/2026-11g-home-dark.webp', label: 'In dark mode', alt: 'The same Home in dark mode, with brighter plan colors, an empty week strip of day letters, and a teal Start workout button' },
+    ],
+  },
 ];
 
 // Dates of every published release tag, drawn as small ticks on the track.
@@ -242,4 +257,5 @@ export const historyReleaseDates = [
   '2026-08-23', '2026-08-24', '2026-08-25', '2026-08-29', '2026-09-04', '2026-09-05', '2026-09-07',
   '2026-09-09', '2026-09-11', '2026-10-02', '2026-10-07', '2026-10-14', '2026-10-29', '2026-10-30',
   '2026-11-03', '2026-11-05', '2026-11-06', '2026-11-12', '2026-11-13', '2026-11-16', '2026-11-17',
+  '2026-11-19', '2026-11-23',
 ];

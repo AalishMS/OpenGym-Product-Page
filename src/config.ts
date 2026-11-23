@@ -360,12 +360,12 @@ export function configForReleases(history: readonly Release[]) {
   };
 }
 
-/** Sample content based on OpenGym@8e170bc, with a workout in progress. */
+/** Sample content based on OpenGym@faf963d, with a workout in progress. */
 export const mockupData = {
   labels: {
     home: 'Home', history: 'History', stats: 'Stats', settings: 'Settings',
     time: '9:41', split: 'My split', next: 'In progress',
-    startWorkout: 'Resume workout', nextBadge: 'Next',
+    startWorkout: 'Resume workout', done: 'Done',
     thisWeek: 'This week', weeklySummary: '4 workouts · 58 sets',
     yourPlans: 'Your plans', manage: 'Manage',
     set: 'Set', previous: 'Previous', kg: 'Kg', reps: 'Reps', rpe: 'RPE', empty: '–',
@@ -376,11 +376,11 @@ export const mockupData = {
   nextWorkout: {
     name: 'Full Body',
     position: 'Workout 3 of 3',
+    lastDone: 'Last done 8 days ago',
     groups: 'Chest, Back, Shoulders, Legs',
-    exercises: '6 exercises',
-    sets: '17 sets · ~55 min',
+    summary: ['6 exercises', '17 sets', '~55 min'],
     planIndex: 2,
-    /** Plans already trained in this rotation, shown as filled rail segments. */
+    /** Plans trained this week: filled rail segments, and Done on their rows. */
     trained: [0, 1],
   },
   /** One entry per weekday; trained days fill the bar, as in the app. */

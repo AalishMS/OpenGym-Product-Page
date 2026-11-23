@@ -27,7 +27,7 @@
 .replica-canvas p, .replica-canvas h2, .replica-canvas h3, .replica-canvas h4 { margin: 0; }
 .replica-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .replica-canvas, .replica-next-card, .replica-nav, .replica-plan-marker, .replica-set-line > b,
-.replica-active-workout, .replica-keypad, .replica-key, .replica-block-chip, .replica-plan-row--next {
+.replica-active-workout, .replica-keypad, .replica-key, .replica-block-chip {
   transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
@@ -58,43 +58,46 @@
 .replica-split-name > i { font-style: normal; font-size: 20px; color: var(--replica-secondary); }
 .replica-split-name .replica-icon { width: 14px; height: 14px; margin-left: -2px; color: var(--replica-secondary); }
 .replica-home-body { position: absolute; top: 136px; bottom: 153px; left: 17px; right: 17px; overflow: hidden; }
-.replica-next-card { height: 239px; padding: 16px 17px; border: 1px solid var(--replica-raised-edge); border-radius: 16px; background: var(--replica-surface); box-shadow: var(--replica-raised-shadow); }
-.replica-next-label { font-size: 15px; font-weight: 600; line-height: 20px; }
-.replica-next-position { margin-top: 5px !important; color: var(--replica-secondary); font-size: 12.5px; line-height: 20px; }
+.replica-next-card { height: 215px; padding: 16px 17px; border: 1px solid var(--replica-raised-edge); border-radius: 16px; background: var(--replica-surface); box-shadow: var(--replica-raised-shadow); }
+.replica-next-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; color: var(--replica-secondary); font-size: 12.5px; line-height: 20px; white-space: nowrap; }
+.replica-next-heading b { color: var(--replica-text); font-size: 15px; font-weight: 600; }
 .replica-split-rail { display: flex; gap: 4px; margin-top: 7px; }
 .replica-split-rail > i { flex: 1; height: 6px; border-radius: 2px; background: var(--replica-control); }
 .replica-split-rail > .trained { background: var(--replica-fill); }
 .replica-split-rail > .current { background: var(--replica-text); }
 .replica-next-card h2 { margin-top: 7px; font-size: 30px; font-weight: 600; line-height: 36px; letter-spacing: -0.4px; }
 .replica-next-groups { color: var(--replica-secondary); font-size: 13px; line-height: 16px; }
-.replica-next-summary { display: flex; gap: 13px; margin-top: 9px !important; color: var(--replica-secondary); font-size: 13px; line-height: 18px; }
+.replica-next-summary { margin-top: 9px !important; color: var(--replica-secondary); font-size: 13px; line-height: 18px; }
 .replica-start-workout { height: 50px; margin-top: 13px; border-radius: 12px; background: var(--replica-fill); color: var(--replica-onFill); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600; }
 .replica-start-workout .replica-icon { width: 18px; height: 18px; }
 .replica-activity { margin-top: 20px; }
-.replica-activity-heading { display: flex; justify-content: space-between; align-items: center; height: 20px; font-size: 15px; font-weight: 500; }
+.replica-activity-heading { display: flex; justify-content: space-between; align-items: center; height: 20px; font-size: 16px; font-weight: 500; }
 .replica-activity-heading > span:last-child { display: flex; align-items: center; gap: 8px; color: var(--replica-secondary); font-size: 13px; font-weight: 400; }
 .replica-activity-heading .replica-icon { width: 15px; height: 15px; }
-.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; margin-top: 20px; }
-.replica-activity-days > div { padding: 0 4px; text-align: center; }
-.replica-day-track { height: 42px; display: flex; align-items: end; }
-.replica-day-track > i { display: block; width: 100%; height: 5px; border-radius: 3px; background: var(--replica-border); }
-.replica-day-track > i.trained { height: 42px; border-radius: 6px; background: var(--replica-fill); }
-.replica-day-track > i.today { height: 42px; }
+.replica-activity-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; margin-top: 16px; }
+.replica-activity-days > div { text-align: center; }
+/* Narrow capsules centred in each day's column, so the strip reads as a chart. */
+.replica-day-track { height: 42px; display: flex; align-items: end; justify-content: center; }
+.replica-day-track > i { display: block; width: 16px; height: 5px; border-radius: 8px; background: var(--replica-border); }
+.replica-day-track > i.today { background: var(--replica-secondary); }
+.replica-day-track > i.trained { height: 42px; background: var(--replica-fill); }
 .replica-activity-days span { display: block; margin-top: 9px; color: var(--replica-secondary); font-size: 12px; line-height: 14px; }
 .replica-plans-heading { display: flex; justify-content: space-between; align-items: center; height: 37px; margin-top: 23px; padding-bottom: 12px; border-bottom: 1px solid var(--replica-hairline); }
 .replica-plans-heading > b { font-size: 16px; font-weight: 500; }
 .replica-plans-heading small { margin-left: 8px; color: var(--replica-secondary); font-size: 13px; }
 .replica-plans-heading > span { padding-right: 13px; color: var(--replica-ink); font-size: 16px; font-weight: 500; }
 .replica-plan-list { margin-top: 5px; }
-.replica-plan-row { display: flex; align-items: center; gap: 14px; height: 78px; padding: 0 12px; border-bottom: 1px solid var(--replica-hairline); }
-.replica-plan-marker { display: grid; place-items: center; width: 45px; height: 45px; border-radius: 10px; background: color-mix(in srgb, var(--plan-color) 12.5%, var(--plan-ground, var(--replica-background))); color: #000; font-size: 15px; font-weight: 500; }
-.mock-app--dark .replica-plan-marker { color: #fff; background: color-mix(in srgb, var(--plan-color) 18%, var(--plan-ground, var(--replica-background))); }
-.replica-plan-row > div { flex: 1; }
-.replica-plan-row b { font-size: 16px; font-weight: 500; }
-.replica-plan-row p { margin-top: 2px !important; color: var(--replica-secondary); font-size: 13px; }
+.replica-plan-row { display: flex; align-items: center; gap: 12px; height: 72px; padding: 0 12px; border-bottom: 1px solid var(--replica-hairline); }
+/* The plan's own colour, solid, with black or white figures (PlanMarker). */
+.replica-plan-marker { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; font-size: 15px; font-weight: 700; }
+.replica-plan-row > div { flex: 1; min-width: 0; }
+.replica-plan-row b { font-size: 16px; font-weight: 600; }
+.replica-plan-row p { margin-top: 2px !important; color: var(--replica-secondary); font-size: 13px; white-space: nowrap; }
 .replica-plan-row > .replica-icon { margin: 0 15px 0 0; color: var(--replica-secondary); }
-.replica-plan-row--next { --plan-ground: var(--replica-surface); position: relative; z-index: 1; border: 1px solid var(--replica-raised-edge); border-radius: 16px; background: var(--replica-surface); box-shadow: var(--replica-raised-shadow); }
-.replica-next-badge { margin-right: 1px; color: var(--replica-ink); font-size: 13px; font-style: normal; font-weight: 700; }
+.replica-plan-row > .replica-icon:nth-last-child(2) { width: 16px; height: 16px; margin-right: 14px; }
+.replica-plan-status { color: var(--replica-ink); font-style: normal; font-weight: 700; }
+.replica-plan-status--done { display: inline-flex; align-items: center; gap: 2px; color: var(--replica-success); }
+.replica-plan-status--done .replica-icon { width: 12px; height: 12px; }
 
 /* Workout */
 .replica-workout-header { position: absolute; top: 53px; left: 0; right: 0; height: 69px; }

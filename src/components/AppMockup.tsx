@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { config, mockupData } from '../config';
-import { previewPalette, rpeVar } from './previewTone';
+import { onColor, previewPalette, rpeVar } from './previewTone';
 import { MockIcon } from './MockIcon';
 import { useAccent } from '../accentContext';
 import './AppMockup.css';
@@ -43,6 +43,11 @@ function ActiveWorkout() {
   );
 }
 
+/** A plan's colour as a solid square holding its place in the rotation. */
+function PlanMarker({ color, number }: { color: string; number: number }) {
+  return <span className="replica-plan-marker" style={{ background: color, color: onColor(color) }}>{number}</span>;
+}
+
 function Home({ theme }: { theme: 'light' | 'dark' }) {
   const next = mockupData.nextWorkout;
   const trained: readonly number[] = next.trained;
@@ -54,8 +59,10 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
       </header>
       <div className="replica-home-body">
         <div className="replica-next-card">
-          <p className="replica-next-label">{copy.next}</p>
-          <p className="replica-next-position">{next.position}</p>
+          <div className="replica-next-heading">
+            <p><b>{copy.next}</b> · {next.position}</p>
+            <p>{next.lastDone}</p>
+          </div>
           <div className="replica-split-rail">
             {mockupData.plans.map((plan, i) => (
               <i key={plan.name} className={i === next.planIndex ? 'current' : trained.includes(i) ? 'trained' : ''} />
@@ -63,7 +70,7 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
           </div>
           <h2>{next.name}</h2>
           <p className="replica-next-groups">{next.groups}</p>
-          <p className="replica-next-summary"><span>{next.exercises}</span><span>{next.sets}</span></p>
+          <p className="replica-next-summary">{next.summary.join(' · ')}</p>
           <div className="replica-start-workout"><MockIcon name="play" />{copy.startWorkout}</div>
         </div>
         <div className="replica-activity">
@@ -85,10 +92,18 @@ function Home({ theme }: { theme: 'light' | 'dark' }) {
         <div className="replica-plans-heading"><b>{copy.yourPlans}<small>{mockupData.plans.length}</small></b><span>{copy.manage}</span></div>
         <div className="replica-plan-list">
           {mockupData.plans.map((plan, i) => (
-            <div className={`replica-plan-row ${i === next.planIndex ? 'replica-plan-row--next' : ''}`} key={plan.name}>
-              <span className="replica-plan-marker" style={{ '--plan-color': plan.color[theme === 'dark' ? 1 : 0] } as CSSProperties}>{i + 1}</span>
-              <div><b>{plan.name}</b><p>{plan.summary}</p></div>
-              {i === next.planIndex && <em className="replica-next-badge">{copy.nextBadge}</em>}
+            <div className="replica-plan-row" key={plan.name}>
+              <PlanMarker color={plan.color[theme === 'dark' ? 1 : 0]} number={i + 1} />
+              <div>
+                <b>{plan.name}</b>
+                <p>
+                  {i === next.planIndex
+                    ? <><em className="replica-plan-status">{copy.next}</em> · </>
+                    : trained.includes(i) && <><em className="replica-plan-status replica-plan-status--done"><MockIcon name="check" />{copy.done}</em> · </>}
+                  {plan.summary}
+                </p>
+              </div>
+              <MockIcon name="play" />
               <MockIcon name="more" />
             </div>
           ))}
